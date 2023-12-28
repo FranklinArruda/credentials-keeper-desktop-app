@@ -1,0 +1,14 @@
+{
+  "name": "credential-keeper",
+  "version": "1.0.0",
+  "description": "credencial keeper",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "FRANKLIN",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^28.1.0"
+  }
+}

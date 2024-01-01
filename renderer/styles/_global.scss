@@ -1,0 +1,31 @@
+// Sansation font
+// https://www.cdnfonts.com/sansation.font
+@import url('https://fonts.cdnfonts.com/css/sansation');
+
+
+// reseting
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+}
+
+html{
+    scroll-behavior: smooth; 
+}
+
+body{
+    font-family: 'Sansation', sans-serif;  
+    font-weight: 300;                              
+}
+
+//Transiction
+a:hover, 
+.btn{
+    transition: all 300ms ease-out;
+}
+
+
+

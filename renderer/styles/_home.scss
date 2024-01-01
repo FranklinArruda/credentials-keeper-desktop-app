@@ -1,0 +1,94 @@
+@import "./colors.scss";
+
+body{
+    background-color: $primaryColor;
+}
+
+// HEADER
+.parallelogram {    
+    position: absolute;
+    top: 25px;
+    z-index: -1;
+    left: -25px;
+    width: 85%;
+    height: 150px;
+    background-color: #171616;
+    animation: revealWidth 1s linear;
+    transform: skew(-20deg);
+  }
+
+  @keyframes revealWidth {
+    0% {
+      width: 0%;
+    }
+    100% {
+      width: 85%;
+    }
+  }
+
+  .welcome-msg{
+    position: absolute;
+    top:20%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    z-index:100;
+    font-family: Sansation;
+    font-size: 30px;
+    letter-spacing: 3px;
+    font-weight: 700;
+    color: $fontColor;
+
+    span{
+        font-size: 15px;
+        letter-spacing: 1.5px;
+        font-weight: 700;
+    }
+  }
+
+
+  // LOGIIN & REGISTRATION SECTION
+.container{
+    text-align: center;
+    display: block;
+    position: absolute;
+    top:55%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    width: 347px;
+    height: 201px;
+    border-radius: $borderRadious1;
+    border: 1px solid $btnColor;
+}
+
+.btn{
+    display: block;
+    margin: 30px auto;
+    padding: 17px 44px 19px 37px;
+    width: 282px;
+    height: 55px;
+    border-radius: $borderRadious2;
+    border: 1px solid $btnColor;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 2px; 
+    color: $secondaryColor;
+    background-color: $btnColor;
+    
+    &:hover{
+        background-color:transparent;
+        color:$btnColor; 
+    }
+}
+
+.bottom-bar{
+    border: none; /* Remove border */
+    position: absolute;
+    position: absolute;
+    bottom:5%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    width: 907px;
+    height: 9px;
+    border-radius: $borderRadious1;
+    background-color: $secondaryColor;
+}

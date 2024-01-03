@@ -1,2 +1,9 @@
+// main.scss
+
+// Global styles and color variables
+@import "./colors.scss";
 @import "./global.scss";
+
+// Styles for specific sections
 @import "./home.scss";
+@import "./registration.scss";

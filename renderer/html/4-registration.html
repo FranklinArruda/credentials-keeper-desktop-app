@@ -3,9 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Registration Section</title>
+    <link rel="stylesheet" href="../styles/main.css">
 </head>
 <body>
-    <h1>welcome to registration session</h1>
+
+    
+    <div class="form-container">
+        <form id="form" action="?">
+            <div class="input-box">
+                <div class="fomr-header">Registration</div>
+    
+                <div class="input">
+                    <input type="text" id="fullName" autocomplete="off" required="required">
+                    <span>Full Name</span>
+                    <div id="full-name-error"></div>
+                </div>
+    
+                <div class="input">
+                    <input type="text"  id="userName" autocomplete="off" required="required">
+                    <span>Username@email.com</span>
+                    <div id="username-error"></div>
+                </div>
+    
+                <div class="input">
+                    <input type="password" id="password" autocomplete="new-password" required="required">
+                    <span>Password</span>
+                    <div id="password-error"></div>
+                </div>
+    
+                <div class="input">
+                    <input type="password" id="confirmPassword" autocomplete="new-password" required="required">
+                    <span>Confirm Password</span>
+                    <div id="confirm-password-error"></div>
+                </div>
+    
+                <div class="input">
+                    <input type="text" id="hint-question" autocomplete="off" required="required">
+                    <span>Hint for pass: What is your mother's name?</span>
+                    <div id="hint-error"></div>
+                </div>
+                
+                <button class="register-btn btn">Register</button>
+            </div>
+        </form>
+    </div>
+    
+    <!--back section button-->
+    <a class="btn back-button" href="./1-home-page.html">Back</a>
+
+     <!-- main java script file loaded as module -->
+     <script type="module" src="../js/script.js"></script>  
 </body>
 </html>

@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, Menu, ipcMain } = require('electron');
 const path = require('path');
 
 let mainWindow;
@@ -6,14 +6,19 @@ let mainWindow;
 function createMainWindow() {
   mainWindow = new BrowserWindow({
     title: "Credencials Keeper",
-    width: 1050,
+    width: 1024,
     height: 600,
+    icon: path.join(__dirname, 'renderer/assets/icon/keys-holder.png'), // Set the path to your icon file
+    //frame: false, // hide defaut title bar
+    resizable: false, // Prevent window resizing
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: true,
     },
   });
 
+  // Remove the default menu bar
+  Menu.setApplicationMenu(null);
 
   mainWindow.loadFile(path.join(__dirname, 'renderer/html/1-home-page.html')); // entry point html
   mainWindow.on("ready-to-show", () => {
@@ -21,6 +26,10 @@ function createMainWindow() {
   });
 }
 
+// Handle the "quit-app" message from the renderer process
+ipcMain.on('quit-app', function () {
+  app.quit();
+});
 
 app.whenReady().then(() => {
     createMainWindow();
@@ -30,6 +39,7 @@ app.whenReady().then(() => {
     }
   });
 });
+
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {

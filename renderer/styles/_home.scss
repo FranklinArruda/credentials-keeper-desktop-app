@@ -1,46 +1,67 @@
-@import "./colors.scss";
 
 body{
-    background-color: $primaryColor;
+  overflow: hidden;
 }
-
 // HEADER
 .parallelogram {    
     position: absolute;
-    top: 25px;
+    top: 70px;
     z-index: -1;
-    left: -25px;
-    width: 85%;
-    height: 150px;
-    background-color: #171616;
-    animation: revealWidth 1s linear;
+    left: -300px;
+    width: 70%;
+    height: 750px;
+    background-color:$barColor;
+    animation: revealWidth 1.5s linear;
     transform: skew(-20deg);
+    
   }
 
+  // motion up and down
+  @keyframes moveUpDown {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px); /* Adjust the distance as needed */
+    }
+  }
+
+
+  // animation bar
   @keyframes revealWidth {
     0% {
       width: 0%;
     }
     100% {
-      width: 85%;
+      width: 70%;
     }
   }
 
+  // Ease out element
+  @keyframes easeOut {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+    }
+
   .welcome-msg{
+    display: none;
     position: absolute;
     top:20%;
     left:50%;
     transform: translate(-50%, -50%);
     z-index:100;
-    font-family: Sansation;
     font-size: 30px;
     letter-spacing: 3px;
     font-weight: 700;
     color: $fontColor;
+    animation: easeOut 1s;
+    text-shadow: #413d3d 0 0 2px, #0a0a0a 0 -3px 2px, #858181 0 -1px 2px, rgba(0,0,0,0.8) 0 30px 25px;
+
+    
 
     span{
         font-size: 15px;
-        letter-spacing: 1.5px;
+        letter-spacing: 2px;
         font-weight: 700;
     }
   }
@@ -48,38 +69,64 @@ body{
 
   // LOGIIN & REGISTRATION SECTION
 .container{
+    animation: easeOut 2s;
     text-align: center;
-    display: block;
     position: absolute;
-    top:55%;
+    top:60%;
     left:50%;
     transform: translate(-50%, -50%);
-    width: 347px;
-    height: 201px;
-    border-radius: $borderRadious1;
+    width: 350px;
+    height: 200px;
+    border-radius: $borderRadiusButton;
     border: 1px solid $btnColor;
 }
 
-.btn{
+// hides the container
+.btn-box{
+  display: none;
+}
+
+// buttons home page
+.login-btn,
+.create-pass-btn{
     display: block;
     margin: 30px auto;
     padding: 17px 44px 19px 37px;
-    width: 282px;
+    width: 280px;
     height: 55px;
-    border-radius: $borderRadious2;
-    border: 1px solid $btnColor;
+    border: 1px solid $homeBtnColor;
     text-transform: uppercase;
     font-weight: 600;
     letter-spacing: 2px; 
-    color: $secondaryColor;
-    background-color: $btnColor;
-    
+    color: $fontColor;
+    background-color: $homeBtnColor;
+    //box-shadow: 2px 2px 10px $homeBtnColor;
+
     &:hover{
         background-color:transparent;
         color:$btnColor; 
+        box-shadow: none;
     }
 }
 
+a{
+  font-size: 12px;
+}
+
+img{
+  animation: moveUpDown 2s infinite;
+
+ &:hover{
+ 
+  outline: 0.5px solid #ffffff;
+  border-radius: 50%;
+  outline-offset: 20px;
+ 
+  
+    
+    
+}
+}
 .bottom-bar{
     border: none; /* Remove border */
     position: absolute;
@@ -89,6 +136,6 @@ body{
     transform: translate(-50%, -50%);
     width: 907px;
     height: 9px;
-    border-radius: $borderRadious1;
-    background-color: $secondaryColor;
+    border-radius: $borderRadiusForm;
+    background-color: $barColor;
 }

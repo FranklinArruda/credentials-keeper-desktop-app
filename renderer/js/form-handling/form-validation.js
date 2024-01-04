@@ -143,7 +143,7 @@ function eventListenersFormValidation() {
     hint.addEventListener('keyup', validateHint);
 }
 
-eventListenersFormValidation();
+//eventListenersFormValidation();
 
 
 const popUp = document.getElementById("popup");

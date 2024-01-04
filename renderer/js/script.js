@@ -29,13 +29,17 @@ submitButton.addEventListener("click", function (event) {
     const isHintValid = validateHint();
 
     // Check if all validations pass
-    if (isNameValid && isEmailValid && isPasswordValid && isHintValid) {
+    if (!(isNameValid && isEmailValid && isPasswordValid && isHintValid)) {
         
-        showPopup();
+       alert("All field must be filled out and Validated.")
         return false;
     }
     else{
-        alert("All field must be filled out")
+        
+        showPopup();
+        // Refresh the page
+       // location.reload(true);
+        
         return true;
     }
 });

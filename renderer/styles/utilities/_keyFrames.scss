@@ -1,0 +1,26 @@
+ // motion up and down
+ @keyframes moveUpDown {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px); /* Adjust the distance as needed */
+    }
+  }
+
+
+  // animation bar
+  @keyframes revealWidth {
+    0% {
+      width: 0%;
+    }
+    100% {
+      width: 70%;
+    }
+  }
+
+  // Ease out element
+  @keyframes easeOut {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+    }

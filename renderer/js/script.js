@@ -3,23 +3,39 @@
 import { showWelcomeMsg, showBtnContainer } from "./home-section/home-section.js";
 
 // import: validation
-import { eventListenersFormValidation } from "./form-handling/form-validation.js";
-
-// import: handle form click (submission etc)
-import { handleFormClick } from './form-handling/form-submission.js'; // Adjust the filename accordingly
-
+import { validateName,
+    validateEmail,
+    validatePassword,
+    validateHint,
+    eventListenersFormValidation,
+    showPopup } from "./form-handling/form-validation.js";
 
 // calling function after delay
 setTimeout(showWelcomeMsg, 1500); 
 setTimeout(showBtnContainer, 2500); 
 
-// call validations
 eventListenersFormValidation();
 
-// call dandle form click with event listener
-const formButtonRegister = document.querySelector(".register-btn");
-formButtonRegister.addEventListener("click", function(event) {
-    event.preventDefault(); // Prevent the default form submission behavior
-    handleFormClick(); // call and submit form
-});
+const submitButton = document.querySelector(".register-btn");
 
+submitButton.addEventListener("click", function (event) {
+    // Prevent the default form submission
+    event.preventDefault();
+    
+    // Call your validation functions here
+    const isNameValid = validateName();
+    const isEmailValid = validateEmail();
+    const isPasswordValid = validatePassword();
+    const isHintValid = validateHint();
+
+    // Check if all validations pass
+    if (isNameValid && isEmailValid && isPasswordValid && isHintValid) {
+        
+        showPopup();
+        return false;
+    }
+    else{
+        alert("All field must be filled out")
+        return true;
+    }
+});

@@ -1,4 +1,7 @@
 
+
+
+
 // Position form container in the center of the page
 .form-container{
     position: absolute;
@@ -100,6 +103,7 @@ input{
 
     &:hover,
     &:focus { 
+        outline: none;
         background-color: $btnColor;
         color: $secondaryColor;
         font-weight: 600;
@@ -132,12 +136,11 @@ input{
 #password-error, 
 #confirm-password-error, 
 #hint-error{
-    color:rgb(221, 72, 72);
+    color:rgb(19, 230, 219);
     background-color:  #262c30;
-    font-size: 14px;
-    margin-left: 10px;
+    font-size: 12px;
     letter-spacing: 1.5px;
-    width: 60%;
+    width: 100%;
    text-align: center;
    border-radius: 5px;
     
@@ -148,7 +151,7 @@ input{
 }
 .input-box .input .invalid {
     border-width: 1px; /* You can adjust this value to make the border thicker */
-    border-color: rgb(221, 72, 72);
+    border-color: rgb(160, 9, 9);
 }
 
 // test pop up (must be erased)

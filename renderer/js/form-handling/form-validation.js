@@ -94,7 +94,14 @@ function validatePassword() {
     let pass1 = password.value.trim();
     let pass2 = confirmPassword.value.trim();
     
-    if (pass1 !== pass2) {
+     // Check if both password fields are not empty
+     if (pass1.length === 0 || pass2.length === 0) {
+        showError(password, passwordError, "Both password fields are required");
+        showError(confirmPassword, confirmPassError, "Both password fields are required");
+        return false;
+    }
+
+    else if (pass1 !== pass2) {
         showError(password, passwordError, "Passwords do not match");
         showError(confirmPassword, confirmPassError, "Passwords do not match");
         return false;
@@ -136,6 +143,22 @@ function eventListenersFormValidation() {
     hint.addEventListener('keyup', validateHint);
 }
 
-export{
-    eventListenersFormValidation
+eventListenersFormValidation();
+
+
+const popUp = document.getElementById("popup");
+//const form = document.querySelector(".form-btn");
+// show pop up when form is filled out and reCAPCHA is checked
+function showPopup() {
+    popUp.style.display = "block";
+    //formCenter.style.display = "none";
+}
+
+export {
+    validateName,
+    validateEmail,
+    validatePassword,
+    validateHint,
+    eventListenersFormValidation,
+    showPopup
 };

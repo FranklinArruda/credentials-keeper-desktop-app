@@ -38,7 +38,7 @@ function handleFormClick(event) {
 
     
 
-    if (!(fullName && userName && password && confirmPassword && hint)) {
+    if (!(fullName || userName || password || confirmPassword || hint)) {
         alert(" the fields must be filled out!!!");
         return false;
     } 

@@ -125,7 +125,13 @@ input{
         box-shadow: 2px 2px 10px $btnColor;   
     }
 }
-#full-name-error, #username-error, #password-error, #confirm-password-error, #hint-error{
+
+
+#full-name-error, 
+#username-error, 
+#password-error, 
+#confirm-password-error, 
+#hint-error{
     color:rgb(221, 72, 72);
     background-color:  #262c30;
     font-size: 14px;
@@ -145,7 +151,7 @@ input{
     border-color: rgb(221, 72, 72);
 }
 
-
+// test pop up (must be erased)
 #popup{
     display: none;
     color: white;

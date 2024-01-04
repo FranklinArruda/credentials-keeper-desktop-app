@@ -88,21 +88,23 @@ function validateEmail() {
     }   return true;
 }
 
+
 // validate password
-function validatePassword(){
+function validatePassword() {
     let pass1 = password.value.trim();
     let pass2 = confirmPassword.value.trim();
-
-    if(pass1 != pass2){
-        showError(confirmPassword,confirmPassError,"password does not match")
+    
+    if (pass1 !== pass2) {
+        showError(password, passwordError, "Passwords do not match");
+        showError(confirmPassword, confirmPassError, "Passwords do not match");
         return false;
-    }
-    else {
-        showSuccess(password, passwordError); // both lines goes green
+    } else {
+        showSuccess(password, passwordError);
         showSuccess(confirmPassword, confirmPassError);
         return true;
     }
 }
+
 
 
 // validate Hint Question
@@ -132,9 +134,8 @@ function eventListenersFormValidation() {
     userName.addEventListener('keyup', validateEmail);
     password.addEventListener('keyup', validatePassword);
     hint.addEventListener('keyup', validateHint);
-
 }
 
 export{
     eventListenersFormValidation
-}; 
+};

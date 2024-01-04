@@ -50,11 +50,10 @@
     font-weight: 600;
     text-transform: uppercase;
     color: $fontColor;
+    letter-spacing: 1px;
 }
 .input {
     margin-bottom: 10px;
-   
-    
 }
 
 input{
@@ -99,7 +98,8 @@ input{
     border: 1px solid $btnColor;
     color: $btnColor;
 
-    &:hover{
+    &:hover,
+    &:focus { 
         background-color: $btnColor;
         color: $secondaryColor;
         font-weight: 600;
@@ -118,34 +118,39 @@ input{
     color: $btnColor;
     padding: 10px 20px;
     
-
     &:hover{
         background-color: $btnColor;
         color: $secondaryColor;
         font-weight: 600;
-        box-shadow: 2px 2px 10px $btnColor;
-       
-        
+        box-shadow: 2px 2px 10px $btnColor;   
     }
 }
-
-
-#full-name-error, #username-error, #confirm-password-error, #hint-error{
-    color: rgb(253, 175, 175);
-    font-size: 12px;
+#full-name-error, #username-error, #password-error, #confirm-password-error, #hint-error{
+    color:rgb(221, 72, 72);
+    background-color:  #262c30;
+    font-size: 14px;
     margin-left: 10px;
     letter-spacing: 1.5px;
+    width: 60%;
+   text-align: center;
+   border-radius: 5px;
+    
 }
 .input-box .input .valid {
     border-color: #05ad64;
     border-width: 1px;
 }
-
 .input-box .input .invalid {
     border-width: 1px; /* You can adjust this value to make the border thicker */
-    border-color: rgb(255, 128, 128);
+    border-color: rgb(221, 72, 72);
 }
 
+
+#popup{
+    display: none;
+    color: white;
+    font-weight: 700;
+}
 
 
 

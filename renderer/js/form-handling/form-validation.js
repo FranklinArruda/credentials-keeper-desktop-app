@@ -123,33 +123,17 @@ function validateHint() {
 }
 
 // event listener for all the function on key up.
-function eventListenersFormValidation(event) {
+function eventListenersFormValidation() {
 	fullName.addEventListener('keyup', validateName);
 	userName.addEventListener('keyup', validateEmail);
 	password.addEventListener('keyup', validatePassword);
 	hint.addEventListener('keyup', validateHint);
-
-	// Call your validation functions here
-	const isNameValid = validateName();
-	const isEmailValid = validateEmail();
-	const isPasswordValid = validatePassword();
-	const isHintValid = validateHint();
-
-	// Check if all validations pass
-	if (!(isNameValid && isEmailValid && isPasswordValid && isHintValid)) {
-		alert("All field must be filled out and Validated.") 
-		return false;
-
-	} else {
-		showPopup();
-		// Refresh the page
-		// location.reload(true);
-		return true;
-	}
 }
+
 
 const popUp = document.querySelector(".popup-container");
 const formContainer = document.querySelector(".form-container");
+const alertMessage = document.querySelector(".alert-message");
 
 // show popup message
 function showPopup() {
@@ -159,10 +143,42 @@ function showPopup() {
 	popUp.classList.add('show');
 }
 
+
+function showAlertMessage() {
+	// Display the popup
+	alertMessage.classList.add('show');
+  
+	// Set a timeout to remove the 'show' class after 6 seconds
+	setTimeout(function () {
+	  alertMessage.classList.remove('show');
+	}, 6000); 
+  }
+
+function isValid(event){
+// Call your validation functions here
+const isNameValid = validateName();
+const isEmailValid = validateEmail();
+const isPasswordValid = validatePassword();
+const isHintValid = validateHint();
+
+// Check if all validations pass
+if (!(isNameValid && isEmailValid && isPasswordValid && isHintValid)) {
+	// alert("All field must be filled out and Validated.") 
+	showAlertMessage();
+	return false;
+} else {
+	showPopup();
+	// Refresh the page
+	// location.reload(true);
+	return true;
+}
+}
+
 export {
 	validateName,
 	validateEmail,
 	validatePassword,
 	validateHint,
 	eventListenersFormValidation,
+	isValid
 };

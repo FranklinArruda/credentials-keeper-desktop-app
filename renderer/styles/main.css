@@ -74,7 +74,7 @@ body {
   transform: skew(-20deg);
 }
 
-.welcome-msg {
+.welcome-message {
   display: none;
   position: absolute;
   top: 20%;
@@ -88,7 +88,7 @@ body {
   animation: easeOut 1s;
   text-shadow: #413d3d 0 0 2px, #0a0a0a 0 -3px 2px, #858181 0 -1px 2px, rgba(0, 0, 0, 0.8) 0 30px 25px;
 }
-.welcome-msg span {
+.welcome-message span {
   font-size: 15px;
   letter-spacing: 2px;
   font-weight: 700;
@@ -107,12 +107,12 @@ body {
   border: 1px solid #eb5e28;
 }
 
-.btn-box {
+.button-box {
   display: none;
 }
 
-.login-btn,
-.create-pass-btn {
+.login-button,
+.create-password-button {
   display: block;
   margin: 30px auto;
   padding: 17px 44px 19px 37px;
@@ -122,18 +122,16 @@ body {
   text-transform: uppercase;
   font-weight: 600;
   letter-spacing: 2px;
-  color: #e0e0e0;
+  color: #1d1c1c;
   background-color: #eb5e28;
+  box-shadow: 2px 2px 10px #eb5e28;
+  font-size: 10px;
 }
-.login-btn:hover,
-.create-pass-btn:hover {
+.login-button:hover,
+.create-password-button:hover {
   background-color: transparent;
   color: #eb5e28;
   box-shadow: none;
-}
-
-a {
-  font-size: 12px;
 }
 
 img {
@@ -143,11 +141,11 @@ img {
 img:hover {
   outline: 0.5px solid #ffffff;
   border-radius: 50%;
-  outline-offset: 20px;
+  outline-offset: 200px;
 }
 
 .bottom-bar {
-  border: none; /* Remove border */
+  border: none;
   position: absolute;
   position: absolute;
   bottom: 5%;
@@ -177,35 +175,33 @@ img:hover {
   border-radius: 10px;
   box-shadow: inset -5px -5px 9px 9px #1d1c1c, inset -5px 5px 7px #1d1c1c;
   /* display: flex;
-   flex-direction: column;
-   align-items: center;*/
+    flex-direction: column;
+    align-items: center;*/
 }
 .input-box span {
   position: absolute;
-  left: 30px;
-  padding-top: 5px;
+  left: 35px;
+  padding-top: 15px;
   text-transform: uppercase;
   font-size: 12px;
   font-family: sans-serif;
   font-weight: 300;
   color: #837f7f;
   pointer-events: none;
-  transition: all 300ms ease-out;
+  transition: all 0.3s ease-out;
 }
-
-.input input:valid ~ span,
-.input input:focus ~ span {
-  color: #eb5e28;
-  transform: translateX(2px) translateY(-10px);
-  font-size: 10px;
-}
-
-.fomr-header {
+.input-box .header {
   margin-bottom: 2.5rem;
   font-weight: 600;
   text-transform: uppercase;
   color: #e0e0e0;
   letter-spacing: 1px;
+}
+
+.input input:valid ~ span {
+  color: #eb5e28;
+  transform: translateX(0px) translateY(-18px);
+  font-size: 10px;
 }
 
 .input {
@@ -237,8 +233,8 @@ input:focus {
   outline: none;
 }
 
-.register-btn {
-  font-size: 12px;
+.register-button {
+  font-size: 10px;
   letter-spacing: 2px;
   width: 100%;
   padding: 12px 15px;
@@ -249,7 +245,7 @@ input:focus {
   border: 1px solid #eb5e28;
   color: #eb5e28;
 }
-.register-btn:hover, .register-btn:focus {
+.register-button:hover, .register-button:focus {
   outline: none;
   background-color: #eb5e28;
   color: #1d1c1c;
@@ -268,7 +264,8 @@ input:focus {
   color: #eb5e28;
   padding: 10px 20px;
 }
-.back-button:hover {
+.back-button:hover, .back-button:focus {
+  outline: none;
   background-color: #eb5e28;
   color: #1d1c1c;
   font-weight: 600;
@@ -280,13 +277,11 @@ input:focus {
 #password-error,
 #confirm-password-error,
 #hint-error {
-  color: rgb(19, 230, 219);
-  background-color: #262c30;
-  font-size: 12px;
-  letter-spacing: 1.5px;
+  color: rgb(255, 252, 93);
+  font-size: 10px;
+  letter-spacing: 1px;
   width: 100%;
-  text-align: center;
-  border-radius: 5px;
+  font-family: sans-serif;
 }
 
 .input-box .input .valid {
@@ -295,12 +290,20 @@ input:focus {
 }
 
 .input-box .input .invalid {
-  border-width: 1px; /* You can adjust this value to make the border thicker */
-  border-color: rgb(255, 255, 255);
+  border-width: 1px;
+  border-color: rgb(255, 252, 93);
 }
 
-#popup {
+.form-container {
+  animation: easeOut 1s;
+}
+
+.form-container.hidden {
   display: none;
-  color: white;
+}
+
+#popup.show {
+  display: block;
+  color: rgb(230, 0, 0);
   font-weight: 700;
 }/*# sourceMappingURL=main.css.map */

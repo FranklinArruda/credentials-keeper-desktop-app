@@ -8,16 +8,16 @@
 </head>
 <body>
 
-    
+    <!-- form container -->
     <div class="form-container">
-        <form id="form" action="?">
+        <form id="form">
             <div class="input-box">
-                <div class="fomr-header">Registration</div>
+                <div class="header">Registration</div>
     
                 <div class="input">
                     <input type="text" id="fullName" autocomplete="off" required="required">
-                    <span>Full Name</span>
-                    <div id="full-name-error"></div>
+                    <span>Full Name</span> <!-- float placeholder -->
+                    <div id="full-name-error"></div> <!-- error message validatadion -->
                 </div>
     
                 <div class="input">
@@ -25,8 +25,6 @@
                     <span>Username@email.com</span>
                     <div id="username-error"></div>
                 </div>
-    
-               
     
                 <div class="input">
                     <input type="password" id="confirmPassword" autocomplete="off" required="required">
@@ -45,9 +43,10 @@
                     <span>Hint for pass: What is your mother's name?</span>
                     <div id="hint-error"></div>
                 </div>
-                
-                <button class="register-btn btn">Register</button>
-                <button class="test">test</button>
+
+                <!-- button for register form -->
+                <button class="button register-button">Register</button>
+                            
             </div>
         </form>
     </div>
@@ -56,11 +55,9 @@
     <div id="popup">I am the Pop UP</div>
     
     <!--back section button-->
-    <a class="btn back-button" href="./1-home-page.html">Back</a>
+    <a class="button back-button" href="./1-home-page.html">Back</a>
 
      <!-- main java script file loaded as module -->
-     <script type="module" src="../js/script.js"></script>
-     
-     <!--<script src="../js/form-handling/form-validation.js"></script>-->   
+     <script type="module" src="../js/script.js" defer></script>
 </body>
 </html>

@@ -4,13 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Section</title>
-    <link rel="stylesheet" href="../styles/main.css">
-    
-
-</head>
+    <link rel="stylesheet" href="../styles/main.css"></head>
 <body>
-    <h1>WELCOME TO LOGIN SESSION</h1>
-    <a href="./4-registration.html">REGISTRATION</a> 
-    <i class="fa-solid fa-x"></i>
+
+<!-- login box container-->
+<div class="form-container">
+    <form id="form">
+        <div class="input-box">
+            <div class="alert-message"><p>Wrong Password. Please  try again!</p></div> 
+            <div class="header">Login</div>
+            <div class="input">
+                <input type="password" id="confirmPassword" autocomplete="off" required="required">
+                <span>Password</span>
+            </div>
+
+            <!-- button for register form -->
+            <button class="button login-button-2">login</button>   
+            <a class="forgot-password" href="./3-forgot-pass.html">Forgot Password</a>      
+        </div>
+    </form>
+</div>
+
+<!--back section button-->
+<a class="button back-button" href="./1-home-page.html">Back</a>
+
+<!-- main java script file loaded as module -->
+<script type="module" src="../js/script.js" defer></script>
+
 </body>
 </html>

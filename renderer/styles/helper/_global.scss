@@ -22,20 +22,19 @@ body {
   background-color: $primaryColor;
 }
 
-button {
-  font-family: "Sansation", sans-serif;
-  font-weight: 300;
-}
 
 // Cursor pointer to all "hyperlinks" and "buttons"
 a,
-.btn {
-  cursor: pointer;
-}
+.button, 
+  button{
+    font-family: "Sansation", sans-serif;
+    font-weight: 300;
+    cursor: pointer;
+  }
 
 //Transiction
 a:hover,
-.btn {
+.button {
   transition: all 300ms ease-out;
   border-radius: $borderRadiusButton;
 }

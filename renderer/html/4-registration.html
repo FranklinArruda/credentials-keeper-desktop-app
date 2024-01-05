@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration Section</title>
     <link rel="stylesheet" href="../styles/main.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
 
@@ -52,7 +56,17 @@
     </div>
 
     <!--Pop Up Message. Also, redirect to Login section page-->
-    <div id="popup">I am the Pop UP</div>
+   
+<div class="popup-container">
+    <div class="items">
+        <div class="icon">OK</div>
+        <div class="pop-message">
+            <p>You have successfully registered.</p>
+        </div>
+    </div>
+    
+    <a class="button" id="go-to-login-button" href="./2-login.html">Go to Login <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+</div>
     
     <!--back section button-->
     <a class="button back-button" href="./1-home-page.html">Back</a>

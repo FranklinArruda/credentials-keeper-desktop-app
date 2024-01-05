@@ -131,7 +131,7 @@ function eventListenersFormValidation() {
 }
 
 
-const popUp = document.getElementById("popup");
+const popUp = document.querySelector(".popup-container");
 const formContainer = document.querySelector(".form-container");
 
 function showPopup() {

@@ -123,17 +123,35 @@ function validateHint() {
 }
 
 // event listener for all the function on key up.
-function eventListenersFormValidation() {
+function eventListenersFormValidation(event) {
 	fullName.addEventListener('keyup', validateName);
 	userName.addEventListener('keyup', validateEmail);
 	password.addEventListener('keyup', validatePassword);
 	hint.addEventListener('keyup', validateHint);
-}
 
+	// Call your validation functions here
+	const isNameValid = validateName();
+	const isEmailValid = validateEmail();
+	const isPasswordValid = validatePassword();
+	const isHintValid = validateHint();
+
+	// Check if all validations pass
+	if (!(isNameValid && isEmailValid && isPasswordValid && isHintValid)) {
+		alert("All field must be filled out and Validated.") 
+		return false;
+
+	} else {
+		showPopup();
+		// Refresh the page
+		// location.reload(true);
+		return true;
+	}
+}
 
 const popUp = document.querySelector(".popup-container");
 const formContainer = document.querySelector(".form-container");
 
+// show popup message
 function showPopup() {
 	// Add the 'hidden' class to initiate the fade-out transition
 	formContainer.classList.add('hidden');
@@ -141,12 +159,10 @@ function showPopup() {
 	popUp.classList.add('show');
 }
 
-
 export {
 	validateName,
 	validateEmail,
 	validatePassword,
 	validateHint,
 	eventListenersFormValidation,
-	showPopup
 };

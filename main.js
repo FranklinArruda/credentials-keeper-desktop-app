@@ -17,6 +17,9 @@ function createMainWindow() {
     },
   });
 
+   // Open DevTools for debugging
+   mainWindow.webContents.openDevTools();
+
   // Remove the default menu bar
   Menu.setApplicationMenu(null);
 

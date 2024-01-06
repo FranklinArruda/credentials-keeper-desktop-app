@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retrieve Password Section</title>
+    <link rel="stylesheet" href="../styles/main.css"></head>
+
+    <!-- font awesome link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<body>
+
+<!-- Retrieve box container-->
+<div class="form-container">
+    <form id="form">
+        <div class="input-box retrieve-password">
+
+            <div class="header">What is your mother's name?</div>
+
+            <div class="input">
+                <input type="password" id="password"  autocomplete="off" required="required">
+                <span>Password</span>
+            </div>
+
+            <!-- Retrieve password button -->
+            <button class="button retrieve-pass-button">Retrieve Password</button>    
+        </div>
+    </form>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="retrieved-password-container">
+    <div class="header">Here is your password:
+        <span class="retrieved-password">Pass</span>
+    
+    </div>
+    <!-- Go to login buttoon -->
+    <a class="button" id="go-to-login-button" href="./2-login.html">Go to Login <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--back section button-->
+<a class="button back-button" href="./2-login.html">Back</a>
+
+<!--end section button-->
+<a class="button end-session-button" href="./1-home-page.html">End Session</a>
+
+<!-- login handler js -->
+<script src="../js/retrieve-password/retrieve-password.js" defer></script>
+
+</body>
+</html>

@@ -10,6 +10,12 @@
   	welcomeMsg.style.display = 'block';
   }
 
-  export {
-  	showWelcomeMsg, showBtnContainer
-  }
+
+  // calling function after delay
+setTimeout(showWelcomeMsg, 1500);
+setTimeout(showBtnContainer, 2500);
+
+
+  // export {
+  // 	showWelcomeMsg, showBtnContainer
+  // }

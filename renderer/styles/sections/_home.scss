@@ -74,7 +74,9 @@ body {
   box-shadow: 2px 2px 10px $homeBtnColor;
   font-size: 10px;
 
-  &:hover {
+  &:hover,
+  &:focus {
+    outline: none;
     background-color: transparent;
     color: $btnColor;
     box-shadow: none;
@@ -90,7 +92,7 @@ img {
   &:hover {
     outline: 0.5px solid #ffffff;
     border-radius: 50%;
-    outline-offset: 200px;
+    outline-offset: 25px;
   }
 }
 

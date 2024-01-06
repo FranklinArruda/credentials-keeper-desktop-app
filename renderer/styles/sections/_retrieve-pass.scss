@@ -1,0 +1,281 @@
+// Position form container in the center of the page
+.form-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .input-box.retrieve-password{
+    font-size: 12px;
+    position: relative;
+    width: 300px;
+    padding: 25px;
+    background-color: $primaryColor;
+    border-radius: $borderRadiusForm;
+    box-shadow: inset -5px -5px 9px 9px $secondaryColor,
+    inset -5px 5px 20px $secondaryColor;
+    /* display: flex;
+      flex-direction: column;
+      align-items: center;*/
+  
+    span {
+      position: absolute;
+      left: 35px;
+      padding-top: 15px;
+      text-transform: uppercase;
+      font-size: 12px;
+      font-family: sans-serif;
+      font-weight: 300;
+      color: $holdPlace;
+      pointer-events: none; // it prevents the element from capturing mouse events
+      transition: all 0.3s ease-out;
+    }
+  
+    .header {
+      margin-bottom: 1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: $fontColor;
+      letter-spacing: 1px;
+    }
+  }
+    
+  // FLOAT PLACE HOLDER (go up when click in the field with 'span'and 'valid')
+  //
+  //   .input input:valid ~ span,
+  //   .input input:focus ~ span {
+  //     color: $btnColor;
+  //     transform: translateX(10px) translateY(-18px);
+  //     font-size: 10px;
+  //   }
+  //            OR >
+  
+  // FLOAT PLACE HOLDER (go up when start typing only with 'span')
+  .input-box input:valid ~ span{
+      color: $btnColor;
+      transform: translateX(0px) translateY(-18px);
+      font-size: 10px;
+     }
+    
+  
+    input {
+      width: 100%;
+      padding: 10px;
+      font-size: 14px;
+      background-color: $primaryColor;
+    
+      
+      [type="password"] {
+        font-family: sans-serif;
+        font-size: 14px; // Adjust the font size for typing
+        border-bottom: 0.5px solid $holdPlace;
+        color: $fontColor;
+        letter-spacing: 1px;
+      }
+    
+        &:focus {
+          border-bottom: 1.5px solid $btnColor;
+          outline: none; // Remove the default outline on focus
+        }
+    }
+    
+   
+  //  login button (enter the system)
+    .retrieve-pass-button{
+      font-size: 10px;
+      letter-spacing: 2px;
+      width: 100%;
+      padding: 12px 15px;
+      margin-top: 1.5rem;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      font-weight: 600;
+      background-color: transparent;
+      border: 1px solid $btnColor;
+      color: $btnColor;
+    
+      &:hover,
+      &:focus {  // add focus using tab key
+        outline: none; // removes outline
+        background-color: $btnColor;
+        color: $secondaryColor;
+        font-weight: 600;
+        box-shadow: 2px 2px 10px $btnColor;
+      }
+    }
+  
+    // forgot password button
+    .forgot-password{
+      // display: flex;
+      // justify-content: flex-end;
+      position: relative;
+      left: 90px;
+      font-size: 7px;
+      letter-spacing: 2px;
+      width: 125px;
+      padding: 5px 8px;
+      text-transform: uppercase;
+      font-weight: 600;
+      background-color: transparent;
+      color: $btnColor;
+      border-radius: $borderRadiusButton;
+    
+      &:hover,
+      &:focus {  // add focus using tab key
+        outline: none; // removes outline
+        background-color: $btnColor;
+        color: $secondaryColor;
+        font-weight: 600;
+        box-shadow: 2px 2px 10px $btnColor;
+      }
+    }
+  
+    
+  //   //back button
+    .back-button {
+      position: absolute;
+      bottom: 25px;
+      right: 50px;
+      font-size: 10px;
+      text-transform: uppercase;
+      font-weight: 600;
+      background-color: transparent;
+      color: $btnColor;
+      padding: 10px 20px;
+      letter-spacing: 2px;
+      &:hover,
+      &:focus {
+        outline: none;
+        background-color: $btnColor;
+        color: $secondaryColor;
+        font-weight: 600;
+        box-shadow: 2px 2px 10px $btnColor;
+      }
+    }
+
+    .back-button.hide{
+      display: none;
+    }
+  
+
+    // RETRIEVED PASSWORD CONTAINER
+    .retrieved-password-container{
+      width: 250px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+
+
+      .header {
+        position: absolute;
+        margin-bottom: 1rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        color: $fontColor;
+        letter-spacing: 1px;
+        width: 250px;
+        padding: 25px;
+        background-color: $primaryColor;
+        border-radius: $borderRadiusForm;
+        box-shadow: inset -5px -5px 9px 9px $secondaryColor,
+        inset -5px 5px 20px $secondaryColor;
+        font-size: 10px;
+
+        span{
+          background-color: aquamarine;
+          color: black;
+          margin-left: 15px;
+        }
+
+
+      }
+
+      
+    #go-to-login-button{
+      position: relative;
+      top: 60px;
+      width: inherit;
+      color: $btnColor;
+      border: 1px solid $btnColor;
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 10px;
+      text-align: center;
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 2px;
+
+      &:hover,
+      &:focus {  // add focus using tab key
+        outline: none; // removes outline
+        background-color: $btnColor;
+        color: $secondaryColor;
+        font-weight: 600;
+        box-shadow: 2px 2px 10px $btnColor;
+}
+      // font awesome
+      i{
+        margin-left: 15px;
+        font-size: 14px;
+    }
+  }
+}
+
+  // Hides retrieve password container and end session button
+ .form-container{
+  display: flex;
+ }
+
+ .form-container.hide{
+  display: none;
+ }
+
+
+.end-session-button{
+  display: none; // hides button
+  position: absolute;
+  bottom: 25px;
+  right: 50px;
+  font-size: 10px;
+  text-transform: uppercase;
+  font-weight: 600;
+  background-color: transparent;
+  color: $btnColor;
+  padding: 10px 20px;
+  letter-spacing: 2px;
+      &:hover,
+      &:focus {
+      outline: none;
+      background-color: $btnColor;
+      color: $secondaryColor;
+      font-weight: 600;
+      box-shadow: 2px 2px 10px $btnColor;
+    }
+}
+
+.end-session-button.show{
+  display: flex; // display button
+}
+
+
+ //Display password retrieved
+ .retrieved-password-container{
+  display: none;
+ }
+
+ .retrieved-password-container.show{
+  display: flex;
+ }
+
+   
+     

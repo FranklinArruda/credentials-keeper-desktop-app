@@ -10,7 +10,7 @@
     height: 100vh;
   }
   
-  .input-box {
+  .input-box.registration {
     position: relative;
     width: 375px;
     padding: 25px;
@@ -179,6 +179,7 @@
     display: none;
 }
 
+
 // class that shows popup with js
 .popup-container.show{
   display: flex;
@@ -228,7 +229,7 @@
       }
     }
 
-   
+   // GO TO LOGIN BUTTON
   } a.button{
         position: absolute;
         bottom: 15px;
@@ -259,8 +260,8 @@
 }
  
 
- // class that hides form with js
- .alert-message.show {
+ // alert message display slowly
+ .alert-message.registration.show {
   display: block;
   position: absolute;
   top: -10%;
@@ -284,8 +285,8 @@
   }
 }
 
- // alert message display slowly
-.alert-message{
+ // class that hides form with js
+.alert-message.registration{
   display: none;
   
 }

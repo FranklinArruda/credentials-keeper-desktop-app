@@ -10,26 +10,30 @@
 <!-- login box container-->
 <div class="form-container">
     <form id="form">
-        <div class="input-box">
-            <div class="alert-message"><p>Wrong Password. Please  try again!</p></div> 
+        <div class="input-box login">
+            <div class="alert-message login"><p>Wrong Password. Please  try again!</p></div> 
             <div class="header">Login</div>
+
             <div class="input">
-                <input type="password" id="confirmPassword" autocomplete="off" required="required">
+                <input type="password" id="login-pass"  autocomplete="off" required="required">
                 <span>Password</span>
             </div>
 
-            <!-- button for register form -->
+            <!-- Login Button -->
             <button class="button login-button-2">login</button>   
             <a class="forgot-password" href="./3-forgot-pass.html">Forgot Password</a>      
         </div>
     </form>
 </div>
 
+<!-- TEST ONLY -->
+<div class="good">Good</div>
+
 <!--back section button-->
 <a class="button back-button" href="./1-home-page.html">Back</a>
 
-<!-- main java script file loaded as module -->
-<script type="module" src="../js/script.js" defer></script>
+<!-- login handler js -->
+<script src="../js/login-section/login.js" defer></script>
 
 </body>
 </html>

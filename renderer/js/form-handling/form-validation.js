@@ -123,6 +123,7 @@ function validateHint() {
 }
 
 // event listener for all the function on key up.
+// real time validation with css
 function eventListenersFormValidation() {
 	fullName.addEventListener('keyup', validateName);
 	userName.addEventListener('keyup', validateEmail);
@@ -154,7 +155,9 @@ function showAlertMessage() {
 	}, 6000); 
   }
 
+
 function isValid(event){
+	
 // Call your validation functions here
 const isNameValid = validateName();
 const isEmailValid = validateEmail();

@@ -17,7 +17,7 @@
     padding: 25px;
     background-color: $primaryColor;
     border-radius: $borderRadiusForm;
-    box-shadow: inset -5px -5px 9px 9px $secondaryColor,
+    box-shadow: inset -1px -1px 1px 1px $secondaryColor,
     inset -5px 5px 20px $secondaryColor;
     /* display: flex;
       flex-direction: column;
@@ -191,13 +191,11 @@
         inset -5px 5px 20px $secondaryColor;
         font-size: 10px;
 
-        span{
+        .retrieved-password{
           background-color: aquamarine;
           color: black;
-          margin-left: 15px;
+          margin-left: 5px;
         }
-
-
       }
 
       

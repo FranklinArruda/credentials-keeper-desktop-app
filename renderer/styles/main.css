@@ -82,7 +82,7 @@ body {
   font-size: 30px;
   letter-spacing: 3px;
   font-weight: 700;
-  color: #e0e0e0;
+  color: #c7c4c4;
   animation: easeOut 1s;
   text-shadow: #413d3d 0 0 2px, #0a0a0a 0 -3px 2px, #858181 0 -1px 2px, rgba(0, 0, 0, 0.8) 0 30px 25px;
 }
@@ -157,7 +157,7 @@ img:hover {
   background-color: #161515;
 }
 
-.form-container {
+.form-container.registration {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -168,18 +168,18 @@ img:hover {
   height: 100vh;
 }
 
-.input-box-registration {
+.input-box.registration {
   position: relative;
   width: 375px;
   padding: 25px;
   background-color: #30383d;
   border-radius: 10px;
-  box-shadow: inset -5px -5px 9px 9px #1d1c1c, inset -5px 5px 7px #1d1c1c;
+  box-shadow: inset -1px -1px 1px 1px #1d1c1c, inset -5px 5px 20px #1d1c1c;
   /* display: flex;
     flex-direction: column;
     align-items: center;*/
 }
-.input-box-registration span {
+.input-box.registration .place-holder.registration {
   position: absolute;
   left: 35px;
   padding-top: 15px;
@@ -191,21 +191,21 @@ img:hover {
   pointer-events: none;
   transition: all 0.3s ease-out;
 }
-.input-box-registration .header {
+.input-box.registration .registration-header {
   margin-bottom: 2.5rem;
   font-weight: 600;
   text-transform: uppercase;
-  color: #e0e0e0;
+  color: #c7c4c4;
   letter-spacing: 1px;
 }
 
-.input input:valid ~ span {
+.input.registration input:valid ~ .place-holder.registration {
   color: #eb5e28;
   transform: translateX(0px) translateY(-18px);
   font-size: 10px;
 }
 
-.input {
+.input.registration {
   margin-bottom: 10px;
 }
 
@@ -219,14 +219,14 @@ input[type=text] {
   font-family: sans-serif;
   font-size: 14px;
   border-bottom: 1.5px solid #837f7f;
-  color: #e0e0e0;
+  color: #c7c4c4;
   letter-spacing: 1px;
 }
 input[type=password] {
   font-family: sans-serif;
   font-size: 14px;
   border-bottom: 0.5px solid #837f7f;
-  color: #e0e0e0;
+  color: #c7c4c4;
   letter-spacing: 1px;
 }
 input:focus {
@@ -254,7 +254,7 @@ input:focus {
   box-shadow: 2px 2px 10px #eb5e28;
 }
 
-.back-button {
+.button.back {
   position: absolute;
   bottom: 25px;
   right: 50px;
@@ -266,7 +266,7 @@ input:focus {
   padding: 10px 20px;
   letter-spacing: 2px;
 }
-.back-button:hover, .back-button:focus {
+.button.back:hover, .button.back:focus {
   outline: none;
   background-color: #eb5e28;
   color: #1d1c1c;
@@ -349,10 +349,10 @@ input:focus {
 }
 .popup-container.show .items .pop-message p {
   font-size: 14px;
-  color: #e0e0e0;
+  color: #c7c4c4;
   font-family: sans-serif;
 }
-.popup-container.show a.button {
+.popup-container.show .button.login {
   position: absolute;
   bottom: 15px;
   width: 100%;
@@ -366,14 +366,14 @@ input:focus {
   font-weight: 600;
   letter-spacing: 2px;
 }
-.popup-container.show a.button:hover, .popup-container.show a.button:focus {
+.popup-container.show .button.login:hover, .popup-container.show .button.login:focus {
   outline: none;
   background-color: #eb5e28;
   color: #1d1c1c;
   font-weight: 600;
   box-shadow: 2px 2px 10px #eb5e28;
 }
-.popup-container.show a.button i {
+.popup-container.show .button.login i {
   margin-left: 15px;
   font-size: 14px;
 }
@@ -405,7 +405,7 @@ input:focus {
   display: none;
 }
 
-.form-container {
+.form-container.login {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -416,18 +416,18 @@ input:focus {
   height: 100vh;
 }
 
-.input-box-login {
+.input-box.login {
   position: relative;
   width: 250px;
   padding: 25px;
   background-color: #30383d;
   border-radius: 10px;
-  box-shadow: inset -5px -5px 9px 9px #1d1c1c, inset -5px 5px 20px #1d1c1c;
+  box-shadow: inset -1px -1px 1px 1px #1d1c1c, inset -5px 5px 20px #1d1c1c;
   /* display: flex;
     flex-direction: column;
     align-items: center;*/
 }
-.input-box-login span {
+.input-box.login .place-holder.login {
   position: absolute;
   left: 35px;
   padding-top: 15px;
@@ -439,15 +439,15 @@ input:focus {
   pointer-events: none;
   transition: all 0.3s ease-out;
 }
-.input-box-login .header {
+.input-box.login .header.login {
   margin-bottom: 1rem;
   font-weight: 600;
   text-transform: uppercase;
-  color: #e0e0e0;
+  color: #c7c4c4;
   letter-spacing: 1px;
 }
 
-.input-box input:valid ~ span {
+.input-box.login input:valid ~ .place-holder.login {
   color: #eb5e28;
   transform: translateX(0px) translateY(-18px);
   font-size: 10px;
@@ -463,7 +463,7 @@ input [type=password] {
   font-family: sans-serif;
   font-size: 14px;
   border-bottom: 0.5px solid #837f7f;
-  color: #e0e0e0;
+  color: #c7c4c4;
   letter-spacing: 1px;
 }
 input:focus {
@@ -533,7 +533,7 @@ input:focus {
   box-shadow: 2px 2px 10px #eb5e28;
 }
 
-.alert-message.login.show {
+.alert-message.show {
   display: block;
   position: absolute;
   top: -20%;
@@ -547,7 +547,7 @@ input:focus {
   font-size: 12px;
   transition: all 2s ease-out;
 }
-.alert-message.login.show p {
+.alert-message.show p {
   width: 100%;
   height: 100%;
   display: flex;
@@ -556,7 +556,7 @@ input:focus {
   text-align: center;
 }
 
-.alert-message.login {
+.alert-message {
   display: none;
 }
 
@@ -599,7 +599,7 @@ input:focus {
   padding: 25px;
   background-color: #30383d;
   border-radius: 10px;
-  box-shadow: inset -5px -5px 9px 9px #1d1c1c, inset -5px 5px 20px #1d1c1c;
+  box-shadow: inset -1px -1px 1px 1px #1d1c1c, inset -5px 5px 20px #1d1c1c;
   /* display: flex;
     flex-direction: column;
     align-items: center;*/
@@ -620,7 +620,7 @@ input:focus {
   margin-bottom: 1rem;
   font-weight: 600;
   text-transform: uppercase;
-  color: #e0e0e0;
+  color: #c7c4c4;
   letter-spacing: 1px;
 }
 
@@ -640,7 +640,7 @@ input [type=password] {
   font-family: sans-serif;
   font-size: 14px;
   border-bottom: 0.5px solid #837f7f;
-  color: #e0e0e0;
+  color: #c7c4c4;
   letter-spacing: 1px;
 }
 input:focus {
@@ -730,7 +730,7 @@ input:focus {
   margin-bottom: 1rem;
   font-weight: 600;
   text-transform: uppercase;
-  color: #e0e0e0;
+  color: #c7c4c4;
   letter-spacing: 1px;
   width: 250px;
   padding: 25px;
@@ -739,10 +739,10 @@ input:focus {
   box-shadow: inset -5px -5px 9px 9px #1d1c1c, inset -5px 5px 20px #1d1c1c;
   font-size: 10px;
 }
-.retrieved-password-container .header span {
+.retrieved-password-container .header .retrieved-password {
   background-color: aquamarine;
   color: black;
-  margin-left: 15px;
+  margin-left: 5px;
 }
 .retrieved-password-container #go-to-login-button {
   position: relative;
@@ -811,87 +811,87 @@ input:focus {
   display: flex;
 }
 
-.system-credentials-container {
-  border: 1px yellow solid;
-  width: 950px;
-  height: 80vh;
+.system-manager-container {
+  width: 1024px;
+  height: 575px;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
-.system-credentials-container .header {
+.system-manager-container .header {
   position: relative;
   top: 20px;
   left: 20px;
   font-weight: 600;
   text-transform: uppercase;
-  color: #e0e0e0;
+  color: #c7c4c4;
   letter-spacing: 1px;
-  font-size: 16px;
+  font-size: 18px;
 }
-.system-credentials-container .header .spheader-spacing {
+.system-manager-container .header .header-spacing {
   margin-left: 0.5rem;
 }
 
 .system-container {
   position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 470px;
-  border: 2px white solid;
-  margin: 10px auto;
+  bottom: 10px;
+  left: 10px;
+  width: 98%;
+  height: 500px;
+  border-radius: 10px;
+  box-shadow: inset -1px -1px 1px 1px #1d1c1c, inset -5px 5px 20px #1d1c1c;
+}
+.system-container .credentials-title {
+  position: absolute;
+  top: 0px;
+  left: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #c7c4c4;
+  letter-spacing: 1px;
+  font-size: 12px;
+  padding-bottom: 3px;
+  margin-top: 20px;
+  width: 150px;
+  text-align: center;
 }
 
 .data-container {
   position: relative;
   top: 0px;
   left: 20px;
+  margin-top: 80px;
 }
 
-.input-box {
-  width: 300px;
-  height: 200px;
-  border: 1px solid rgb(255, 4, 4);
+.input-box.credentials {
+  width: 250px;
+  height: 150px;
 }
-.input-box .title {
-  position: relative;
-  top: 0px;
-  left: 0px;
-  margin-bottom: 20px;
-  font-weight: 600;
-  text-transform: uppercase;
-  color: #e0e0e0;
-  letter-spacing: 1px;
-  font-size: 10px;
-  margin-bottom: 40px;
-  width: 150px;
-  text-align: center;
-}
-.input-box .input {
+.input-box.credentials .input {
   margin-bottom: 10px;
 }
-.input-box .input input {
+.input-box.credentials .input input {
   width: 100%;
   font-size: 14px;
   background-color: #30383d;
   border: none;
   border-bottom: 1px solid #837f7f;
-  color: #e0e0e0;
+  color: #c7c4c4;
   letter-spacing: 1px;
 }
-.input-box .input input [type=text] {
+.input-box.credentials .input input [type=text] {
   font-family: sans-serif;
   font-size: 14px;
   border-bottom: 0.5px solid #837f7f;
-  color: #e0e0e0;
+  color: #c7c4c4;
   letter-spacing: 1px;
 }
-.input-box .input input:focus {
+.input-box.credentials .input input:focus {
   border-bottom: 1.5px solid #eb5e28;
   outline: none;
 }
-.input-box .input span {
+.input-box.credentials .input span {
   position: absolute;
   left: 10px;
   padding-top: 15px;
@@ -904,9 +904,9 @@ input:focus {
   transition: all 0.3s ease-out;
 }
 
-.input input:valid ~ span {
+.input.credentials input:valid ~ span {
   color: #eb5e28;
-  transform: translateX(0px) translateY(-20px);
+  transform: translateX(0px) translateY(-18px);
   font-size: 10px;
 }
 
@@ -934,29 +934,38 @@ input:focus {
 
 .outer-container {
   position: absolute;
-  width: 98%;
-  top: 73%;
+  width: 97%;
+  height: 250px;
+  top: 72%;
   left: 50%;
   transform: translate(-50%, -50%);
-  height: 250px;
   margin: auto;
   background-color: #30383d;
   border-radius: 10px;
-  box-shadow: inset -5px -5px 9px 9px #1d1c1c, inset -5px 5px 20px #1d1c1c;
+  box-shadow: inset -1px -1px 1px 1px #1d1c1c, inset -5px 5px 20px #1d1c1c;
 }
 
-.bottom-line.add {
-  position: absolute;
-  top: 15px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 50%;
-  height: 1.5px;
-  background-color: #eb5e28;
-  border-radius: 5px;
+.credentials-title.add {
+  border-bottom: 1px solid #eb5e28;
 }
 
 .phone-title.add {
   color: aqua;
   font-weight: 600;
+}
+
+.button.test-only {
+  color: #eb5e28;
+  position: absolute;
+  bottom: 50px;
+  right: 50px;
+  font-size: 12;
+  padding: 10px;
+}
+.button.test-only:hover {
+  outline: none;
+  background-color: #eb5e28;
+  color: #1d1c1c;
+  font-weight: 600;
+  box-shadow: 2px 2px 10px #eb5e28;
 }/*# sourceMappingURL=main.css.map */

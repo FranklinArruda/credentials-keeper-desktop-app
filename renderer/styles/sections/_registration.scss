@@ -1,5 +1,5 @@
 // Position form container in the center of the page
-.form-container {
+.form-container.registration {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -10,19 +10,19 @@
     height: 100vh;
   }
   
-  .input-box-registration {
+  .input-box.registration {
     position: relative;
     width: 375px;
     padding: 25px;
     background-color: $primaryColor;
     border-radius: $borderRadiusForm;
-    box-shadow: inset -5px -5px 9px 9px $secondaryColor,
-      inset -5px 5px 7px $secondaryColor;
+    box-shadow: inset -1px -1px 1px 1px $secondaryColor,
+    inset -5px 5px 20px $secondaryColor;
     /* display: flex;
       flex-direction: column;
       align-items: center;*/
   
-    span {
+    .place-holder.registration {
       position: absolute;
       left: 35px;
       padding-top: 15px;
@@ -35,7 +35,7 @@
       transition: all 0.3s ease-out;
     }
   
-    .header {
+    .registration-header {
       margin-bottom: 2.5rem;
       font-weight: 600;
       text-transform: uppercase;
@@ -55,13 +55,13 @@
 //            OR >
 
 // FLOAT PLACE HOLDER (go up when start typing only with 'span')
-.input input:valid ~ span{
+.input.registration input:valid ~ .place-holder.registration{
     color: $btnColor;
     transform: translateX(0px) translateY(-18px);
     font-size: 10px;
    }
   
-  .input {
+  .input.registration {
     margin-bottom: 10px;
   }
   
@@ -116,7 +116,7 @@
   }
   
 //   //back button
-  .back-button {
+  .button.back {
     position: absolute;
     bottom: 25px;
     right: 50px;
@@ -180,6 +180,8 @@
 }
 
 
+
+
 // class that shows popup with js
 .popup-container.show{
   display: flex;
@@ -192,7 +194,6 @@
   height: 150px;
  
 .items{
-  
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -228,9 +229,9 @@
         font-family: sans-serif;
       }
     }
-
-   // GO TO LOGIN BUTTON
-  } a.button{
+  }
+    // GO TO LOGIN BUTTON
+     .button.login{
         position: absolute;
         bottom: 15px;
         width: 100%;

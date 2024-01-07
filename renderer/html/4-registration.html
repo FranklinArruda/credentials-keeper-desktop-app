@@ -14,39 +14,39 @@
 <body>
 
     <!-- form container -->
-    <div class="form-container">
-        <form id="form">
-            <div class="input-box-registration">
+    <div class="form-container registration">
+        <form>
+            <div class="input-box registration">
                 <div class="alert-message registration"><p>All field must be filled out and correctly entered.</p></div>
-                <div class="header">Registration</div>
+                <div class="registration-header">Registration</div>
     
-                <div class="input">
+                <div class="input registration">
                     <input type="text" id="fullName" autocomplete="off" required="required">
-                    <span>Full Name</span> <!-- float placeholder -->
+                    <span class="place-holder registration">Full Name</span> <!-- float placeholder -->
                     <div id="full-name-error"></div> <!-- error message validatadion -->
                 </div>
     
-                <div class="input">
+                <div class="input registration">
                     <input type="text"  id="userName" autocomplete="off" required="required">
-                    <span>Username@email.com</span>
+                    <span class="place-holder registration">Username@email.com</span>
                     <div id="username-error"></div>
                 </div>
     
-                <div class="input">
+                <div class="input registration">
                     <input type="password" id="confirmPassword" autocomplete="off" required="required">
-                    <span>Password</span>
+                    <span class="place-holder registration">Password</span>
                     <div id="password-error"></div>
                 </div>
 
-                <div class="input">
+                <div class="input registration">
                     <input type="password" id="password" autocomplete="off" required="required">
-                    <span>Confirm Password</span>
+                    <span class="place-holder registration">Confirm Password</span>
                     <div id="confirm-password-error"></div>
                 </div>
     
-                <div class="input">
+                <div class="input registration">
                     <input type="text" id="hint-question" autocomplete="off" required="required">
-                    <span>Hint for pass: What is your mother's name?</span>
+                    <span class="place-holder registration">Hint for pass: What is your mother's name?</span>
                     <div id="hint-error"></div>
                 </div>
 
@@ -66,11 +66,11 @@
         </div>
     </div>
     
-    <a class="button" id="go-to-login-button" href="./2-login.html">Go to Login <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+    <a class="button login" id="go-to-login-button" href="./2-login.html">Go to Login <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
 </div>
     
     <!--back section button-->
-    <a class="button back-button" href="./1-home-page.html">Back</a>
+    <a class="button back" href="./1-home-page.html">Back</a>
 
      <!-- main java script file loaded as module -->
      <script type="module" src="../js/form-handling/script.js" defer></script>

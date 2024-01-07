@@ -1,7 +1,3 @@
-// // import: Welcome message and Button container (HOME SECTIOON)
-// import {
-// 	showWelcomeMsg, showBtnContainer
-// } from "./home-section/home-section.js";
 
 // import: validation (FORM VALIDATIOON)
  import {

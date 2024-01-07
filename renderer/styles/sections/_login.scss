@@ -1,5 +1,5 @@
 // Position form container in the center of the page
-.form-container {
+.form-container.login {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -10,19 +10,19 @@
   height: 100vh;
 }
 
-.input-box-login {
+.input-box.login {
   position: relative;
   width: 250px;
   padding: 25px;
   background-color: $primaryColor;
   border-radius: $borderRadiusForm;
-  box-shadow: inset -5px -5px 9px 9px $secondaryColor,
+  box-shadow: inset -1px -1px 1px 1px $secondaryColor,
   inset -5px 5px 20px $secondaryColor;
   /* display: flex;
     flex-direction: column;
     align-items: center;*/
 
-  span {
+  .place-holder.login {
     position: absolute;
     left: 35px;
     padding-top: 15px;
@@ -35,7 +35,7 @@
     transition: all 0.3s ease-out;
   }
 
-  .header {
+  .header.login {
     margin-bottom: 1rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -55,7 +55,7 @@
 //            OR >
 
 // FLOAT PLACE HOLDER (go up when start typing only with 'span')
-.input-box input:valid ~ span{
+.input-box.login input:valid ~ .place-holder.login{
     color: $btnColor;
     transform: translateX(0px) translateY(-18px);
     font-size: 10px;
@@ -92,6 +92,7 @@
     padding: 12px 15px;
     margin-top: 1.5rem;
     margin-bottom: 1rem;
+  
     text-transform: uppercase;
     font-weight: 600;
     background-color: transparent;
@@ -157,8 +158,14 @@
     }
   }
 
+
+
+
+
+
+
  // class that hides form with js
- .alert-message.login.show {
+ .alert-message.show {
     display: block;
     position: absolute;
     top: -20%;
@@ -183,7 +190,7 @@
   }
   
    // alert message display slowly
-  .alert-message.login{
+  .alert-message{
     display: none; 
   }
    

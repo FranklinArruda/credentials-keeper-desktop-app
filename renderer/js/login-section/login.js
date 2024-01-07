@@ -32,13 +32,18 @@ function showAlertMessage() {
 	} 
 
     else{
-		goodMsg.classList.add('show');
+		// Assuming login is successful, redirect to the system page
+		window.location.href = './5-system-credencials-manager.html';
+		//goodMsg.classList.add('show');
     }
 }
 
 /**
  * LOGIN HANDLER
  */
+
+
+
 const loginButton = document.querySelector(".login-button-2");
 loginButton.addEventListener("click", function(event) {
 	

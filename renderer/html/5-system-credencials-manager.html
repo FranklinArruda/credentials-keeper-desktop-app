@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +14,7 @@
 <body>
 
 <!-- System Credentials Manager -->
-<div class="system-credentials-container">
+<div class="system-manager-container">
     
     <!-- header -->
     <div class="header">Credentials <span class="header-spacing">Manager</span></div>
@@ -21,9 +22,9 @@
     <!-- credential manager -->
     <div class="system-container credentials-manager">
            
-          <!-- title -->
-          <div class="title-container">
-            <div class="title">Credentials Keeper</div>  
+        <!-- title -->
+        <div class="title-container">
+            <div class="credentials-title">Credentials Keeper</div>  
             <span class="bottom-line"></span>
         </div>
 
@@ -35,19 +36,19 @@
                 <div class="input-box credentials">
 
                     <!-- ----- website name -->
-                    <div class="input">
+                    <div class="input credentials">
                         <input type="text" id="subject"  autocomplete="off" required="required">
                         <span>Subject</span>
                     </div>
 
                      <!-- ----- username -->
-                     <div class="input">
+                     <div class="input credentials">
                         <input type="text" id="username"  autocomplete="off" required="required">
                         <span>Username</span>
                     </div>
 
                       <!-- ----- password -->
-                      <div class="input">
+                      <div class="input credentials">
                         <input type="text" id="password"  autocomplete="off" required="required">
                         <span>Enter Password</span>
                     </div>
@@ -86,6 +87,7 @@
         </div>
     </div> 
 
+    <a class="button test-only" href="./1-home-page.html">END SESSION </a>
           <!-- end session + upload file + generate pdf container 
          <div class="action-bar">
             <div class="upload-icon"></div>
@@ -95,8 +97,11 @@
     </div>
 </div>
 
+
+
 <!-- login handler js -->
 <script src="../js/system-manager/system-manager.js" defer></script>
 
 </body>
 </html>
+

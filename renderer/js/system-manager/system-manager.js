@@ -1,6 +1,6 @@
 
     //const credentialsTitle = document.querySelector('.credentials-title');
-    const credentialsTitle = document.querySelector('.bottom-line');
+    const credentialsTitle = document.querySelector('.credentials-title');
 
     function setActive(element) {
         credentialsTitle.classList.remove('add');

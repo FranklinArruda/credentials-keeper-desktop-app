@@ -10,7 +10,7 @@
     height: 100vh;
   }
   
-  .input-box.registration {
+  .input-box-registration {
     position: relative;
     width: 375px;
     padding: 25px;
@@ -244,7 +244,8 @@
         font-weight: 600;
         letter-spacing: 2px;
 
-        &:hover {
+        &:hover,
+        &:focus {
             outline: none;
             background-color: $btnColor;
             color: $secondaryColor;

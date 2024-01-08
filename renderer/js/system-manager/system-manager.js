@@ -54,3 +54,16 @@
       element.classList.add('active');
     });
   });
+
+
+
+  // testing end session  button from system
+   
+
+  const endSession = document.querySelector('.end-session');
+ 
+   
+  endSession.addEventListener('click', () => {
+    window.location.href = './1-home-page.html';
+    });
+   

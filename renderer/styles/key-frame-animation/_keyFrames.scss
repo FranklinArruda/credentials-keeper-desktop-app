@@ -4,13 +4,12 @@
       transform: translateY(0);
     }
     50% {
-      transform: translateY(-10px); /* Adjust the distance as needed */
+      transform: translateY(-10px); 
     }
   }
 
-
-  // animation bar
-  @keyframes revealWidth {
+  // animation bar (home)
+  @keyframes revealWidthHome {
     0% {
       width: 0%;
     }
@@ -19,7 +18,17 @@
     }
   }
 
-  // Ease out element
+  // key frame animation for message on hover in system to upload pdf file
+  @keyframes revealWidthSystemMessage {
+    0% {
+      width: 0%;
+    }
+    100% {
+      width: 105px;
+    }
+  }
+
+  // Ease out element animation
   @keyframes easeOut {
     0% { opacity: 0; }
     100% { opacity: 1; }

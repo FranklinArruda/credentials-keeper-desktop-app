@@ -11,11 +11,11 @@ body {
   width: 70%;
   height: 750px;
   background-color: $barColor;
-  animation: revealWidth 1.5s linear;
+  animation: revealWidthHome 1.5s linear;
   transform: skew(-20deg);
 }
 
-// welcome message
+// WELCOME MESSAGE
 .welcome-message {
   display: none;
   position: absolute;
@@ -40,7 +40,6 @@ body {
 
 // LOGIIN & REGISTRATION SECTION
 .container {
-  animation: easeOut 2s;
   text-align: center;
   position: absolute;
   top: 60%;
@@ -50,9 +49,10 @@ body {
   height: 200px;
   border-radius: $borderRadiusButton;
   border: 1px solid $btnColor;
+  animation: easeOut 0.5s;  //PAGE ANIMATION
 }
 
-// hides the container
+// WELCOME MESSAGE
 .button-box {
   display: none;
 }

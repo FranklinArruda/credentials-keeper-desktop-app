@@ -13,7 +13,7 @@
 
   // calling function after delay
 setTimeout(showWelcomeMsg, 1500);
-setTimeout(showBtnContainer, 2500);
+setTimeout(showBtnContainer, 2000);
 
 
   // export {

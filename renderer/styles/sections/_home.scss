@@ -1,6 +1,3 @@
-body {
-  overflow: hidden;
-}
 
 // HEADER
 .parallelogram {
@@ -38,7 +35,7 @@ body {
   }
 }
 
-// LOGIIN & REGISTRATION SECTION
+// LOGIIN & REGISTRATION container
 .container {
   text-align: center;
   position: absolute;
@@ -49,15 +46,16 @@ body {
   height: 200px;
   border-radius: $borderRadiusButton;
   border: 1px solid $btnColor;
-  animation: easeOut 0.5s;  //PAGE ANIMATION
+  animation: easeOut 1s; //page animation on 
+
 }
 
-// WELCOME MESSAGE
-.button-box {
+//HIDES CONAINER
+.container.button-box {
   display: none;
 }
 
-// buttons home page
+// BUTTONS: HOME & LOGIN
 .login-button,
 .create-password-button {
   display: block;
@@ -83,7 +81,7 @@ body {
   }
 }
 
-// key chain floating
+// KEY CHAIN FLOATING
 img {
   animation: moveUpDown 2.5s infinite; //key frames
   text-shadow: #413d3d 0 0 2px, #0a0a0a 0 -10px 2px, #858181 0 -1px 2px,
@@ -96,7 +94,7 @@ img {
   }
 }
 
-// bar at the bottom of the home page
+// BOTTOM BAR 
 .bottom-bar {
   border: none; // removes border
   position: absolute;

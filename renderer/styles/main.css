@@ -16,6 +16,7 @@ body {
   font-family: "Sansation", sans-serif;
   font-weight: 300;
   background-color: #30383d;
+  overflow: hidden;
 }
 
 a,
@@ -64,10 +65,6 @@ a:hover,
     opacity: 1;
   }
 }
-body {
-  overflow: hidden;
-}
-
 .parallelogram {
   position: absolute;
   top: 70px;
@@ -110,10 +107,10 @@ body {
   height: 200px;
   border-radius: 5px;
   border: 1px solid #eb5e28;
-  animation: easeOut 0.5s;
+  animation: easeOut 1s;
 }
 
-.button-box {
+.container.button-box {
   display: none;
 }
 
@@ -184,9 +181,6 @@ img:hover {
   background-color: #30383d;
   border-radius: 10px;
   box-shadow: inset -1px -1px 1px 1px #1d1c1c, inset -5px 5px 20px #1d1c1c;
-  /* display: flex;
-    flex-direction: column;
-    align-items: center;*/
 }
 .input-box.registration .place-holder.registration {
   position: absolute;
@@ -422,22 +416,71 @@ input:focus {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  animation: easeOut 0.5s;
+  animation: easeOut 1s;
 }
-
-.input-box.login {
+.form-container.login .input-box.login {
   position: relative;
+  height: 210px;
   width: 250px;
   padding: 25px;
   background-color: #30383d;
   border-radius: 10px;
   box-shadow: inset -1px -1px 1px 1px #1d1c1c, inset -5px 5px 20px #1d1c1c;
-  /* display: flex;
-    flex-direction: column;
-    align-items: center;*/
 }
-.input-box.login .place-holder.login {
+.form-container.login .input-box.login .alert-message.show {
+  display: block;
+  position: absolute;
+  top: -20%;
+  left: 0%;
+  color: #fffc5d;
+  width: 100%;
+  height: 30px;
+  border-radius: 5px;
+  box-shadow: 2px 1px 2px #fffc5d;
+  font-family: sans-serif;
+  font-size: 12px;
+  transition: all 2s ease-out;
+}
+.form-container.login .input-box.login .alert-message.show p {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.form-container.login .input-box.login .alert-message {
+  display: none;
+}
+.form-container.login .input-box.login .header.login {
+  margin-bottom: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #c7c4c4;
+  letter-spacing: 1px;
+}
+.form-container.login .input-box.login .input.login input {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  background-color: #30383d;
+  border-bottom: 1px solid #837f7f;
+  color: #c7c4c4;
+}
+.form-container.login .input-box.login .input.login input[type=text] {
+  font-family: sans-serif;
+  font-size: 14px;
+}
+.form-container.login .input-box.login .input.login input:focus {
+  border-bottom: 1.5px solid #eb5e28;
+  outline: none;
+}
+.form-container.login .input-box.login .input.login input:valid ~ .place-holder {
+  color: #eb5e28;
+  transform: translateX(0px) translateY(-18px);
+  font-size: 10px;
+}
+.form-container.login .input-box.login .place-holder.login {
   position: absolute;
   left: 35px;
   padding-top: 15px;
@@ -449,39 +492,7 @@ input:focus {
   pointer-events: none;
   transition: all 0.3s ease-out;
 }
-.input-box.login .header.login {
-  margin-bottom: 1rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  color: #c7c4c4;
-  letter-spacing: 1px;
-}
-
-.input-box.login input:valid ~ .place-holder.login {
-  color: #eb5e28;
-  transform: translateX(0px) translateY(-18px);
-  font-size: 10px;
-}
-
-input {
-  width: 100%;
-  padding: 10px;
-  font-size: 14px;
-  background-color: #30383d;
-}
-input [type=password] {
-  font-family: sans-serif;
-  font-size: 14px;
-  border-bottom: 0.5px solid #837f7f;
-  color: #c7c4c4;
-  letter-spacing: 1px;
-}
-input:focus {
-  border-bottom: 1.5px solid #eb5e28;
-  outline: none;
-}
-
-.login-button-2 {
+.form-container.login .input-box.login .login-button-2 {
   font-size: 10px;
   letter-spacing: 2px;
   width: 100%;
@@ -494,15 +505,14 @@ input:focus {
   border: 1px solid #eb5e28;
   color: #eb5e28;
 }
-.login-button-2:hover, .login-button-2:focus {
+.form-container.login .input-box.login .login-button-2:hover, .form-container.login .input-box.login .login-button-2:focus {
   outline: none;
   background-color: #eb5e28;
   color: #1d1c1c;
   font-weight: 600;
   box-shadow: 2px 2px 10px #eb5e28;
 }
-
-.forgot-password {
+.form-container.login .input-box.login .forgot-password {
   position: relative;
   left: 90px;
   font-size: 7px;
@@ -515,7 +525,7 @@ input:focus {
   color: #eb5e28;
   border-radius: 5px;
 }
-.forgot-password:hover, .forgot-password:focus {
+.form-container.login .input-box.login .forgot-password:hover, .form-container.login .input-box.login .forgot-password:focus {
   outline: none;
   background-color: #eb5e28;
   color: #1d1c1c;
@@ -543,54 +553,6 @@ input:focus {
   box-shadow: 2px 2px 10px #eb5e28;
 }
 
-.alert-message.show {
-  display: block;
-  position: absolute;
-  top: -20%;
-  left: 0%;
-  color: #fffc5d;
-  width: 100%;
-  height: 30px;
-  border-radius: 5px;
-  box-shadow: 2px 1px 2px #fffc5d;
-  font-family: sans-serif;
-  font-size: 12px;
-  transition: all 2s ease-out;
-}
-.alert-message.show p {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.alert-message {
-  display: none;
-}
-
-.good.show {
-  position: absolute;
-  top: 10%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: block;
-  background-color: antiquewhite;
-  width: 50px;
-  height: 50px;
-  border-radius: 5px;
-  box-shadow: 5px 5px 2px white;
-  font-size: 10px;
-  font-family: sans-serif;
-  color: black;
-  font-weight: 600;
-}
-
-.good {
-  display: none;
-}
-
 .form-container {
   position: absolute;
   top: 50%;
@@ -602,8 +564,7 @@ input:focus {
   height: 100vh;
   animation: easeOut 0.5s;
 }
-
-.input-box.retrieve-password {
+.form-container .input-box.retrieve-password {
   font-size: 12px;
   position: relative;
   width: 300px;
@@ -611,11 +572,37 @@ input:focus {
   background-color: #30383d;
   border-radius: 10px;
   box-shadow: inset -1px -1px 1px 1px #1d1c1c, inset -5px 5px 20px #1d1c1c;
-  /* display: flex;
-    flex-direction: column;
-    align-items: center;*/
 }
-.input-box.retrieve-password span {
+.form-container .input-box.retrieve-password .header.retrieve-pass {
+  margin-bottom: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #c7c4c4;
+  letter-spacing: 1px;
+}
+.form-container .input-box.retrieve-password .input.retrieve-pass input {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  background-color: #30383d;
+  border-bottom: 1px solid #837f7f;
+  color: #c7c4c4;
+  letter-spacing: 1px;
+}
+.form-container .input-box.retrieve-password .input.retrieve-pass input [type=password] {
+  font-family: sans-serif;
+  font-size: 14px;
+}
+.form-container .input-box.retrieve-password .input.retrieve-pass input:focus {
+  border-bottom: 1.5px solid #eb5e28;
+  outline: none;
+}
+.form-container .input-box.retrieve-password .input.retrieve-pass input:valid ~ .place-holder.retrieve-pass {
+  color: #eb5e28;
+  transform: translateX(0px) translateY(-18px);
+  font-size: 10px;
+}
+.form-container .input-box.retrieve-password .place-holder.retrieve-pass {
   position: absolute;
   left: 35px;
   padding-top: 15px;
@@ -627,39 +614,7 @@ input:focus {
   pointer-events: none;
   transition: all 0.3s ease-out;
 }
-.input-box.retrieve-password .header {
-  margin-bottom: 1rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  color: #c7c4c4;
-  letter-spacing: 1px;
-}
-
-.input-box input:valid ~ span {
-  color: #eb5e28;
-  transform: translateX(0px) translateY(-18px);
-  font-size: 10px;
-}
-
-input {
-  width: 100%;
-  padding: 10px;
-  font-size: 14px;
-  background-color: #30383d;
-}
-input [type=password] {
-  font-family: sans-serif;
-  font-size: 14px;
-  border-bottom: 0.5px solid #837f7f;
-  color: #c7c4c4;
-  letter-spacing: 1px;
-}
-input:focus {
-  border-bottom: 1.5px solid #eb5e28;
-  outline: none;
-}
-
-.retrieve-pass-button {
+.form-container .input-box.retrieve-password .retrieve-pass-button {
   font-size: 10px;
   letter-spacing: 2px;
   width: 100%;
@@ -672,28 +627,7 @@ input:focus {
   border: 1px solid #eb5e28;
   color: #eb5e28;
 }
-.retrieve-pass-button:hover, .retrieve-pass-button:focus {
-  outline: none;
-  background-color: #eb5e28;
-  color: #1d1c1c;
-  font-weight: 600;
-  box-shadow: 2px 2px 10px #eb5e28;
-}
-
-.forgot-password {
-  position: relative;
-  left: 90px;
-  font-size: 7px;
-  letter-spacing: 2px;
-  width: 125px;
-  padding: 5px 8px;
-  text-transform: uppercase;
-  font-weight: 600;
-  background-color: transparent;
-  color: #eb5e28;
-  border-radius: 5px;
-}
-.forgot-password:hover, .forgot-password:focus {
+.form-container .input-box.retrieve-password .retrieve-pass-button:hover, .form-container .input-box.retrieve-password .retrieve-pass-button:focus {
   outline: none;
   background-color: #eb5e28;
   color: #1d1c1c;
@@ -734,7 +668,7 @@ input:focus {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  animation: easeOut 1s;
 }
 .retrieved-password-container .header {
   position: absolute;
@@ -864,12 +798,8 @@ input:focus {
   cursor: pointer;
   border-radius: 5px;
 }
-.system-manager-container .title-container .active {
-  border-bottom: 5px solid #eb5e28;
-  border-radius: 5px;
-  transition: all 300ms ease-out;
-}
-.system-manager-container .system-container {
+.system-manager-container .system-container.phone-keeper,
+.system-manager-container .system-container.credentials-manager {
   position: absolute;
   bottom: 10px;
   width: 98%;
@@ -879,20 +809,30 @@ input:focus {
   border-radius: 10px;
   box-shadow: inset -1px -1px 1px 1px #1d1c1c, inset -5px 5px 20px #1d1c1c;
 }
-.system-manager-container .system-container .data-container {
+.system-manager-container .system-container.phone-keeper .data-container,
+.system-manager-container .system-container.credentials-manager .data-container {
   position: relative;
   top: 0px;
   left: 20px;
   margin-top: 20px;
 }
-.system-manager-container .system-container .data-container .input-box.credentials {
+.system-manager-container .system-container.phone-keeper .data-container .input-box.credentials,
+.system-manager-container .system-container.phone-keeper .data-container .input-box.phone-keeper,
+.system-manager-container .system-container.credentials-manager .data-container .input-box.credentials,
+.system-manager-container .system-container.credentials-manager .data-container .input-box.phone-keeper {
   width: 250px;
   height: 150px;
 }
-.system-manager-container .system-container .data-container .input-box.credentials .input {
+.system-manager-container .system-container.phone-keeper .data-container .input-box.credentials .input,
+.system-manager-container .system-container.phone-keeper .data-container .input-box.phone-keeper .input,
+.system-manager-container .system-container.credentials-manager .data-container .input-box.credentials .input,
+.system-manager-container .system-container.credentials-manager .data-container .input-box.phone-keeper .input {
   margin-bottom: 15px;
 }
-.system-manager-container .system-container .data-container .input-box.credentials .input input {
+.system-manager-container .system-container.phone-keeper .data-container .input-box.credentials .input input,
+.system-manager-container .system-container.phone-keeper .data-container .input-box.phone-keeper .input input,
+.system-manager-container .system-container.credentials-manager .data-container .input-box.credentials .input input,
+.system-manager-container .system-container.credentials-manager .data-container .input-box.phone-keeper .input input {
   width: 100%;
   font-size: 12px;
   padding: 10px;
@@ -902,18 +842,27 @@ input:focus {
   color: #c7c4c4;
   letter-spacing: 1px;
 }
-.system-manager-container .system-container .data-container .input-box.credentials .input input [type=text] {
+.system-manager-container .system-container.phone-keeper .data-container .input-box.credentials .input input [type=text],
+.system-manager-container .system-container.phone-keeper .data-container .input-box.phone-keeper .input input [type=text],
+.system-manager-container .system-container.credentials-manager .data-container .input-box.credentials .input input [type=text],
+.system-manager-container .system-container.credentials-manager .data-container .input-box.phone-keeper .input input [type=text] {
   font-family: sans-serif;
   font-size: 14px;
   border-bottom: 0.5px solid #837f7f;
   color: #c7c4c4;
   letter-spacing: 1px;
 }
-.system-manager-container .system-container .data-container .input-box.credentials .input input:focus {
+.system-manager-container .system-container.phone-keeper .data-container .input-box.credentials .input input:focus,
+.system-manager-container .system-container.phone-keeper .data-container .input-box.phone-keeper .input input:focus,
+.system-manager-container .system-container.credentials-manager .data-container .input-box.credentials .input input:focus,
+.system-manager-container .system-container.credentials-manager .data-container .input-box.phone-keeper .input input:focus {
   border-bottom: 1.5px solid #eb5e28;
   outline: none;
 }
-.system-manager-container .system-container .data-container .input-box.credentials .input span {
+.system-manager-container .system-container.phone-keeper .data-container .input-box.credentials .input span,
+.system-manager-container .system-container.phone-keeper .data-container .input-box.phone-keeper .input span,
+.system-manager-container .system-container.credentials-manager .data-container .input-box.credentials .input span,
+.system-manager-container .system-container.credentials-manager .data-container .input-box.phone-keeper .input span {
   position: absolute;
   left: 10px;
   padding-top: 10px;
@@ -925,12 +874,22 @@ input:focus {
   pointer-events: none;
   transition: all 0.3s ease-out;
 }
-.system-manager-container .system-container .data-container .input-box.credentials .input.credentials input:valid ~ span {
+.system-manager-container .system-container.phone-keeper .data-container .input-box.credentials .input.credentials input:valid ~ span,
+.system-manager-container .system-container.phone-keeper .data-container .input-box.credentials .input.phone input:valid ~ span,
+.system-manager-container .system-container.phone-keeper .data-container .input-box.phone-keeper .input.credentials input:valid ~ span,
+.system-manager-container .system-container.phone-keeper .data-container .input-box.phone-keeper .input.phone input:valid ~ span,
+.system-manager-container .system-container.credentials-manager .data-container .input-box.credentials .input.credentials input:valid ~ span,
+.system-manager-container .system-container.credentials-manager .data-container .input-box.credentials .input.phone input:valid ~ span,
+.system-manager-container .system-container.credentials-manager .data-container .input-box.phone-keeper .input.credentials input:valid ~ span,
+.system-manager-container .system-container.credentials-manager .data-container .input-box.phone-keeper .input.phone input:valid ~ span {
   color: #eb5e28;
   transform: translateX(0px) translateY(-18px);
   font-size: 10px;
 }
-.system-manager-container .system-container .data-container .input-box.credentials .add-button {
+.system-manager-container .system-container.phone-keeper .data-container .input-box.credentials .add-button,
+.system-manager-container .system-container.phone-keeper .data-container .input-box.phone-keeper .add-button,
+.system-manager-container .system-container.credentials-manager .data-container .input-box.credentials .add-button,
+.system-manager-container .system-container.credentials-manager .data-container .input-box.phone-keeper .add-button {
   position: relative;
   left: 350px;
   bottom: 35px;
@@ -944,14 +903,21 @@ input:focus {
   border: 1px solid #eb5e28;
   color: #eb5e28;
 }
-.system-manager-container .system-container .data-container .input-box.credentials .add-button:hover, .system-manager-container .system-container .data-container .input-box.credentials .add-button:focus {
+.system-manager-container .system-container.phone-keeper .data-container .input-box.credentials .add-button:hover, .system-manager-container .system-container.phone-keeper .data-container .input-box.credentials .add-button:focus,
+.system-manager-container .system-container.phone-keeper .data-container .input-box.phone-keeper .add-button:hover,
+.system-manager-container .system-container.phone-keeper .data-container .input-box.phone-keeper .add-button:focus,
+.system-manager-container .system-container.credentials-manager .data-container .input-box.credentials .add-button:hover,
+.system-manager-container .system-container.credentials-manager .data-container .input-box.credentials .add-button:focus,
+.system-manager-container .system-container.credentials-manager .data-container .input-box.phone-keeper .add-button:hover,
+.system-manager-container .system-container.credentials-manager .data-container .input-box.phone-keeper .add-button:focus {
   outline: none;
   background-color: #eb5e28;
   color: #1d1c1c;
   font-weight: 600;
   box-shadow: 2px 2px 10px #eb5e28;
 }
-.system-manager-container .system-container .table-container {
+.system-manager-container .system-container.phone-keeper .table-container,
+.system-manager-container .system-container.credentials-manager .table-container {
   position: absolute;
   bottom: 10px;
   height: 275px;
@@ -961,7 +927,8 @@ input:focus {
   border-radius: 10px;
   box-shadow: inset -1px -1px 1px 1px #1d1c1c, inset -3px 3px 10px #1d1c1c;
 }
-.system-manager-container .system-container .action-bar {
+.system-manager-container .system-container.phone-keeper .action-bar,
+.system-manager-container .system-container.credentials-manager .action-bar {
   display: flex;
   justify-content: space-between;
   position: absolute;
@@ -971,25 +938,30 @@ input:focus {
   height: 75px;
   padding: 15px;
 }
-.system-manager-container .system-container .action-bar .action-button {
+.system-manager-container .system-container.phone-keeper .action-bar .action-button,
+.system-manager-container .system-container.credentials-manager .action-bar .action-button {
   display: flex;
   flex-direction: column;
   gap: 5px;
 }
-.system-manager-container .system-container .action-bar .upload-icon {
+.system-manager-container .system-container.phone-keeper .action-bar .upload-icon,
+.system-manager-container .system-container.credentials-manager .action-bar .upload-icon {
   margin-top: 15px;
 }
-.system-manager-container .system-container .action-bar .upload-icon .fa-upload {
+.system-manager-container .system-container.phone-keeper .action-bar .upload-icon .fa-upload,
+.system-manager-container .system-container.credentials-manager .action-bar .upload-icon .fa-upload {
   color: #eb5e28;
   font-size: 28px;
   cursor: pointer;
 }
-.system-manager-container .system-container .action-bar .upload-icon .fa-upload:hover {
+.system-manager-container .system-container.phone-keeper .action-bar .upload-icon .fa-upload:hover,
+.system-manager-container .system-container.credentials-manager .action-bar .upload-icon .fa-upload:hover {
   color: #ff7e4b;
   outline: none;
   transition: all 300ms ease-out;
 }
-.system-manager-container .system-container .action-bar .upload-icon .upload-message {
+.system-manager-container .system-container.phone-keeper .action-bar .upload-icon .upload-message,
+.system-manager-container .system-container.credentials-manager .action-bar .upload-icon .upload-message {
   animation: revealWidthSystemMessage 1s;
   display: none;
   justify-content: center;
@@ -1012,13 +984,18 @@ input:focus {
   animation: revealWidthSystemMessage 0.5s;
   border-radius: 50%;
 }
-.system-manager-container .system-container .action-bar .upload-icon .upload-message.hide {
+.system-manager-container .system-container.phone-keeper .action-bar .upload-icon .upload-message.hide,
+.system-manager-container .system-container.credentials-manager .action-bar .upload-icon .upload-message.hide {
   display: none;
 }
-.system-manager-container .system-container .action-bar .upload-icon .upload-message.show {
+.system-manager-container .system-container.phone-keeper .action-bar .upload-icon .upload-message.show,
+.system-manager-container .system-container.credentials-manager .action-bar .upload-icon .upload-message.show {
   display: flex;
 }
-.system-manager-container .system-container .action-bar .button.end-session, .system-manager-container .system-container .action-bar .generate-pdf-button {
+.system-manager-container .system-container.phone-keeper .action-bar .button.end-session,
+.system-manager-container .system-container.phone-keeper .action-bar .generate-pdf-button,
+.system-manager-container .system-container.credentials-manager .action-bar .button.end-session,
+.system-manager-container .system-container.credentials-manager .action-bar .generate-pdf-button {
   font-size: 8px;
   letter-spacing: 2px;
   padding: 6px 8px;
@@ -1027,10 +1004,34 @@ input:focus {
   background-color: transparent;
   color: #eb5e28;
 }
-.system-manager-container .system-container .action-bar .button.end-session:hover, .system-manager-container .system-container .action-bar .button.end-session:focus, .system-manager-container .system-container .action-bar .generate-pdf-button:hover, .system-manager-container .system-container .action-bar .generate-pdf-button:focus {
+.system-manager-container .system-container.phone-keeper .action-bar .button.end-session:hover, .system-manager-container .system-container.phone-keeper .action-bar .button.end-session:focus,
+.system-manager-container .system-container.phone-keeper .action-bar .generate-pdf-button:hover,
+.system-manager-container .system-container.phone-keeper .action-bar .generate-pdf-button:focus,
+.system-manager-container .system-container.credentials-manager .action-bar .button.end-session:hover,
+.system-manager-container .system-container.credentials-manager .action-bar .button.end-session:focus,
+.system-manager-container .system-container.credentials-manager .action-bar .generate-pdf-button:hover,
+.system-manager-container .system-container.credentials-manager .action-bar .generate-pdf-button:focus {
   outline: none;
   background-color: #eb5e28;
   color: #1d1c1c;
   font-weight: 600;
   box-shadow: 2px 2px 10px #eb5e28;
+}
+
+.title.active {
+  border-bottom: 3px solid #eb5e28;
+  border-radius: 5px;
+  transition: all 100ms ease-out;
+}
+
+.system-container.credentials-manager {
+  display: block;
+}
+
+.system-container.phone-keeper {
+  display: none;
+}
+
+.hidden {
+  display: none;
 }/*# sourceMappingURL=main.css.map */

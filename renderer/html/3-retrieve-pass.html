@@ -17,11 +17,13 @@
     <form id="form">
         <div class="input-box retrieve-password">
 
-            <div class="header">What is your mother's name?</div>
+            <!-- question -->
+            <div class="header retrieve-pass">What is your mother's name?</div>
 
-            <div class="input">
+            <!-- input box -->
+            <div class="input retrieve-pass">
                 <input type="password" id="password"  autocomplete="off" required="required">
-                <span>Password</span>
+                <span class="place-holder retrieve-pass">Password</span>
             </div>
 
             <!-- Retrieve password button -->
@@ -30,20 +32,7 @@
     </form>
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<!-- Retrieves password container -->
 <div class="retrieved-password-container">
     <div class="header">Here is your password:
         <span class="retrieved-password">Pass</span>
@@ -53,31 +42,13 @@
     <a class="button" id="go-to-login-button" href="./2-login.html">Go to Login <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
 </div>
 
+    <!--back section button-->
+    <a class="button back-button" href="./2-login.html">Back</a>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--back section button-->
-<a class="button back-button" href="./2-login.html">Back</a>
-
-<!--end section button-->
-<a class="button end-session-button" href="./1-home-page.html">End Session</a>
+    <!--end section button-->
+    <a class="button end-session-button" href="./1-home-page.html">End Session</a>
 
 <!-- login handler js -->
 <script src="../js/retrieve-password/retrieve-password.js" defer></script>
-
 </body>
 </html>

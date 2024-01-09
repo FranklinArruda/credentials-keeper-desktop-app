@@ -21,14 +21,16 @@
     
     <!-- title -->
     <div class="title-container">
+        
+        <!-- adding title and active for style (active) -->
         <a class="title credentials-title active">Credentials Keeper</a>  
-        <a class="title phone-title">Credentials Keeper</a> 
+        <a class="title phone-title">Phone Keepr</a> 
         <span class="bottom-line"></span>
     </div>
 
 
     <!-- credential manager -->
-    <div class="system-container credentials-manager">   
+    <div class="system-container credentials-manager" id="credentials-manager">   
         <!-- Data box container-->
         <div class="data-container">
             <form> 
@@ -59,24 +61,19 @@
             </form>
         </div>
 
-
-    
           <!-- table container  -->
-          <div class="table-container">
+          <div class="table-container credentials-manager">
                         
             <!-- search bar + search icon -->
-            <div class="search-bar"><i class="fa-solid fa-magnifying-glass"></i></div>
+            <div class="search-bar credentials-manager" ><i class="fa-solid fa-magnifying-glass"></i></div>
             
             <table>
-                      table head 
                 <tr>  
                     <th>Subject</th>
                     <th>Username</th>
                     <th>Password</th>
                     <th>Action</th>
                 </tr>
-
-                table data 
                 <tr>
                     <td>sub data</td>
                     <td>user data</td>
@@ -86,12 +83,11 @@
                 </tr>
             </table>
 
-
         <!-- end session + upload file + generate pdf container  -->
         <div class="action-bar">
             
-            <div class="upload-icon"><i class="fa-solid fa-upload"></i>
-            <p class="upload-message">Upload only PDF downloaded from the system for easily readability!</p>
+            <div class="upload-icon credentials"><i class="fa-solid fa-upload"></i>
+            <p class="upload-message credentials">Upload only PDF downloaded from the system for easily readability!</p>
             </div>
             
             <div class="action-button">
@@ -101,26 +97,86 @@
           </div>
 
         </div>
-
-
-
     </div> 
 
-    <!-- <a class="button test-only" href="./1-home-page.html">END SESSION </a> -->
-          <!-- end session + upload file + generate pdf container 
-         <div class="action-bar">
-            <div class="upload-icon"></div>
-            <button class="button end-session-button">End Session</button>
-            <button class="button generate-pdf-button">Generate PDF</button>
-          </div>    -->
-    </div>
 
+    <!-- ///////////////////////////////////////////////////////////////////// -->
+    <!-- PHONE KEEPER -->
 
+     <div class="system-container phone-keeper" id="phone-keeper">   
+        <!-- Data box container-->
+        <div class="data-container">
+            <form> 
+                <!-- input container -->
+                <div class="input-box phone-keeper">
 
+                    <!-- ----- name -->
+                    <div class="input name">
+                        <input type="text" id="phone"  autocomplete="off" required="required">
+                        <span>Name</span>
+                    </div>
+
+                     <!-- ----- phone number -->
+                     <div class="input phone">
+                        <input type="text" id="phone-number"  autocomplete="off" required="required">
+                        <span>Phone Number</span>
+                    </div>
+
+                    <!-- add button -->
+                    <button class="button add-button phone-keeper">Add</button>                       
+                </div>
+            </form>
+        </div>
+
+          <!-- table container  -->
+          <div class="table-container phone-keeper">
+                        
+            <!-- search bar + search icon -->
+            <div class="search-bar phone-keeper"><i class="fa-solid fa-magnifying-glass"></i></div>
+            
+            <table>
+                      
+                <tr>  
+                    <th>Subject</th>
+                    <th>Username</th>
+                    <th>Action</th>
+                </tr>
+
+                table data 
+                <tr>
+                    <td>Franklin</td>
+                    <td>0253252 252</td>
+                    <td>button 1</td>
+                    <td>button 2</td>
+                </tr>
+            </table>
+
+        <!-- end session + upload file + generate pdf container  -->
+        <div class="action-bar">
+            
+            <div class="upload-icon phone-keeper"><i class="fa-solid fa-upload"></i>
+            <p class="upload-message phone-keeper">Upload only PDF downloaded from the system for easily readability!</p>
+            </div>
+            
+            <div class="action-button">
+                <button class="button end-session">End Session</button>
+                <button class="button generate-pdf-button phone-keeper">Generate PDF</button>
+            </div>
+          </div>
+        </div>
+    </div> 
+</div>
 
 <!-- login handler js -->
 <script src="../js/system-manager/system-manager.js" defer></script>
 
 </body>
 </html>
+
+
+
+
+
+
+
 

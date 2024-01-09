@@ -1,4 +1,4 @@
-// Position form container in the center of the page
+// POSITION CONTAINER IN THE CENTER
 .form-container.login {
   position: absolute;
   top: 50%;
@@ -7,236 +7,170 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  animation: easeOut 0.5s;  //PAGE ANIMATION
-}
+  animation: easeOut 1s; //page animation on
 
-.input-box.login {
-  position: relative;
-  width: 250px;
-  padding: 25px;
-  background-color: $primaryColor;
-  border-radius: $borderRadiusForm;
-  box-shadow: inset -1px -1px 1px 1px $secondaryColor,
-  inset -5px 5px 20px $secondaryColor;
-  /* display: flex;
-    flex-direction: column;
-    align-items: center;*/
-
-  .place-holder.login {
-    position: absolute;
-    left: 35px;
-    padding-top: 15px;
-    text-transform: uppercase;
-    font-size: 12px;
-    font-family: sans-serif;
-    font-weight: 300;
-    color: $holdPlace;
-    pointer-events: none; // it prevents the element from capturing mouse events
-    transition: all 0.3s ease-out;
-  }
-
-  .header.login {
-    margin-bottom: 1rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    color: $fontColor;
-    letter-spacing: 1px;
-  }
-}
-  
-// FLOAT PLACE HOLDER (go up when click in the field with 'span'and 'valid')
-//
-//   .input input:valid ~ span,
-//   .input input:focus ~ span {
-//     color: $btnColor;
-//     transform: translateX(10px) translateY(-18px);
-//     font-size: 10px;
-//   }
-//            OR >
-
-// FLOAT PLACE HOLDER (go up when start typing only with 'span')
-.input-box.login input:valid ~ .place-holder.login{
-    color: $btnColor;
-    transform: translateX(0px) translateY(-18px);
-    font-size: 10px;
-   }
-  
-
-  input {
-    width: 100%;
-    padding: 10px;
-    font-size: 14px;
-    background-color: $primaryColor;
-  
-    
-    [type="password"] {
-      font-family: sans-serif;
-      font-size: 14px; // Adjust the font size for typing
-      border-bottom: 0.5px solid $holdPlace;
-      color: $fontColor;
-      letter-spacing: 1px;
-    }
-  
-      &:focus {
-        border-bottom: 1.5px solid $btnColor;
-        outline: none; // Remove the default outline on focus
-      }
-  }
-  
- 
-//  login button (enter the system)
-  .login-button-2 {
-    font-size: 10px;
-    letter-spacing: 2px;
-    width: 100%;
-    padding: 12px 15px;
-    margin-top: 1.5rem;
-    margin-bottom: 1rem;
-  
-    text-transform: uppercase;
-    font-weight: 600;
-    background-color: transparent;
-    border: 1px solid $btnColor;
-    color: $btnColor;
-  
-    &:hover,
-    &:focus {  // add focus using tab key
-      outline: none; // removes outline
-      background-color: $btnColor;
-      color: $secondaryColor;
-      font-weight: 600;
-      box-shadow: 2px 2px 10px $btnColor;
-    }
-  }
-
-  // forgot password button
-  .forgot-password{
-    // display: flex;
-    // justify-content: flex-end;
+  // input box
+  .input-box.login {
     position: relative;
-    left: 90px;
-    font-size: 7px;
-    letter-spacing: 2px;
-    width: 125px;
-    padding: 5px 8px;
-    text-transform: uppercase;
-    font-weight: 600;
-    background-color: transparent;
-    color: $btnColor;
-    border-radius: $borderRadiusButton;
-  
-    &:hover,
-    &:focus {  // add focus using tab key
-      outline: none; // removes outline
-      background-color: $btnColor;
-      color: $secondaryColor;
-      font-weight: 600;
-      box-shadow: 2px 2px 10px $btnColor;
-    }
-  }
+    height: 210px;
+    width: 250px;
+    padding: 25px;
+    background-color: $primaryColor;
+    border-radius: $borderRadiusForm;
+    box-shadow: inset -1px -1px 1px 1px $secondaryColor,
+      inset -5px 5px 20px $secondaryColor;
 
-  
-//   //back button
-  .back-button {
-    position: absolute;
-    bottom: 25px;
-    right: 50px;
-    font-size: 10px;
-    text-transform: uppercase;
-    font-weight: 600;
-    background-color: transparent;
-    color: $btnColor;
-    padding: 10px 20px;
-    letter-spacing: 2px;
-    &:hover,
-    &:focus {
-      outline: none;
-      background-color: $btnColor;
-      color: $secondaryColor;
-      font-weight: 600;
-      box-shadow: 2px 2px 10px $btnColor;
-    }
-  }
+    //alert message (hide and show in js)
+    .alert-message.show {
+      display: block;
+      position: absolute;
+      top: -20%;
+      left: 0%;
+      color: $alertColor;
+      width: 100%;
+      height: 30px;
+      border-radius: $borderRadiusButton;
+      box-shadow: 2px 1px 2px $alertColor;
+      font-family: sans-serif;
+      font-size: 12px;
+      transition: all 2s ease-out;
 
-
-
-
-
-
-
- // class that hides form with js
- .alert-message.show {
-    display: block;
-    position: absolute;
-    top: -20%;
-    left: 0%;
-    color: $alertColor;
-    width: 100%; 
-    height: 30px; 
-    border-radius: $borderRadiusButton;
-    box-shadow: 2px 1px 2px $alertColor; 
-    font-family: sans-serif;
-    font-size: 12px;
-    transition: all 2s ease-out;
-  
-    p{
-        width: 100%; 
+      p {
+        width: 100%;
         height: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
         text-align: center;
+      }
     }
-  }
-  
-   // alert message display slowly
-  .alert-message{
-    display: none; 
-  }
-   
 
+    // alert message display slowly
+    .alert-message {
+      display: none;
+    }
 
+    // header
+    .header.login {
+      margin-bottom: 1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: $fontColor;
+      letter-spacing: 1px;
+    }
 
+    // INPUT LOGIN CONTAINER
+    .input.login {
+      input {
+        width: 100%;
+        padding: 10px;
+        font-size: 14px;
+        background-color: $primaryColor;
+        border-bottom: 1px solid $holdPlace;
+        color: $fontColor;
 
+        &[type="text"] {
+          font-family: sans-serif;
+          font-size: 14px; // Adjust the font size for typing
+        }
+        &:focus {
+          border-bottom: 1.5px solid $btnColor;
+          outline: none; // Remove the default outline on focus
+        }
+      }
 
+      // FLOAT PLACE HOLDER (go up when start typing only with 'span')
+      input:valid ~ .place-holder {
+        color: $btnColor;
+        transform: translateX(0px) translateY(-18px);
+        font-size: 10px;
+      }
+    }
 
+    //Place holder made of SPAN element
+    .place-holder.login {
+      position: absolute;
+      left: 35px;
+      padding-top: 15px;
+      text-transform: uppercase;
+      font-size: 12px;
+      font-family: sans-serif;
+      font-weight: 300;
+      color: $holdPlace;
+      pointer-events: none; // it prevents the element from capturing mouse events
+      transition: all 0.3s ease-out;
+    }
 
+    // LOGIN BUTTON
+    .login-button-2 {
+      font-size: 10px;
+      letter-spacing: 2px;
+      width: 100%;
+      padding: 12px 15px;
+      margin-top: 1.5rem;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      font-weight: 600;
+      background-color: transparent;
+      border: 1px solid $btnColor;
+      color: $btnColor;
 
+      &:hover,
+      &:focus {
+        // add focus using tab key
+        outline: none; // removes outline
+        background-color: $btnColor;
+        color: $secondaryColor;
+        font-weight: 600;
+        box-shadow: 2px 2px 10px $btnColor;
+      }
+    }
 
+    // FORGOT PASS BUTTON
+    .forgot-password {
+      position: relative;
+      left: 90px;
+      font-size: 7px;
+      letter-spacing: 2px;
+      width: 125px;
+      padding: 5px 8px;
+      text-transform: uppercase;
+      font-weight: 600;
+      background-color: transparent;
+      color: $btnColor;
+      border-radius: $borderRadiusButton;
 
+      &:hover,
+      &:focus {
+        // add focus using tab key
+        outline: none; // removes outline
+        background-color: $btnColor;
+        color: $secondaryColor;
+        font-weight: 600;
+        box-shadow: 2px 2px 10px $btnColor;
+      }
+    }
+  } // input container ends here
+} // form container ends here
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-  .good.show{
-    position: absolute;
-    top: 10%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    display: block;
-    background-color: antiquewhite;
-    width: 50px;
-    height: 50px;
-    border-radius: 5px;
-    box-shadow: 5px 5px 2px white;
-    font-size: 10px;
-    font-family: sans-serif;
-    color: black;
+//back button
+.back-button {
+  position: absolute;
+  bottom: 25px;
+  right: 50px;
+  font-size: 10px;
+  text-transform: uppercase;
+  font-weight: 600;
+  background-color: transparent;
+  color: $btnColor;
+  padding: 10px 20px;
+  letter-spacing: 2px;
+  &:hover,
+  &:focus {
+    outline: none;
+    background-color: $btnColor;
+    color: $secondaryColor;
     font-weight: 600;
+    box-shadow: 2px 2px 10px $btnColor;
   }
-
-  .good{
-    display: none;
-  }
+}

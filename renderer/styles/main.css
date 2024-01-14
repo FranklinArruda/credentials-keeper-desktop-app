@@ -812,9 +812,8 @@ input:focus {
 .system-manager-container .system-container.phone-keeper .data-container,
 .system-manager-container .system-container.credentials-manager .data-container {
   position: relative;
-  top: 0px;
-  left: 20px;
-  margin-top: 20px;
+  top: 20px;
+  left: 30px;
 }
 .system-manager-container .system-container.phone-keeper .data-container .input-box.credentials,
 .system-manager-container .system-container.phone-keeper .data-container .input-box.phone-keeper,
@@ -927,6 +926,40 @@ input:focus {
   border-radius: 10px;
   box-shadow: inset -1px -1px 1px 1px #1d1c1c, inset -3px 3px 10px #1d1c1c;
 }
+.system-manager-container .system-container.phone-keeper .table-container .table-overflow-container,
+.system-manager-container .system-container.credentials-manager .table-container .table-overflow-container {
+  height: 200px;
+  overflow: auto;
+  width: 65%;
+  position: absolute;
+  top: 50px;
+  left: 10px;
+  padding: 10px;
+}
+.system-manager-container .system-container.phone-keeper .table-container .table,
+.system-manager-container .system-container.credentials-manager .table-container .table {
+  width: 100%;
+}
+.system-manager-container .system-container.phone-keeper .table-container .table th,
+.system-manager-container .system-container.credentials-manager .table-container .table th {
+  text-align: center;
+  color: #eb5e28;
+  padding: 10px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  font-size: 14px;
+}
+.system-manager-container .system-container.phone-keeper .table-container .table td,
+.system-manager-container .system-container.credentials-manager .table-container .table td {
+  padding: 8px;
+  text-align: center;
+  vertical-align: middle;
+  background-color: #424d53;
+  color: #c7c4c4;
+  border-radius: 5px;
+  font-size: 14px;
+  font-family: sans-serif;
+}
 .system-manager-container .system-container.phone-keeper .action-bar,
 .system-manager-container .system-container.credentials-manager .action-bar {
   display: flex;
@@ -1018,6 +1051,25 @@ input:focus {
   box-shadow: 2px 2px 10px #eb5e28;
 }
 
+.button.action {
+  margin-left: 25px;
+  border: 1px solid #eb5e28;
+  font-size: 8px;
+  letter-spacing: 2px;
+  padding: 6px 8px;
+  text-transform: uppercase;
+  font-weight: 600;
+  background-color: transparent;
+  color: #eb5e28;
+}
+.button.action:hover, .button.action:focus {
+  outline: none;
+  background-color: #eb5e28;
+  color: #1d1c1c;
+  font-weight: 600;
+  box-shadow: 2px 2px 10px #eb5e28;
+}
+
 .title.active {
   border-bottom: 3px solid #eb5e28;
   border-radius: 5px;
@@ -1034,4 +1086,28 @@ input:focus {
 
 .hidden {
   display: none;
+}
+
+/* Width */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #424d53;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #30383d;
+  border-radius: 10px;
+  height: 75px;
+  border: 2px solid #424d53;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #eb5e28;
 }/*# sourceMappingURL=main.css.map */

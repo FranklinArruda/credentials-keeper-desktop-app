@@ -9,9 +9,6 @@
   "author": "FRANKLIN",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^28.1.0"
-  },
-    "config": {
-    "defaultUsername": "guest"
+    "electron": "^28.1.3"
   }
 }

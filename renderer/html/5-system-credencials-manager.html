@@ -56,7 +56,8 @@
                     </div>
 
                     <!-- add button -->
-                    <button class="button add-button">Add</button>                       
+                    <button class="button add-button credentials">Add</button>
+                
                 </div>
             </form>
         </div>
@@ -67,21 +68,17 @@
             <!-- search bar + search icon -->
             <div class="search-bar credentials-manager" ><i class="fa-solid fa-magnifying-glass"></i></div>
             
-            <table>
+            <div class="table-overflow-container">
+                 <table class="table" id="outputTableCredentials"> 
                 <tr>  
                     <th>Subject</th>
                     <th>Username</th>
                     <th>Password</th>
                     <th>Action</th>
                 </tr>
-                <tr>
-                    <td>sub data</td>
-                    <td>user data</td>
-                    <td>pass data</td>
-                    <td>button 1</td>
-                    <td>button 2</td>
-                </tr>
             </table>
+            </div>
+           
 
         <!-- end session + upload file + generate pdf container  -->
         <div class="action-bar">
@@ -111,8 +108,8 @@
                 <div class="input-box phone-keeper">
 
                     <!-- ----- name -->
-                    <div class="input name">
-                        <input type="text" id="phone"  autocomplete="off" required="required">
+                    <div class="input phone">
+                        <input type="text" id="name"  autocomplete="off" required="required">
                         <span>Name</span>
                     </div>
 
@@ -123,7 +120,7 @@
                     </div>
 
                     <!-- add button -->
-                    <button class="button add-button phone-keeper">Add</button>                       
+                    <button class="button add-button phone">Add</button>                       
                 </div>
             </form>
         </div>
@@ -133,23 +130,16 @@
                         
             <!-- search bar + search icon -->
             <div class="search-bar phone-keeper"><i class="fa-solid fa-magnifying-glass"></i></div>
+            <div class="table-overflow-container">
+                <table class="table" id="outputTablePhone"> 
+               <tr>  
+                   <th>Name</th>
+                   <th>phone No.:</th>
+                   <th>Action</th>
+               </tr>
+           </table>
+           </div>
             
-            <table>
-                      
-                <tr>  
-                    <th>Subject</th>
-                    <th>Username</th>
-                    <th>Action</th>
-                </tr>
-
-                table data 
-                <tr>
-                    <td>Franklin</td>
-                    <td>0253252 252</td>
-                    <td>button 1</td>
-                    <td>button 2</td>
-                </tr>
-            </table>
 
         <!-- end session + upload file + generate pdf container  -->
         <div class="action-bar">

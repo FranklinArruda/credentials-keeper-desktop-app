@@ -1,0 +1,29 @@
+
+
+/* Width */
+::-webkit-scrollbar {
+    width: 12px;
+   
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background:$tableColor;
+    border-radius: $borderRadiusForm;
+
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background:$primaryColor;
+    border-radius: $borderRadiusForm;
+    height: 75px;
+    border: 2px solid $tableColor;
+    
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+   background: $btnColor;
+} 
+

@@ -13,6 +13,10 @@ const confirmPassError = document.getElementById("confirm-password-error");
 const hint = document.getElementById("hint-question");
 const hintError = document.getElementById("hint-error");
 
+
+
+
+
 /**
  * Display an error message for a form field.
  * Param The input element associated with the error.
@@ -29,6 +33,10 @@ function showError(inputElement, errorElement, errorMessage) {
 	errorElement.innerHTML = errorMessage;
 }
 
+
+
+
+
 /**
  * Display a success state for a form field.
  * Parameter inputElement - The input element associated with the success state.
@@ -43,6 +51,9 @@ function showSuccess(inputElement, errorElement) {
 	// Clear the error message in the designated error element for successful validation
 	errorElement.innerHTML = "";
 }
+
+
+
 
 // validate Full Name and hint for answer
 function validateName() {
@@ -61,6 +72,9 @@ function validateName() {
 		return true;
 	}
 }
+
+
+
 
 // Validate user Name
 function validateEmail() {
@@ -83,6 +97,8 @@ function validateEmail() {
 	return true;
 }
 
+
+
 // validate password
 function validatePassword() {
 	let pass1 = password.value.trim();
@@ -104,6 +120,8 @@ function validatePassword() {
 	}
 }
 
+
+
 // validate Hint Question
 function validateHint() {
 	let hintValue = hint.value.trim().toLowerCase();
@@ -122,6 +140,9 @@ function validateHint() {
 	}
 }
 
+
+
+
 // event listener for all the function on key up.
 // real time validation with css
 function eventListenersFormValidation() {
@@ -132,11 +153,15 @@ function eventListenersFormValidation() {
 }
 
 
+
+
 const popUp = document.querySelector(".popup-container");
 const formContainer = document.querySelector(".form-container");
 const alertMessage = document.querySelector(".alert-message");
 
-// show popup message
+/**
+ * it hides the form container, then it display pop up message
+ */
 function showPopup() {
 	// Add the 'hidden' class to initiate the fade-out transition
 	formContainer.classList.add('hidden');
@@ -145,6 +170,12 @@ function showPopup() {
 }
 
 
+
+/**
+ * alert message that display if user clicks the register/submt button if any of the inputs is empty
+ * uses class list .add with css to show / hide alert
+ * setTimeOut function that remove alert after 6 seconds
+ */
 function showAlertMessage() {
 	// Display the popup
 	alertMessage.classList.add('show');
@@ -153,9 +184,18 @@ function showAlertMessage() {
 	setTimeout(function () {
 	  alertMessage.classList.remove('show');
 	}, 6000); 
-  }
+}
 
 
+
+/**
+ * it validates all inputs agains empty values
+ * if inputs is empty returns false
+ * if inputs isn't empty returns true > send Data 
+ * if data is sent to main > showpopUp() function is called.
+ * 
+ * @returns true / false
+ */
 function isValid(event){
 	
 // Call your validation functions here
@@ -164,19 +204,43 @@ const isEmailValid = validateEmail();
 const isPasswordValid = validatePassword();
 const isHintValid = validateHint();
 
+
 // Check if all validations pass
 if (!(isNameValid && isEmailValid && isPasswordValid && isHintValid)) {
 	// alert("All field must be filled out and Validated.") 
 	showAlertMessage();
 	return false;
 } else {
-	showPopup();
-	// Refresh the page
-	// location.reload(true);
+
+			//IPC RENDERER (sending user registration data to Main)
+			// Check if window.ipcRenderer is defined
+			if (window.ipcRenderer) {
+				
+				// data object with all inputs
+				const data = { 
+					fullName: fullName.value,
+					userName: userName.value,
+					password: password.value,
+					hint: hint.value,
+				};
+				// Stringify the data before sending
+				window.ipcRenderer.send('user:registration', JSON.stringify(data));
+				
+				console.log(data); // print out object to check if it worked
+
+				// show popup once data is being sent
+				showPopup();
+			} 
+			else {
+				console.error('window.ipcRenderer is not defined.');
+				return false;
+			}
 	return true;
 }
 }
 
+
+// Exporting all function aloong with the isValid();
 export {
 	validateName,
 	validateEmail,

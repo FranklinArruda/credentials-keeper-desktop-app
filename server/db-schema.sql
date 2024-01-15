@@ -1,0 +1,34 @@
+
+CREATE TABLE IF NOT EXISTS User (
+    UserID INTEGER PRIMARY KEY AUTOINCREMENT,
+    FullName VARCHAR(255),
+    Username VARCHAR(50),
+    Password VARCHAR(100),  
+    HintForPassword VARCHAR(255)
+);
+/*
+CREATE TABLE IF NOT EXISTS Login (
+    LoginID INTEGER PRIMARY KEY AUTOINCREMENT,
+    UserID INT,
+    PasswordEntered VARCHAR(100),
+    FOREIGN KEY (UserID) REFERENCES User(UserID)
+);*/
+
+CREATE TABLE IF NOT EXISTS CredentialsManager (
+    CredentialID INTEGER PRIMARY KEY AUTOINCREMENT,
+    UserID INT,
+    Subject VARCHAR(50),
+    WebsiteName VARCHAR(255),
+    UsernameOrEmail VARCHAR(100),
+    Password VARCHAR(100),
+    FOREIGN KEY (UserID) REFERENCES User(UserID)
+);
+
+CREATE TABLE IF NOT EXISTS PhoneNumberManager (
+    PhoneNumberID INTEGER PRIMARY KEY AUTOINCREMENT,
+    UserID INT,
+    PersonName VARCHAR(100),
+    PhoneNumber VARCHAR(15),
+    FOREIGN KEY (UserID) REFERENCES User(UserID)
+);
+

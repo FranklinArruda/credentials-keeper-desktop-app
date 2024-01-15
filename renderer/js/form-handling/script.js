@@ -16,5 +16,5 @@ eventListenersFormValidation();
 	
  	// Prevent the default form submission
  	event.preventDefault();
- 	isValid(event);
+ 	isValid(event);	
 });

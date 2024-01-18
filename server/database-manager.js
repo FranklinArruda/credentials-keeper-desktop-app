@@ -10,7 +10,6 @@ const PHONE_NUMBER_MANAGER_TABLE = 'PhoneNumberManager';
 const schemaFilePath = './server/db-schema.sql'; // database schema file path
 const databaseName = './server/database.db' // database name
 
-
 /**
  * it handles the database connection inside this function so I can take more control over 
  * and call it in the main once the (main window is loaded).
@@ -33,8 +32,6 @@ function createDbConnection() {
   return dbConnection;
 };
 
-
-
 /**
  * it will be use to close the connection inside the functions that would actually query 
  * the logic for the database schema.
@@ -50,8 +47,6 @@ function closeDbConnection(dbConnection) {
     }
   });
 }
-
-
 
 
 // createTable function (unchanged)
@@ -73,8 +68,30 @@ function insertUser(dbConnection, fullName, userName, password, hint) {
   dbConnection.run(`INSERT INTO ${USER_TABLE} (FullName, Username, Password, HintForPassword) VALUES (?, ?, ?, ?)`, [fullName, userName, password,hint], function(err) {
     if (err) {
       return console.error(err.message);
-    }
+    } 
     console.log(`Row inserted with ID ${this.lastID}`);
+  });
+}
+
+
+
+//RETRIEVE data
+function retrievePassLogin(dbConnection, password) {
+  return new Promise((resolve, reject) => {
+    dbConnection.get(`SELECT Password FROM ${USER_TABLE} WHERE Password = ?`, [password], (err, row) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      // it handles the row if empty 
+      if (row && row.Password !== undefined) {
+        const pass = row.Password;
+        resolve(pass);
+      } else {
+        // Handle the case where no matching record is found
+        resolve(null); // You can choose an appropriate value when there's no match
+      }
+    });
   });
 }
 
@@ -83,6 +100,7 @@ function insertUser(dbConnection, fullName, userName, password, hint) {
 module.exports = {
   createDbConnection,
   insertUser,
-  closeDbConnection
+  closeDbConnection,
+  retrievePassLogin
   };
   

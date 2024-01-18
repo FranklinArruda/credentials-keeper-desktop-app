@@ -224,7 +224,7 @@ if (!(isNameValid && isEmailValid && isPasswordValid && isHintValid)) {
 					hint: hint.value,
 				};
 				// Stringify the data before sending
-				window.ipcRenderer.send('user:registration', JSON.stringify(data));
+				window.ipcRenderer.register('user:registration', JSON.stringify(data));
 				
 				console.log(data); // print out object to check if it worked
 

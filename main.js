@@ -1,9 +1,10 @@
 const { app, BrowserWindow, Menu, ipcMain } = require('electron');
 const path = require('path');
-const myServer = require('./server/system-manager.js'); // requiring the server side application (connection and functions etc)
+const myServer = require('./server/database-manager.js'); // requiring the server side application (connection and functions etc)
+
 
 let mainWindow;
-let connectDb; // variable that holds the connection of the function return type value.
+let connectDb = myServer.createDbConnection(); // variable that holds the connection of the function return type value.
 
 function createMainWindow() {
   mainWindow = new BrowserWindow({
@@ -28,31 +29,35 @@ function createMainWindow() {
 
   mainWindow.loadFile(path.join(__dirname, 'renderer/html/1-home-page.html')); // entry point html
   mainWindow.on("ready-to-show", () => {
-  mainWindow.show();
+  mainWindow.show();       
 
-
-    /**
-     * creating database connection when main window is loaded
-     * 
-     * Adding that check ensures that the database connection is only created if it doesn't exist, 
-     * preventing multiple connections and related issues
-     */
-        if (!connectDb) {
-          connectDb = myServer.createDbConnection();
-        }  
 });
-}
 
 
-// Getting the User data (Registration process) from formValidation
+// ----------------------- Receives REGISTRATION
 ipcMain.on('user:registration', (event, data) => {
   const { fullName, userName, password, hint } = JSON.parse(data);
-
   myServer.insertUser(connectDb,fullName, userName, password, hint);
 });
 
 
 
+// ----------------------- Receives LOGIN (REQUEST)
+ipcMain.on('login:request', async (event, userEnteredPassword) => {
+
+   // Log the userEnteredPassword for debugging
+   console.log('Received login request from renderer process with password:', userEnteredPassword);
+   
+   // Calls the retrievePass function + assings the request pass in the parameter as well as connection
+   const storedPassword = await myServer.retrievePassLogin(connectDb, userEnteredPassword);
+    
+   //Authentication logic (boolean flag) and it sends back to renderer (Login section js)
+    const isAuthenticated = userEnteredPassword === storedPassword;
+
+    //it sends the boolean flag to the renderer
+    mainWindow.webContents.send('login:response', isAuthenticated);
+});
+}
 
 
 

@@ -20,7 +20,7 @@ loginButton.addEventListener('click', (e) => {
 	// if pass is empty call alert message function
 	if (passwordInput === 0 ) {
 		 showAlertMessage();
-	 }else{
+	 } else{
 	
 		// since the pass is string, it gets value and convert so String
 		let passwordValue = String(passwordInput.value).trim();

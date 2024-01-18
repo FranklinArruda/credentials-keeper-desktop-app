@@ -49,7 +49,7 @@ ipcMain.on('login:request', async (event, userEnteredPassword) => {
    console.log('Received login request from renderer process with password:', userEnteredPassword);
    
    // Calls the retrievePass function + assings the request pass in the parameter as well as connection
-   const storedPassword = await myServer.retrievePassLogin(connectDb, userEnteredPassword);
+   const storedPassword = await myServer.retrieveLoginPass(connectDb, userEnteredPassword);
     
    //Authentication logic (boolean flag) and it sends back to renderer (Login section js)
     const isAuthenticated = userEnteredPassword === storedPassword;
@@ -57,7 +57,58 @@ ipcMain.on('login:request', async (event, userEnteredPassword) => {
     //it sends the boolean flag to the renderer
     mainWindow.webContents.send('login:response', isAuthenticated);
 });
+
+
+// ----------------------- Receives HINT (REQUEST)
+ipcMain.on('hint:request', async (event, userEnteredHint) => {
+
+  // Log the userEnteredPassword for debugging
+  console.log('Received hint request from renderer process with password:', userEnteredHint);
+  
+  // Calls the retrievePass function + assings the request pass in the parameter as well as connection
+  const storedHint = await myServer.retrieveHintPass(connectDb, userEnteredHint);
+   
+  //Authentication logic (boolean flag) and it sends back to renderer (Login section js)
+  // const isAuthenticated = userEnteredHint === storedHint;
+
+   //it sends the boolean flag to the renderer
+   mainWindow.webContents.send('hint:response', storedHint);
+});
+
+/*
+// working one finally
+async function hint(db, hint){
+  const hintPass = await myServer.retrieveHintPass(db,hint);
+  //console.log("hind retrieved correctly", hintPass);
 }
+
+let id="casa";
+hint(connectDb,id);*/
+
+
+// working one finally
+async function test(db, pass){
+  const breakdown = await myServer.retrieveLoginPass(db,pass);
+  console.log(breakdown);
+}
+let id="2908";
+test(connectDb,id);
+
+
+
+async function hint(db, hint){
+  const breakdown = await myServer.retrieveHintPass(db,hint);
+  console.log(breakdown);
+}
+let casahint= "casa";
+hint(connectDb,casahint);
+
+
+
+
+
+} //  'main' window ends here
+
 
 
 
@@ -76,7 +127,6 @@ app.whenReady().then(() => {
     }
   });
 });
-
 
 
 app.on('window-all-closed', () => {

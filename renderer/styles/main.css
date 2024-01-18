@@ -660,7 +660,7 @@ input:focus {
 }
 
 .retrieved-password-container {
-  width: 250px;
+  width: 500px;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -671,28 +671,30 @@ input:focus {
   animation: easeOut 1s;
 }
 .retrieved-password-container .header {
+  width: 350px;
   position: absolute;
   margin-bottom: 1rem;
   font-weight: 600;
   text-transform: uppercase;
   color: #c7c4c4;
   letter-spacing: 1px;
-  width: 250px;
   padding: 25px;
   background-color: #30383d;
   border-radius: 10px;
   box-shadow: inset -5px -5px 9px 9px #1d1c1c, inset -5px 5px 20px #1d1c1c;
   font-size: 10px;
+  text-align: center;
 }
 .retrieved-password-container .header .retrieved-password {
-  background-color: aquamarine;
-  color: black;
+  font-size: 10px;
+  color: rgb(217, 233, 2);
+  text-shadow: 2px 2px 5px rgb(26, 23, 23);
   margin-left: 5px;
 }
 .retrieved-password-container #go-to-login-button {
   position: relative;
   top: 60px;
-  width: inherit;
+  width: 350px;
   color: #eb5e28;
   border: 1px solid #eb5e28;
   padding: 10px;

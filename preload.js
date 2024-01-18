@@ -38,6 +38,27 @@ ipcRenderer.on('login:response', (event, userEnteredPassword) => {
 
 
 
+//----------------------SEND HINT REQUEST MESSAGE AND VALUE TO MAIN --------------------------------------------
+const hintRequest = { 
+  send: (channel, data) =>  ipcRenderer.send(channel, data),
+  receive: (channel, func) => { ipcRenderer.on(channel, (event, ...args) => func(...args));
+  }
+};
+// Expose loginRequest to the window object
+contextBridge.exposeInMainWorld('hintRequest', hintRequest);
+
+
+
+//----------------------LISTEN for the login response from MAIN to RENDERER(LOGIN)
+ipcRenderer.on('hint:response', (event, userEnteredHint) => {
+  console.log('Received hint in preload:', userEnteredHint);
+
+  // window object to access password 
+   window.userEnteredHint = userEnteredHint;
+
+    // Send the password back to the renderer process
+ipcRenderer.send('hint:password', userEnteredHint);
+});
 
 
 

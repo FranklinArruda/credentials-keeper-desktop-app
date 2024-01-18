@@ -75,8 +75,8 @@ function insertUser(dbConnection, fullName, userName, password, hint) {
 
 
 
-//RETRIEVE data
-function retrievePassLogin(dbConnection, password) {
+//Retrieve Login Pass
+function retrieveLoginPass(dbConnection, password) {
   return new Promise((resolve, reject) => {
     dbConnection.get(`SELECT Password FROM ${USER_TABLE} WHERE Password = ?`, [password], (err, row) => {
       if (err) {
@@ -85,7 +85,7 @@ function retrievePassLogin(dbConnection, password) {
       }
       // it handles the row if empty 
       if (row && row.Password !== undefined) {
-        const pass = row.Password;
+        const pass = row.Password;  // table collumn name(Password)
         resolve(pass);
       } else {
         // Handle the case where no matching record is found
@@ -96,11 +96,34 @@ function retrievePassLogin(dbConnection, password) {
 }
 
 
+//Retrieve Hint Pass
+function retrieveHintPass(dbConnection, hint) {
+  return new Promise((resolve, reject) => {
+    dbConnection.get(`SELECT Password FROM ${USER_TABLE} WHERE HintForPassword = ?`, [hint], (err, row) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      // it handles the row if empty 
+      if (row && row.Password !== undefined) {
+        const pass = row.Password;  // table collumn name(HintForPassword)
+        resolve(pass);
+      } else {
+        // Handle the case where no matching record is found
+        resolve(null); // You can choose an appropriate value when there's no match
+      }
+    });
+  });
+}
+
+
+
 // exporting functions and connection
 module.exports = {
   createDbConnection,
   insertUser,
   closeDbConnection,
-  retrievePassLogin
+  retrieveLoginPass,
+  retrieveHintPass
   };
   

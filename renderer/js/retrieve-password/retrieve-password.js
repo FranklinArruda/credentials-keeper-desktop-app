@@ -70,8 +70,48 @@ retrivePasswordButtoon.addEventListener("click", function(event) {
            console.log('Retrieved pass successful!', processedHint);
            retrievePasswrod();
 
+           // append the password retrieved in the HTML
            let retriedVALUE = document.querySelector('.retrieved-password');
            retriedVALUE.innerHTML = processedHint;
-         console.log(retriedVALUE);
+
+              // Show the element after a delay (e.g., 1 second)
+              // call TIMER WHEN button is clicked and pass retrieved
+              showElement();
       }
     });
+
+
+
+    // set timer for the password with a 10 seconds limit
+    var timer = document.getElementById("timeCountDown");
+    let element = document.querySelector('.retrieved-password');
+    var expiredPass = document.getElementById("expiredPass");
+    var countdown = 10;
+
+      function showElement() {
+          timer.style.display = "block";
+          updateCountdown();
+          var countdownInterval = setInterval(function () {
+              countdown--;
+              updateCountdown();
+              if (countdown <= 0) {
+                  clearInterval(countdownInterval);
+                  hideElement();
+              }
+          }, 1000);
+      }
+
+
+      function hideElement() {
+          timer.style.display = "none";
+          element.style.display = "none";
+          expiredPass.style.display = "block"
+      }
+
+
+      function updateCountdown() {
+          timer.innerHTML = "Time left: " + countdown + " seconds";
+      }
+
+   
+  

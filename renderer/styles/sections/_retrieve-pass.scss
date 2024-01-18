@@ -151,7 +151,9 @@
     text-align: center;
 
     .retrieved-password {
-      font-size: 10px;
+      letter-spacing: normal;
+      font-weight: 300;
+      font-size: 12px;
       color: rgb(217, 233, 2);
       text-shadow: 2px 2px 5px rgb(26, 23, 23);
       margin-left: 5px;
@@ -232,4 +234,23 @@
 
 .retrieved-password-container.show {
   display: flex;
+}
+
+
+// TIMER pass 
+#expiredPass{
+  margin-top: 5px;
+  display: none;
+  padding: 5px;
+  background-color:$fontColor;
+  color: $primaryColor;
+  border-radius: $borderRadiusForm;
+}
+
+#timeCountDown{
+  border-top: 1px solid $fontColor;
+  font-size: 10px;
+  color: $fontColor;
+  text-shadow: 2px 2px 5px rgb(26, 23, 23);
+  margin-top: 5px;
 }

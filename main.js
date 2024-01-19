@@ -45,14 +45,33 @@ ipcMain.on('login:request', async (event, userEnteredPassword) => {
    // Log the userEnteredPassword for debugging
    console.log('Received login request from renderer process with password:', userEnteredPassword);
    
-   // Calls the retrievePass function + assings the request pass in the parameter as well as connection
-   const storedPassword = await myServer.retrieveLoginPass(connectDb, userEnteredPassword);
-    
-   //Authentication logic (boolean flag) and it sends back to renderer (Login section js)
-    const isAuthenticated = userEnteredPassword === storedPassword;
+   // getting USER ID to send as cookie
+   //const getUserId = await myServer.getUserInfo(connectDb, userEnteredPassword);
 
+   // Calls the retrievePass function + assings the request pass in the parameter as well as connection
+   const retrievedUserId = await myServer.retrieveLoginPass(connectDb, userEnteredPassword);
+    console.log("this is the USER ID IDIDIDIDID;", retrievedUserId);
+
+
+   //Authentication logic (boolean flag) and it sends back to renderer (Login section js)
+   // const isAuthenticatedID = getUserId === retrievedUserId;
+/*
+        if (getUserId) {
+          // userInfo contains the entire row from the database
+          console.log(`User Info:`, getUserId);
+
+          // Extract UserID from userInfo
+        const userId = getUserId.UserID;;
+        console.log(`THIS IS THE User ID:`, userId);
+
+      
+
+        } else {
+          console.log('User not found');
+        }    */
+        
     //it sends the boolean flag to the renderer
-    mainWindow.webContents.send('login:response', isAuthenticated);
+    mainWindow.webContents.send('login:response', retrievedUserId);
 });
 
 // ----------------------- Receives HINT for (PASSWORD REQUEST)
@@ -97,7 +116,7 @@ retrieveCredentials(connectDb,currentID)
 
 
 
-
+/*
 // retrieve LOG INFO (User)
 async function getUserID(db, username){
 
@@ -117,7 +136,7 @@ async function getUserID(db, username){
   }
 }
 const userName = "ale_98@gmail.com";
-getUserID(connectDb,userName)
+getUserID(connectDb,userName)*/
 
 
 

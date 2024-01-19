@@ -80,8 +80,6 @@ retrivePasswordButtoon.addEventListener("click", function(event) {
       }
     });
 
-
-
     // set timer for the password with a 10 seconds limit
     let timer = document.getElementById("timeCountDown");
     let retrievedPass = document.querySelector('.retrieved-password');

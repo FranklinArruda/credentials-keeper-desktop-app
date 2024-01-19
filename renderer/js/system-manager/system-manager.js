@@ -113,14 +113,14 @@ function addCredentialsData(event) {
   clearInputsCredentials(); 
 } 
 
-
+/*
 const buttonAddCredentials = document.querySelector(".add-button.credentials");
 buttonAddCredentials.addEventListener("click", function(event) {
  
   // Prevent the default form submission
   event.preventDefault();
   addCredentialsData(event);
-});
+});*/
 
 
 // EDIT TABLE
@@ -269,13 +269,8 @@ function clearInputsPhone() {
 
 
 
-
-
-
-
-
-
-
-
+const userPass = sessionStorage.getItem('userPass');
+console.log("THISIS THE USE PASS IN THE RENDERER",userPass);
+		   
 
 

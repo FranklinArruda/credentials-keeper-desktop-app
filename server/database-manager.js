@@ -75,14 +75,14 @@ function insertUser(dbConnection, fullName, userName, password, hint) {
 //Retrieve Login Pass
 function retrieveLoginPass(dbConnection, password) {
   return new Promise((resolve, reject) => {
-    dbConnection.get(`SELECT Password FROM ${USER_TABLE} WHERE Password = ?`, [password], (err, row) => {
+    dbConnection.get(`SELECT UserID FROM ${USER_TABLE} WHERE Password = ?`, [password], (err, row) => {
       if (err) {
         reject(err);
         return;
       }
       // it handles the row if empty 
-      if (row && row.Password !== undefined) {
-        const pass = row.Password;  // table collumn name(Password)
+      if (row && row.UserID !== undefined) {
+        const pass = row.UserID;  // table collumn name(Password)
         resolve(pass);
       } else {
         // Handle the case where no matching record is found
@@ -151,15 +151,15 @@ function retrieveCredentialsManager(dbConnection, userId) {
 
 
 
-function getUserInfo(dbConnection, Username) {
+function getUserInfo(dbConnection, password) {
   return new Promise((resolve, reject) => {
-    dbConnection.get(`SELECT * FROM ${USER_TABLE} WHERE Username = ?`, [Username], (err, row) => {
+    dbConnection.get(`SELECT * FROM ${USER_TABLE} WHERE Password = ?`, [password], (err, row) => {
       if (err) {
         reject(err);
         return;
       }
 
-      if (row && row.Username !== undefined) {
+      if (row && row.Password !== undefined) {
         resolve(row); // Include the entire row, including UserID
       } else {
         resolve(null);

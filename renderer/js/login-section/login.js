@@ -34,6 +34,9 @@ loginButton.addEventListener('click', (e) => {
 window.loginRequest.receive('login:response', (processedPassword) => {
 	// console message for debbuging
 	console.log('Received processed password in renderer:', processedPassword);
+
+	// Store user ID in sessionStorage
+	sessionStorage.setItem('userPass', processedPassword);
     
 	// if login failed, display message/ if success go to system
 	if (!processedPassword ) {
@@ -42,9 +45,12 @@ window.loginRequest.receive('login:response', (processedPassword) => {
 
     } else {
          console.log('Login successful!');
-		  window.location.href = './5-system-credencials-manager.html'; // system section
+		 
+			// system.js (or script in system.html)
+			const userPass = sessionStorage.getItem('userPass');
+			console.log("THISIS THE USE PASS IN THE RENDERER",userPass);
+		    window.location.href = './5-system-credencials-manager.html'; // system section
     }
   });
   
-
 

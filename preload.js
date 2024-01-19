@@ -47,6 +47,17 @@ ipcRenderer.on('login', (event, userEnteredPassword) => {
   });
 
 
+
+  //----------------------SEND USER REGISTRATION DATA TO MAIN --------------------------------------------
+const getUserID = {
+  getID: (channel, data) => ipcRenderer.send(channel, data), // send
+  on: (channel, func) => ipcRenderer.on(channel, (event, ...args) => func(...args)) // receives
+};
+// Expose indexBridge and ipcRenderer in the main world
+contextBridge.exposeInMainWorld("userID", getUserID);
+
+
+
 /*
 //----------------------LISTEN for the login response from MAIN to RENDERER(LOGIN)
 ipcRenderer.on('login:response', (event, userId) => {

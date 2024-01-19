@@ -12,7 +12,7 @@ function showAlertMessage() {
 	}, 2000); 
   };
 
-  
+ 
 //event listener that triggers the LOGIN REQUEST when button is clicked
 loginButton.addEventListener('click', (e) => {
 	e.preventDefault();
@@ -29,8 +29,6 @@ loginButton.addEventListener('click', (e) => {
 		window.loginRequest.send('login:request', passwordValue);
 	 }
   });
-
-
 
   // Listen for the LOGIN REQUEST from the preload script
 window.loginRequest.receive('login:response', (processedPassword) => {

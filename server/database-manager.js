@@ -62,7 +62,6 @@ function createTable(schemaFilePath, dbConnection) {
   }
 
 
-
 // INSERT data into 'USER' table
 function insertUser(dbConnection, fullName, userName, password, hint) {
   dbConnection.run(`INSERT INTO ${USER_TABLE} (FullName, Username, Password, HintForPassword) VALUES (?, ?, ?, ?)`, [fullName, userName, password,hint], function(err) {
@@ -72,8 +71,6 @@ function insertUser(dbConnection, fullName, userName, password, hint) {
     console.log(`Row inserted with ID ${this.lastID}`);
   });
 }
-
-
 
 //Retrieve Login Pass
 function retrieveLoginPass(dbConnection, password) {
@@ -117,6 +114,61 @@ function retrieveHintPass(dbConnection, hint) {
 }
 
 
+// INSERT data into 'CRDENTAISL SYSTEM' table
+function insertCredentialsSystem(dbConnection, userId, subject, userName, password) {
+  dbConnection.run(`INSERT INTO ${CREDENTIALS_MANAGER_TABLE} (UserId, Subject, Username, Password) VALUES (?, ?, ?, ?)`, [userId, subject, userName, password], function(err) {
+    if (err) {
+      return console.error(err.message);
+    } 
+    console.log(`Row inserted with ID ${this.lastID}`);
+  });
+}
+
+
+// RETRIEVE CREDENTIALS SYSTEM
+function retrieveCredentialsManager(dbConnection, userId) {
+  return new Promise((resolve, reject) => {
+    dbConnection.all(`SELECT * FROM ${CREDENTIALS_MANAGER_TABLE} WHERE UserID = ?`, [userId], (err, rows) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      // Handle the case where no matching record is found
+      if (rows && rows.length > 0) {
+        const credentialsData = rows.map(row => ({
+          subject: row.Subject,
+          userName: row.Username,
+          password: row.Password
+        }));
+        resolve(credentialsData);
+      } else {
+        resolve(null);
+      }
+    });
+  });
+}
+
+
+
+
+function getUserInfo(dbConnection, Username) {
+  return new Promise((resolve, reject) => {
+    dbConnection.get(`SELECT * FROM ${USER_TABLE} WHERE Username = ?`, [Username], (err, row) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+
+      if (row && row.Username !== undefined) {
+        resolve(row); // Include the entire row, including UserID
+      } else {
+        resolve(null);
+      }
+    });
+  });
+}
+
+
 
 // exporting functions and connection
 module.exports = {
@@ -124,6 +176,9 @@ module.exports = {
   insertUser,
   closeDbConnection,
   retrieveLoginPass,
-  retrieveHintPass
+  retrieveHintPass,
+  insertCredentialsSystem,
+  retrieveCredentialsManager,
+  getUserInfo
   };
   

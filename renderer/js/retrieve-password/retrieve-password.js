@@ -50,13 +50,13 @@ retrivePasswordButtoon.addEventListener("click", function(event) {
 		let hintValue = String(hintInput.value).trim();
    
 		// Send HINT REQUEST to the (main) process with the entered password
-	  window.loginRequest.send('hint:request', hintValue);
-    
+	  window.passwordRequest.send('password:request', hintValue); //OK
 });
 
 
+
   // Listen for the HINT REQUEST from the preload script
-  window.loginRequest.receive('hint:response', (processedHint) => {
+  window.passwordRequest.receive('password:response', (processedHint) => {
     // console message for debbuging
     console.log('Received processed hint in renderer:', processedHint);
       
@@ -83,10 +83,11 @@ retrivePasswordButtoon.addEventListener("click", function(event) {
 
 
     // set timer for the password with a 10 seconds limit
-    var timer = document.getElementById("timeCountDown");
-    let element = document.querySelector('.retrieved-password');
-    var expiredPass = document.getElementById("expiredPass");
-    var countdown = 10;
+    let timer = document.getElementById("timeCountDown");
+    let retrievedPass = document.querySelector('.retrieved-password');
+    let header = document.querySelector(".header-message");
+    let expiredPass = document.getElementById("expiredPass");
+    let countdown = 10;
 
       function showElement() {
           timer.style.display = "block";
@@ -104,7 +105,8 @@ retrivePasswordButtoon.addEventListener("click", function(event) {
 
       function hideElement() {
           timer.style.display = "none";
-          element.style.display = "none";
+          retrievedPass.style.display = "none";
+          header.style.display = "none"; 
           expiredPass.style.display = "block"
       }
 

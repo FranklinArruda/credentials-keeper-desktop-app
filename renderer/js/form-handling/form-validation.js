@@ -214,7 +214,7 @@ if (!(isNameValid && isEmailValid && isPasswordValid && isHintValid)) {
 
 			//IPC RENDERER (sending user registration data to Main)
 			// Check if window.ipcRenderer is defined
-			if (window.ipcRenderer) {
+			if (window.userRegistration) {
 				
 				// data object with all inputs
 				const data = { 
@@ -224,7 +224,7 @@ if (!(isNameValid && isEmailValid && isPasswordValid && isHintValid)) {
 					hint: hint.value,
 				};
 				// Stringify the data before sending
-				window.ipcRenderer.register('user:registration', JSON.stringify(data));
+				window.userRegistration.register('user:registration', JSON.stringify(data));
 				
 				console.log(data); // print out object to check if it worked
 

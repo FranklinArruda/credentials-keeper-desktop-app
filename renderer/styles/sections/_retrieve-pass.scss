@@ -157,6 +157,8 @@
       color: rgb(217, 233, 2);
       text-shadow: 2px 2px 5px rgb(26, 23, 23);
       margin-left: 5px;
+      font-family: sans-serif;
+      text-transform: none;
     }
   }
 
@@ -249,6 +251,7 @@
 
 #timeCountDown{
   border-top: 1px solid $fontColor;
+  padding-top: 5px;
   font-size: 10px;
   color: $fontColor;
   text-shadow: 2px 2px 5px rgb(26, 23, 23);

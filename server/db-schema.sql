@@ -14,15 +14,17 @@ CREATE TABLE IF NOT EXISTS Login (
     FOREIGN KEY (UserID) REFERENCES User(UserID)
 );*/
 
+
 CREATE TABLE IF NOT EXISTS CredentialsManager (
     CredentialID INTEGER PRIMARY KEY AUTOINCREMENT,
     UserID INT,
-    Subject VARCHAR(50),
-    WebsiteName VARCHAR(255),
-    UsernameOrEmail VARCHAR(100),
+    Subject VARCHAR(255),
+    Username VARCHAR(100),
     Password VARCHAR(100),
     FOREIGN KEY (UserID) REFERENCES User(UserID)
 );
+
+
 
 CREATE TABLE IF NOT EXISTS PhoneNumberManager (
     PhoneNumberID INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -32,3 +34,7 @@ CREATE TABLE IF NOT EXISTS PhoneNumberManager (
     FOREIGN KEY (UserID) REFERENCES User(UserID)
 );
 
+
+ -- DROP TABLE IF EXISTS CredentialsManager;
+ -- DROP TABLE IF EXISTS User;
+ -- DROP TABLE IF EXISTS PhoneNumberManager;

@@ -9,11 +9,11 @@ const rendererToMain = {
   on: (channel, func) => ipcRenderer.on(channel, (event, ...args) => func(...args)) // receives
 };
 // Expose indexBridge and ipcRenderer in the main world
-contextBridge.exposeInMainWorld("ipcRenderer", rendererToMain);
+contextBridge.exposeInMainWorld("userRegistration", rendererToMain);
 
 
 
-//----------------------SEND LOGIN REQUEST MESSAGE AND PASS TO MAIN --------------------------------------------
+//----------------------SEND LOGIN REQUEST MESSAGE TO MAIN --------------------------------------------
 const loginRequest = { 
     send: (channel, data) =>  ipcRenderer.send(channel, data),
     receive: (channel, func) => { ipcRenderer.on(channel, (event, ...args) => func(...args));
@@ -24,41 +24,38 @@ contextBridge.exposeInMainWorld('loginRequest', loginRequest);
 
 
 
+//----------------------SEND PASSWORD REQUEST TO MAIN --------------------------------------------
+const passwordRequest = { 
+  send: (channel, data) =>  ipcRenderer.send(channel, data),
+  receive: (channel, func) => { ipcRenderer.on(channel, (event, ...args) => func(...args));
+  }
+};
+// Expose loginRequest to the window object
+contextBridge.exposeInMainWorld('passwordRequest', passwordRequest);
+
+
+
 //----------------------LISTEN for the login response from MAIN to RENDERER(LOGIN)
-ipcRenderer.on('login:response', (event, userEnteredPassword) => {
+ipcRenderer.on('login', (event, userEnteredPassword) => {
     console.log('Received password in preload:', userEnteredPassword);
 
     // window object to access password 
      window.userEnteredPassword = userEnteredPassword;
 
       // Send the password back to the renderer process
-  ipcRenderer.send('login:password', userEnteredPassword);
+  ipcRenderer.send('login', userEnteredPassword);
   });
 
 
-
-
-//----------------------SEND HINT REQUEST MESSAGE AND VALUE TO MAIN --------------------------------------------
-const hintRequest = { 
-  send: (channel, data) =>  ipcRenderer.send(channel, data),
-  receive: (channel, func) => { ipcRenderer.on(channel, (event, ...args) => func(...args));
-  }
-};
-// Expose loginRequest to the window object
-contextBridge.exposeInMainWorld('hintRequest', hintRequest);
-
-
-
+/*
 //----------------------LISTEN for the login response from MAIN to RENDERER(LOGIN)
-ipcRenderer.on('hint:response', (event, userEnteredHint) => {
-  console.log('Received hint in preload:', userEnteredHint);
+ipcRenderer.on('login:response', (event, userId) => {
+    console.log('Received id the in preload:', userId);
 
-  // window object to access password 
-   window.userEnteredHint = userEnteredHint;
+    // window object to access password 
+     window.userId = userId;
 
-    // Send the password back to the renderer process
-ipcRenderer.send('hint:password', userEnteredHint);
-});
-
-
-
+      // Send the password back to the renderer process
+  ipcRenderer.send('user:id', userId);
+  });
+*/

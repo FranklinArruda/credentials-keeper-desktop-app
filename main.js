@@ -33,16 +33,13 @@ function createMainWindow() {
 
 });
 
-
 // ----------------------- Receives REGISTRATION
 ipcMain.on('user:registration', (event, data) => {
   const { fullName, userName, password, hint } = JSON.parse(data);
   myServer.insertUser(connectDb,fullName, userName, password, hint);
 });
 
-
-
-// ----------------------- Receives LOGIN (REQUEST)
+// ----------------------- Receives (LOGIN REQUEST)
 ipcMain.on('login:request', async (event, userEnteredPassword) => {
 
    // Log the userEnteredPassword for debugging
@@ -58,56 +55,78 @@ ipcMain.on('login:request', async (event, userEnteredPassword) => {
     mainWindow.webContents.send('login:response', isAuthenticated);
 });
 
-
-// ----------------------- Receives HINT (REQUEST)
-ipcMain.on('hint:request', async (event, userEnteredHint) => {
+// ----------------------- Receives HINT for (PASSWORD REQUEST)
+ipcMain.on('password:request', async (event, userEnteredHint) => { 
 
   // Log the userEnteredPassword for debugging
   console.log('Received hint request from renderer process with password:', userEnteredHint);
   
   // Calls the retrievePass function + assings the request pass in the parameter as well as connection
   const storedHint = await myServer.retrieveHintPass(connectDb, userEnteredHint);
-   
-  //Authentication logic (boolean flag) and it sends back to renderer (Login section js)
-  // const isAuthenticated = userEnteredHint === storedHint;
+  console.log('Sending it back to preload from the main process with password:', storedHint);
 
    //it sends the boolean flag to the renderer
-   mainWindow.webContents.send('hint:response', storedHint);
+   mainWindow.webContents.send('password:response', storedHint);
 });
 
-/*
-// working one finally
-async function hint(db, hint){
-  const hintPass = await myServer.retrieveHintPass(db,hint);
-  //console.log("hind retrieved correctly", hintPass);
+
+
+
+
+
+// insert test (credentials system)
+async function InsertCredentials(db,id,subject,usernama,password){
+  const insertCredentialsData = await myServer.insertCredentialsSystem(db,id,subject,usernama,password);
+  console.log(insertCredentialsData)
 }
+const subject = "new_web";
+const username = "user_name.com";
+const password = "Pass.pass03220";
+const id = 3;
+InsertCredentials(connectDb,id,subject,username,password)
 
-let id="casa";
-hint(connectDb,id);*/
 
 
-// working one finally
-async function test(db, pass){
-  const breakdown = await myServer.retrieveLoginPass(db,pass);
-  console.log(breakdown);
+// retrieve test (credentials system)
+async function retrieveCredentials(db,id){
+  const retrieveCredentialsData = await myServer.retrieveCredentialsManager(db,id);
+  console.log(retrieveCredentialsData)
 }
-let id="2908";
-test(connectDb,id);
+const currentID = 3;
+retrieveCredentials(connectDb,currentID)
 
 
 
-async function hint(db, hint){
-  const breakdown = await myServer.retrieveHintPass(db,hint);
-  console.log(breakdown);
+
+// retrieve LOG INFO (User)
+async function getUserID(db, username){
+
+  const getUserId = await myServer.getUserInfo(db,username);
+
+  if (getUserId) {
+    // userInfo contains the entire row from the database
+    console.log(`User Info:`, getUserId);
+
+    // Extract UserID from userInfo
+   
+   const userId = getUserId.UserID;;
+   console.log(`User ID:`, userId);
+
+  } else {
+    console.log('User not found');
+  }
 }
-let casahint= "casa";
-hint(connectDb,casahint);
+const userName = "ale_98@gmail.com";
+getUserID(connectDb,userName)
 
 
 
 
+} //MAIN window ends here
 
-} //  'main' window ends here
+
+
+
 
 
 

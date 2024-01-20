@@ -32,6 +32,7 @@ function createDbConnection() {
   return dbConnection;
 };
 
+
 /**
  * it will be use to close the connection inside the functions that would actually query 
  * the logic for the database schema.
@@ -62,6 +63,7 @@ function createTable(schemaFilePath, dbConnection) {
   }
 
 
+
 // INSERT data into 'USER' table
 function insertUser(dbConnection, fullName, userName, password, hint) {
   dbConnection.run(`INSERT INTO ${USER_TABLE} (FullName, Username, Password, HintForPassword) VALUES (?, ?, ?, ?)`, [fullName, userName, password,hint], function(err) {
@@ -72,8 +74,9 @@ function insertUser(dbConnection, fullName, userName, password, hint) {
   });
 }
 
-//Retrieve Login Pass
-function retrieveLoginPass(dbConnection, password) {
+
+//Retrieve User ID 
+function retrieveUserID(dbConnection, password) {
   return new Promise((resolve, reject) => {
     dbConnection.get(`SELECT UserID FROM ${USER_TABLE} WHERE Password = ?`, [password], (err, row) => {
       if (err) {
@@ -91,7 +94,6 @@ function retrieveLoginPass(dbConnection, password) {
     });
   });
 }
-
 
 //Retrieve Hint Pass
 function retrieveHintPass(dbConnection, hint) {
@@ -140,6 +142,7 @@ function retrieveCredentialsManager(dbConnection, userId) {
           userName: row.Username,
           password: row.Password
         }));
+        
         resolve(credentialsData);
       } else {
         resolve(null);
@@ -151,23 +154,6 @@ function retrieveCredentialsManager(dbConnection, userId) {
 
 
 
-function getUserInfo(dbConnection, password) {
-  return new Promise((resolve, reject) => {
-    dbConnection.get(`SELECT * FROM ${USER_TABLE} WHERE Password = ?`, [password], (err, row) => {
-      if (err) {
-        reject(err);
-        return;
-      }
-
-      if (row && row.Password !== undefined) {
-        resolve(row); // Include the entire row, including UserID
-      } else {
-        resolve(null);
-      }
-    });
-  });
-}
-
 
 
 // exporting functions and connection
@@ -175,10 +161,9 @@ module.exports = {
   createDbConnection,
   insertUser,
   closeDbConnection,
-  retrieveLoginPass,
+  retrieveUserID,
   retrieveHintPass,
   insertCredentialsSystem,
-  retrieveCredentialsManager,
-  getUserInfo
+  retrieveCredentialsManager
   };
   

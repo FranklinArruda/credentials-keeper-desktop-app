@@ -9,11 +9,11 @@ let connectDb = myServer.createDbConnection(); // variable that holds the connec
 function createMainWindow() {
   mainWindow = new BrowserWindow({
     title: "Credencials Keeper",
-    width: 1024,
-    height: 600,
+    width: 1400,
+    height: 615,
     icon: path.join(__dirname, 'renderer/assets/icon/keys-holder.png'), // Set the path to your icon file
     //frame: false, // hide defaut title bar
-    resizable: false, // Prevent window resizing
+   // resizable: false, // Prevent window resizing
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: true,
@@ -48,8 +48,8 @@ ipcMain.on('login:request', async (event, userEnteredPassword) => {
    // getting USER ID to send as cookie
    //const getUserId = await myServer.getUserInfo(connectDb, userEnteredPassword);
 
-   // Calls the retrievePass function + assings the request pass in the parameter as well as connection
-   const retrievedUserId = await myServer.retrieveLoginPass(connectDb, userEnteredPassword);
+   // Calls the retrieveID function + assings the request pass in the parameter as well as connection
+   const retrievedUserId = await myServer.retrieveUserID(connectDb, userEnteredPassword);
     console.log("this is the USER ID IDIDIDIDID;", retrievedUserId);
 
 
@@ -74,6 +74,9 @@ ipcMain.on('login:request', async (event, userEnteredPassword) => {
     mainWindow.webContents.send('login:response', retrievedUserId);
 });
 
+
+
+
 // ----------------------- Receives HINT for (PASSWORD REQUEST)
 ipcMain.on('password:request', async (event, userEnteredHint) => { 
 
@@ -92,6 +95,65 @@ ipcMain.on('password:request', async (event, userEnteredHint) => {
 
 
 
+// ----------------------- Receives CREDENTIALS DATA (from renderer system manager)
+ipcMain.on('send:credentialData', async (event, data) => {
+
+  // extract data sent from renderer
+  const { userID, subject, userName, password} = JSON.parse(data);
+  console.log("RECEIVED in the MAIN :", subject, userName,password, userID);  // logging out data to test 
+  
+  // insert into DATABASE 
+  myServer.insertCredentialsSystem(connectDb,userID,subject,userName,password);
+
+  // retrieve from DATABASE and send back to the renderer to have data persistency in there when app is opened again
+  const credentialsDataRetrieved = await myServer.retrieveCredentialsManager(connectDb, userID);
+  console.log("RETRIEVED DATA FROM CREDENTIALS SYSTEM IN THE MAIN:", credentialsDataRetrieved)
+
+  // it sends to the renderer (CREDENTIALS SYSTEM) to append to HTML ELEMENTS as 
+  // JSON data with stringfy so I can extarct the received data in the and populate all however I want
+  mainWindow.webContents.send('update:credentialData', JSON.stringify(credentialsDataRetrieved));
+  console.log("Sent data to renderer:", JSON.stringify(credentialsDataRetrieved));
+});
+
+
+
+
+// ----------------------- TESTING WHEN PAGE IS LOADED
+ipcMain.on('userID', async (event, userID) => {
+
+  console.log("user ID RECEIVED IN THE MAIN:",userID);
+  
+  // retrieve from DATABASE and send back to the renderer to have data persistency in there when app is opened again
+  const credentialsDataRetrieved = await myServer.retrieveCredentialsManager(connectDb, userID);
+  console.log("RETRIEVED DATA FROM CREDENTIALS SYSTEM IN THE MAIN:", credentialsDataRetrieved);
+
+  // it sends to the renderer (CREDENTIALS SYSTEM) to append to HTML ELEMENTS as 
+  // JSON data with stringfy so I can extarct the received data in the and populate all however I want
+  mainWindow.webContents.send('update:credentialData', JSON.stringify(credentialsDataRetrieved));
+  console.log("Sent data to renderer:", JSON.stringify(credentialsDataRetrieved));
+
+});
+
+
+
+// Handle the credentials:request event
+ipcMain.on('credentials:request', async (event) => {
+  // Simulate some data retrieval logic (replace this with your actual logic)
+  const credentialsData = [
+    { subject: 'Example 1', userName: 'user1', password: 'password1' },
+    { subject: 'Example 2', userName: 'user2', password: 'password2' },
+    // Add more data as needed
+  ];
+
+  
+  // retrieve from DATABASE and send back to the renderer to have data persistency in there when app is opened again
+  const credentialsDataRetrieved = await myServer.retrieveCredentialsManager(connectDb, userID);
+  console.log("RETRIEVED DATA FROM CREDENTIALS SYSTEM IN THE MAIN:", credentialsDataRetrieved);
+
+  // Send the retrieved data back to the renderer process
+  event.reply('credentials:response', credentialsData);
+});
+/*
 
 // insert test (credentials system)
 async function InsertCredentials(db,id,subject,usernama,password){
@@ -103,9 +165,9 @@ const username = "user_name.com";
 const password = "Pass.pass03220";
 const id = 3;
 InsertCredentials(connectDb,id,subject,username,password)
+*/
 
-
-
+/*
 // retrieve test (credentials system)
 async function retrieveCredentials(db,id){
   const retrieveCredentialsData = await myServer.retrieveCredentialsManager(db,id);
@@ -113,32 +175,7 @@ async function retrieveCredentials(db,id){
 }
 const currentID = 3;
 retrieveCredentials(connectDb,currentID)
-
-
-
-/*
-// retrieve LOG INFO (User)
-async function getUserID(db, username){
-
-  const getUserId = await myServer.getUserInfo(db,username);
-
-  if (getUserId) {
-    // userInfo contains the entire row from the database
-    console.log(`User Info:`, getUserId);
-
-    // Extract UserID from userInfo
-   
-   const userId = getUserId.UserID;;
-   console.log(`User ID:`, userId);
-
-  } else {
-    console.log('User not found');
-  }
-}
-const userName = "ale_98@gmail.com";
-getUserID(connectDb,userName)*/
-
-
+*/
 
 
 } //MAIN window ends here

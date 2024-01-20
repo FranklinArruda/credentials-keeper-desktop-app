@@ -1,87 +1,95 @@
-// Hover effect on upload icons
+
+// It get elements (icon and message on hover)
 const uploadIcons = document.querySelectorAll('.upload-icon');
 const uploadMessages = document.querySelectorAll('.upload-message');
 
+// it show message on 'hover'
 function show(element) {
   element.classList.add('show');
   element.classList.remove('hide');
 }
 
+// it hides message when 'hover' is out
 function hide(element) {
   element.classList.remove('show');
   element.classList.add('hide');
 }
 
-// Add hover effect for upload icons
-uploadIcons.forEach((uploadIcon, index) => {
+
+// event listener with for each loop that TRIGERS both ICON's (Credentials and Phone System)
+// loop through class of the icon for both system
+uploadIcons.forEach((uploadIcon, index) => { 
+
+  //when mouse (hover over)
   uploadIcon.addEventListener('mouseover', event => {
-    show(uploadMessages[index]);
+    show(uploadMessages[index]); // it adds message
   });
 
+  // when mouse (hover is out)
   uploadIcon.addEventListener('mouseout', event => {
-    hide(uploadMessages[index]);
+  hide(uploadMessages[index]); // it hides message
   });
 });
 
-// Click event listener for expandable elements
-const expandableElements = document.querySelectorAll('.expandable');
 
-function expandableEventListener(event, expandableElement) {
-  // Your logic for handling the click event on the expandable element
-  // For example, toggle a class or perform some other action
-  expandableElement.classList.toggle('expanded');
+//------------------Accessible tabs for (CREDENTIALS & PHONE SYSTEMS)
+
+  // It get title of the systems
+  const credentialsTitle = document.querySelector('.credentials-title');
+  const phoneTitle = document.querySelector('.phone-title');
+
+  // It get system Elements
+  const credentialsSystemMenu = document.querySelector('.credentials-manager');
+  const phoneSystemMenu = document.querySelector('.phone-keeper');
+  
+  // event listner to when credentials is clicked === shows system credentials
+  credentialsTitle.addEventListener('click', function() {
+      showSection(credentialsSystemMenu);
+  });
+  
+    // event listner to when phone is clicked === shows system phone
+    phoneTitle.addEventListener('click', function() {
+      showSection(phoneSystemMenu);
+  });
+  
+
+/**
+ * Add credentials systems tobe true always
+ * If phone system is clicked hides credentials systems 
+ * if credentials system is clicked hides the phone system
+ * @param {it holds both phone and credentials system} section 
+ */
+function showSection(section) {
+
+  // hides both systems
+  credentialsSystemMenu.style.display = 'none';
+  phoneSystemMenu.style.display = 'none';
+
+  // remove both actives
+  credentialsTitle.classList.remove('active');
+  phoneTitle.classList.remove('active');
+
+  // display block when either of the conditions is true
+  section.style.display = 'block';
+
+  // adds credentials section to be displayed always / add active
+    if (section === credentialsSystemMenu) {
+      credentialsTitle.classList.add('active');
+    } else {
+      phoneTitle.classList.add('active');
+    }
 }
 
-// Add click event listener to each expandable element
-expandableElements.forEach(expandableElement => {
-  expandableElement.addEventListener('click', event => {
-    expandableEventListener(event, expandableElement);
+// Select all elements with the class 'end-session'
+const endSessions = document.querySelectorAll('.end-session');
+
+// Add click event listener to each end session element
+endSessions.forEach(counter => {
+  counter.addEventListener('click', () => {
+    window.location.href = './1-home-page.html';
   });
 });
 
-
-
-       const credentialsMenu = document.querySelector('.credentials-title');
-       const phoneMenu = document.querySelector('.phone-title');
-       
-       const credentialsItem = document.querySelector('.credentials-manager');
-       const phoneItem = document.querySelector('.phone-keeper');
-       
-       credentialsMenu.addEventListener('click', function() {
-           showSection(credentialsItem);
-       });
-       
-       phoneMenu.addEventListener('click', function() {
-           showSection(phoneItem);
-       });
-       
-       function showSection(section) {
-           credentialsItem.style.display = 'none';
-           phoneItem.style.display = 'none';
-       
-           credentialsMenu.classList.remove('active');
-           phoneMenu.classList.remove('active');
-       
-           section.style.display = 'block';
-       
-           if (section === credentialsItem) {
-               credentialsMenu.classList.add('active');
-           } else {
-               phoneMenu.classList.add('active');
-           }
-       }
-
-
-  // testing end session  button from system
-  const endSession = document.querySelector('.end-session');
-  endSession.addEventListener('click', () => {
-    window.location.href = './1-home-page.html';
-    });
-
-
-
-
-    
 
 ////////////////////////////////    TABLE   credentials system  ////////////////////////////////////////////////////
 
@@ -90,37 +98,153 @@ expandableElements.forEach(expandableElement => {
 // ADD DATA TO TABLE (credentials systems)
 function addCredentialsData(event) { 
   // Get input values 
-  let subject = 
-    document.getElementById("subject").value; 
-  let userName = 
-    document.getElementById("username").value; 
-  let password = 
-    document.getElementById("password").value; 
+  let subject = document.getElementById("subject").value; 
+  let userName = document.getElementById("username").value; 
+  let password = document.getElementById("password").value; 
   
   // Get the table and insert a new row at the end 
   let table = document.getElementById("outputTableCredentials"); 
   let newRow = table.insertRow(table.rows.length); 
   
-  // Insert data into cells of the new row 
+   // Insert data into cells of the new row 
+  //ADDS TEMPORALY TO THE BROWSER 
   newRow.insertCell(0).innerHTML = subject; 
   newRow.insertCell(1).innerHTML = userName; 
   newRow.insertCell(2).innerHTML = password; 
   newRow.insertCell(3).innerHTML = 
-    '<button class="button action" onclick="editCredentialsData(this)">Edit</button>'+ 
-    '<button class="button action" onclick="deleteCredentialsData(this)">Delete</button>'; 
+    //'<button class="button action" onclick="editCredentialsData(this)">Edit</button>'+ 
+    '<button class="button action" onclick="deleteCredentialsData(this)">Delete</button>';
+    
+    // storeage session to use to reference during insertion to DB
+    const userID = sessionStorage.getItem('loggedInUserID');
+    console.log("Current Logged in user in System Section with ID:", userID);
+
+    //IPC RENDERER (sending user registration data to Main)
+			// Check if window.ipcRenderer is defined
+			if (window.credentialsSystem) {
+				
+				// data object with all inputs
+				const DATA = { 
+					userID: userID, // SENDING THE LOGGED IN USER (ID)
+          subject: subject,
+					userName: userName,
+					password: password
+				};
+
+				// Stringify the data before sending
+				window.credentialsSystem.send('send:credentialData', JSON.stringify(DATA));
+				
+				console.log("DATA IN THE SYSTEM MANAGER: ",DATA); // print out object to check if it worked
+			} 
+			else {
+				console.error('window.ipcRenderer is not defined.');
+				return false;
+			}
   
   // Clear input fields 
-  clearInputsCredentials(); 
+  clearInputsCredentials();  
 } 
 
-/*
+
+//Event listener that sends data from (CREDENTIALS SYSTEM) to database 
 const buttonAddCredentials = document.querySelector(".add-button.credentials");
 buttonAddCredentials.addEventListener("click", function(event) {
  
   // Prevent the default form submission
   event.preventDefault();
   addCredentialsData(event);
-});*/
+});
+
+// It deletes a specific row of data in the system
+function deleteCredentialsData(button) { 
+  // Get the parent row of the clicked button 
+  let row = button.parentNode.parentNode; 
+  // Remove the row from the table 
+  row.parentNode.removeChild(row); 
+};
+
+// Clear Inputs once data is being sent and 'ADD' button is clicked 
+function clearInputsCredentials() { 
+  // Clear input fields 
+  document.getElementById("subject").value = ""; 
+  document.getElementById("username").value = ""; 
+  document.getElementById("password").value = ""; 
+}; 
+
+
+
+
+
+
+
+
+/**
+ * Event listener that triggers when page is loaded.
+ * When loaded it sends request through IPC
+ * Returns JSON data that correspont to (CREDENTIALS SYSTEM) & (PHONE KEEPER)
+ */
+window.addEventListener('load', (event) => {
+  console.log('Page loaded successfully!');
+  
+// It gets the clogged in user's ID
+const userID = sessionStorage.getItem('loggedInUserID');
+console.log("Current Logged in user in System Section with ID:", userID);
+
+// window that listen to prealod and sends to main the user ID as request message
+window.requestDataCredentialsSystem.send('userID', userID);
+
+//-----------------------CREDENTIALS SYSTEM
+// window that listen to the main and return data JSON objects retrieved from DATABASE
+window.requestDataCredentialsSystem.receive('update:credentialData', (credentialsDataRetrieved) => {
+  console.log("DATA RECEIVED IN THE SYSTEM MANAGER OK MAN");
+  console.log("Raw data received:", credentialsDataRetrieved);
+
+  // Parse the string into a JSON object
+  let credentialsData;
+
+  try {
+    credentialsData = JSON.parse(credentialsDataRetrieved);
+  } catch (error) {
+    console.error("Error parsing JSON:", error);
+    return; // Stop further execution if parsing fails
+  }
+
+  // Check if credentialsData is an array
+  if (Array.isArray(credentialsData)) {
+    // Iterate through each object in credentialsData
+    credentialsData.forEach((dataObject) => {
+      // Check if the element is an object
+      if (typeof dataObject === 'object' && dataObject !== null) {
+
+        // Get the table and insert a new row at the end 
+        let table = document.getElementById("outputTableCredentials"); 
+        let newRow = table.insertRow(table.rows.length); 
+        
+        // Insert data into cells of the new row
+        newRow.insertCell(0).innerHTML = dataObject.subject || '';
+        newRow.insertCell(1).innerHTML = dataObject.userName || '';
+        newRow.insertCell(2).innerHTML = dataObject.password || '';
+        newRow.insertCell(3).innerHTML =
+          //'<button class="button action" onclick="editCredentialsData(this)">Edit</button>' +
+          '<button class="button action" onclick="deleteCredentialsData(this)">Delete</button>';
+      } else {
+        console.error("Invalid data object:", dataObject);
+      }
+    });
+  } else {
+    // Handle the case when credentialsData is not an array
+    console.error("credentialsData is not an array. It may be of type:", typeof credentialsData);
+  }
+});
+
+//-----------------------PHONE KEEPER
+
+});
+
+
+
+
+
 
 
 // EDIT TABLE
@@ -265,12 +389,6 @@ function clearInputsPhone() {
 } 
 
 
-
-
-
-
-const userPass = sessionStorage.getItem('userPass');
-console.log("THISIS THE USE PASS IN THE RENDERER",userPass);
 		   
 
 

@@ -35,38 +35,87 @@ contextBridge.exposeInMainWorld('passwordRequest', passwordRequest);
 
 
 
-//----------------------LISTEN for the login response from MAIN to RENDERER(LOGIN)
-ipcRenderer.on('login', (event, userEnteredPassword) => {
-    console.log('Received password in preload:', userEnteredPassword);
-
-    // window object to access password 
-     window.userEnteredPassword = userEnteredPassword;
-
-      // Send the password back to the renderer process
-  ipcRenderer.send('login', userEnteredPassword);
-  });
 
 
 
-  //----------------------SEND USER REGISTRATION DATA TO MAIN --------------------------------------------
-const getUserID = {
-  getID: (channel, data) => ipcRenderer.send(channel, data), // send
-  on: (channel, func) => ipcRenderer.on(channel, (event, ...args) => func(...args)) // receives
+
+
+
+
+
+
+
+
+
+
+
+
+//----------------------SEND USER DATA(SYSTEM CREDENTIALS) TO MAIN --------------------------------------------
+const credentialsSystem = {
+  send: (channel, data) => ipcRenderer.send(channel, data), // send
+  receive: (channel, func) => ipcRenderer.on(channel, (event, ...args) => func(...args)) // receives
 };
 // Expose indexBridge and ipcRenderer in the main world
-contextBridge.exposeInMainWorld("userID", getUserID);
+contextBridge.exposeInMainWorld("credentialsSystem", credentialsSystem);
+
+
+
+
+
+/**
+ * Request Message from (CREDENTIALS SYSTEM)
+ * 
+ * It sends request to main with ID as data and retrieve data from dabase when page is loaded
+ * It returns a JSON data format with stringfy 
+ */
+const requestDataCredentialsSystem = {
+  send: (channel, data) => ipcRenderer.send(channel, data), // send
+  receive: (channel, func) => ipcRenderer.on(channel, (event, ...args) => func(...args)) // receives
+};
+// Expose indexBridge and ipcRenderer in the main world
+contextBridge.exposeInMainWorld("requestDataCredentialsSystem", requestDataCredentialsSystem);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 /*
-//----------------------LISTEN for the login response from MAIN to RENDERER(LOGIN)
-ipcRenderer.on('login:response', (event, userId) => {
-    console.log('Received id the in preload:', userId);
+//----------------------LISTEN for the JSON data from main (credentials system)
+ipcRenderer.on('update:credentialData', (event, data) => {
+    console.log('Received CREDENTIALS DATA IN THE PRELOAD:', data);
 
     // window object to access password 
-     window.userId = userId;
+    // window.userId = userId;
 
       // Send the password back to the renderer process
-  ipcRenderer.send('user:id', userId);
+  ipcRenderer.send('send:credentials', data);
   });
 */

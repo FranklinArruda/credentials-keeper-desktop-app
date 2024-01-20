@@ -31,24 +31,29 @@ loginButton.addEventListener('click', (e) => {
   });
 
   // Listen for the LOGIN REQUEST from the preload script
-window.loginRequest.receive('login:response', (processedPassword) => {
+window.loginRequest.receive('login:response', (loggedinUserID) => {
 	// console message for debbuging
-	console.log('Received processed password in renderer:', processedPassword);
+	console.log('Received processed password in renderer:', loggedinUserID);
 
-	// Store user ID in sessionStorage
-	sessionStorage.setItem('userPass', processedPassword);
+	/**
+	 * VERY IMPORTANT: 
+	 * 
+	 * it stores the user ID in the sessionStorage
+	 * it helps to be used across all parts of the project
+	 */
+	sessionStorage.setItem('loggedInUserID', loggedinUserID);
     
 	// if login failed, display message/ if success go to system
-	if (!processedPassword ) {
+	if (!loggedinUserID ) {
        console.log('Login failed!');
 		showAlertMessage();
 
     } else {
          console.log('Login successful!');
 		 
-			// system.js (or script in system.html)
-			const userPass = sessionStorage.getItem('userPass');
-			console.log("THISIS THE USE PASS IN THE RENDERER",userPass);
+			// It gets the clogged in user's ID
+			const userID = sessionStorage.getItem('loggedInUserID');
+			console.log("Current Logged in user in Log Section with ID:", userID);
 		    window.location.href = './5-system-credencials-manager.html'; // system section
     }
   });

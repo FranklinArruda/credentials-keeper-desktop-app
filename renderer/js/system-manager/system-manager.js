@@ -93,9 +93,13 @@ endSessions.forEach(counter => {
 
 ////////////////////////////////    TABLE   credentials system  ////////////////////////////////////////////////////
 
-
-
-// ADD DATA TO TABLE (credentials systems)
+/**
+ * ADD data to credentials system table (temporarily as well as the button so the user can interact with)
+ * Then , data is being sent to database
+ * The button and data that is added temporarilly will be lost when page is loaded, I did that way to prevent blank space etc.
+ * @param {event prevent default} event 
+ * @returns true if data is being sent
+ */
 function addCredentialsData(event) { 
   // Get input values 
   let subject = document.getElementById("subject").value; 
@@ -113,7 +117,7 @@ function addCredentialsData(event) {
   newRow.insertCell(2).innerHTML = password; 
   newRow.insertCell(3).innerHTML = 
     //'<button class="button action" onclick="editCredentialsData(this)">Edit</button>'+ 
-    '<button class="button action" onclick="deleteCredentialsData(this)">Delete</button>';
+  '<button class="action button">Delete</button>';
     
     // storeage session to use to reference during insertion to DB
     const userID = sessionStorage.getItem('loggedInUserID');
@@ -134,34 +138,18 @@ function addCredentialsData(event) {
 				// Stringify the data before sending
 				window.credentialsSystem.send('send:credentialData', JSON.stringify(DATA));
 				
-				console.log("DATA IN THE SYSTEM MANAGER: ",DATA); // print out object to check if it worked
-			} 
+				console.log("DATA IN THE SYSTEM MANAGER: ", DATA); // print out object to check if it worked
+        console.log("data added succcessfully")
+        return true;
+        
+      } 
 			else {
 				console.error('window.ipcRenderer is not defined.');
 				return false;
 			}
-  
-  // Clear input fields 
-  clearInputsCredentials();  
-} 
-
-
-//Event listener that sends data from (CREDENTIALS SYSTEM) to database 
-const buttonAddCredentials = document.querySelector(".add-button.credentials");
-buttonAddCredentials.addEventListener("click", function(event) {
- 
-  // Prevent the default form submission
-  event.preventDefault();
-  addCredentialsData(event);
-});
-
-// It deletes a specific row of data in the system
-function deleteCredentialsData(button) { 
-  // Get the parent row of the clicked button 
-  let row = button.parentNode.parentNode; 
-  // Remove the row from the table 
-  row.parentNode.removeChild(row); 
 };
+
+
 
 // Clear Inputs once data is being sent and 'ADD' button is clicked 
 function clearInputsCredentials() { 
@@ -169,16 +157,40 @@ function clearInputsCredentials() {
   document.getElementById("subject").value = ""; 
   document.getElementById("username").value = ""; 
   document.getElementById("password").value = ""; 
+
+  console.log("Input fields cleared out successfully.");
 }; 
 
 
+/**
+ * Event listener that sends data from (CREDENTIALS SYSTEM) to database 
+ * it checks first the data being sent then call clear input fields
+ */
+const buttonAddCredentials = document.querySelector(".add-button.credentials");
+buttonAddCredentials.addEventListener("click", function(event) {
+ 
+  // Prevent the default form submission
+  event.preventDefault();
+ 
+  // assign them to a const since I had them as return type in function
+  const addData = addCredentialsData(event);
 
-
-
+  // if data is sent then clear input fields
+    if(addData){
+      clearInputsCredentials();
+    }else{
+      console.log("data not added")
+    }
+});
 
 
 
 /**
+ * (RETRIEVE DATA WHEN PAGE IS LOADED)
+ * 
+ * It adds back the button that relates to each row permanenetly, meaning,
+ * every time the page is loaded and populated with data the button will too. 
+ * 
  * Event listener that triggers when page is loaded.
  * When loaded it sends request through IPC
  * Returns JSON data that correspont to (CREDENTIALS SYSTEM) & (PHONE KEEPER)
@@ -211,10 +223,9 @@ window.requestDataCredentialsSystem.receive('update:credentialData', (credential
 
   // Check if credentialsData is an array
   if (Array.isArray(credentialsData)) {
+
     // Iterate through each object in credentialsData
     credentialsData.forEach((dataObject) => {
-      // Check if the element is an object
-      if (typeof dataObject === 'object' && dataObject !== null) {
 
         // Get the table and insert a new row at the end 
         let table = document.getElementById("outputTableCredentials"); 
@@ -226,10 +237,7 @@ window.requestDataCredentialsSystem.receive('update:credentialData', (credential
         newRow.insertCell(2).innerHTML = dataObject.password || '';
         newRow.insertCell(3).innerHTML =
           //'<button class="button action" onclick="editCredentialsData(this)">Edit</button>' +
-          '<button class="button action" onclick="deleteCredentialsData(this)">Delete</button>';
-      } else {
-        console.error("Invalid data object:", dataObject);
-      }
+          '<button class="action credentials-delete-btn button">Delete</button>';
     });
   } else {
     // Handle the case when credentialsData is not an array
@@ -240,6 +248,75 @@ window.requestDataCredentialsSystem.receive('update:credentialData', (credential
 //-----------------------PHONE KEEPER
 
 });
+
+
+
+/**
+ * DELETE ROW from (CREDENTIALS SYSTEM)
+ * 
+ * Use event delegation on a parent element that is present in the DOM
+ * 
+ * DELETE SPECIF ROW when 'delete'button is CLICKED
+ * It gets the data from that spaecif row when button is clciked
+ * Sends a request to main as JSON object data
+ * Query the data to be deleted using that specific data sent dynamically
+ */
+
+document.addEventListener('click', function(event) {
+
+  // Check if the clicked element has the target class
+  if (event.target.classList.contains('credentials-delete-btn')){
+    // Prevent the default form submission
+    event.preventDefault();
+
+  // it gets the logged in user ID
+  // storeage session to use to reference during insertion to DB
+  const userID = sessionStorage.getItem('loggedInUserID');
+  console.log("Current Logged in user in System Section with ID:", userID);
+
+   // Accessing information from the clicked element or its related elements
+   const row = event.target.closest('tr'); // Assuming the button is inside a table row
+   const subject = row.cells[0].textContent;
+   const userName = row.cells[1].textContent;
+   const password = row.cells[2].textContent;
+
+   // You can now use the extracted information as needed
+   console.log('Subject:', subject);
+   console.log('Username:', userName);
+   console.log('Password:', password);
+  
+   alert("YOUR OBJECT DATA:" + "\n ------------------------------------------ " + " \n 1. Subject: " + subject + "\n 2. UserName: " + userName + "\n 3. Password: " + password);
+
+  }
+
+
+  /*
+    //IPC RENDERER (sending user registration data to Main)
+    // Check if window.ipcRenderer is defined
+    if (window.credentialsSystem) {
+      
+      // data object with all inputs
+      const DATA = { 
+        userID: userID, // SENDING THE LOGGED IN USER (ID)
+        subject: subject,
+        userName: userName,
+        password: password
+      };
+
+      // Stringify the data before sending
+      window.credentialsSystem.send('send:credentialData', JSON.stringify(DATA));
+      
+      console.log("DATA IN THE SYSTEM MANAGER: ", DATA); // print out object to check if it worked
+    } 
+    else {
+      console.error('window.ipcRenderer is not defined.');
+      return false;
+    } */
+
+});
+
+
+
 
 
 
@@ -281,25 +358,53 @@ function editCredentialsData(button) {
 
 
 
-function deleteCredentialsData(button) { 
-  
-  // Get the parent row of the clicked button 
-  let row = button.parentNode.parentNode; 
-
-  // Remove the row from the table 
-  row.parentNode.removeChild(row); 
-} 
 
 
-function clearInputsCredentials() { 
-  // Clear input fields 
-  document.getElementById("subject").value = ""; 
-  document.getElementById("username").value = ""; 
-  document.getElementById("password").value = ""; 
-} 
+
 
 
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ////////////////////////////////    TABLE   phone keeper  ////////////////////////////////////////////////////
 

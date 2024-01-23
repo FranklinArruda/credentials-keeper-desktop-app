@@ -82,6 +82,27 @@ contextBridge.exposeInMainWorld("requestDataCredentialsSystem", requestDataCrede
 
 
 
+const name = {
+  deleteRequest: (channel, data) => {
+    ipcRenderer.send(channel, data);
+    console.log('Sending name from the renderer to main:', data);
+  },
+
+  deleteResponse: (channel, func) => {
+    ipcRenderer.on(channel, (event, ...args) => {
+      console.log('Received response in the preload from main:', args);
+      func(...args);
+    });
+  },
+};
+
+contextBridge.exposeInMainWorld('callName', name);
+
+
+
+
+
+
 
 
 

@@ -1,4 +1,10 @@
 
+
+
+import {  } from "./pdf-genarator.js";
+
+
+
 // It get elements (icon and message on hover)
 const uploadIcons = document.querySelectorAll('.upload-icon');
 const uploadMessages = document.querySelectorAll('.upload-message');
@@ -80,15 +86,24 @@ function showSection(section) {
     }
 }
 
+
+
 // Select all elements with the class 'end-session'
 const endSessions = document.querySelectorAll('.end-session');
 
 // Add click event listener to each end session element
+// it is redirect the the start page
+// remove the current logged in USER ID
 endSessions.forEach(counter => {
   counter.addEventListener('click', () => {
+
+    // storeage session to use to reference during insertion to DB
+    const loggedInUser = sessionStorage.getItem('loggedInUserID');
+    console.log("User with ID:", loggedInUser, " Logged Out Successfully!");
     window.location.href = './1-home-page.html';
   });
 });
+
 
 
 ////////////////////////////////    TABLE   credentials system  ////////////////////////////////////////////////////
@@ -105,20 +120,7 @@ function addCredentialsData(event) {
   let subject = document.getElementById("subject").value; 
   let userName = document.getElementById("username").value; 
   let password = document.getElementById("password").value; 
-  
-  // Get the table and insert a new row at the end 
-  let table = document.getElementById("outputTableCredentials"); 
-  let newRow = table.insertRow(table.rows.length); 
-  
-   // Insert data into cells of the new row 
-  //ADDS TEMPORALY TO THE BROWSER 
-  newRow.insertCell(0).innerHTML = subject; 
-  newRow.insertCell(1).innerHTML = userName; 
-  newRow.insertCell(2).innerHTML = password; 
-  newRow.insertCell(3).innerHTML = 
-    //'<button class="button action" onclick="editCredentialsData(this)">Edit</button>'+ 
-  '<button class="action button">Delete</button>';
-    
+
     // storeage session to use to reference during insertion to DB
     const userID = sessionStorage.getItem('loggedInUserID');
     console.log("Current Logged in user in System Section with ID:", userID);
@@ -162,6 +164,7 @@ function clearInputsCredentials() {
 }; 
 
 
+
 /**
  * Event listener that sends data from (CREDENTIALS SYSTEM) to database 
  * it checks first the data being sent then call clear input fields
@@ -184,7 +187,6 @@ buttonAddCredentials.addEventListener("click", function(event) {
 });
 
 
-
 /**
  * (RETRIEVE DATA WHEN PAGE IS LOADED)
  * 
@@ -195,31 +197,35 @@ buttonAddCredentials.addEventListener("click", function(event) {
  * When loaded it sends request through IPC
  * Returns JSON data that correspont to (CREDENTIALS SYSTEM) & (PHONE KEEPER)
  */
-window.addEventListener('load', (event) => {
-  console.log('Page loaded successfully!');
-  
-// It gets the clogged in user's ID
-const userID = sessionStorage.getItem('loggedInUserID');
-console.log("Current Logged in user in System Section with ID:", userID);
+  function handleLoadEvent(){
+   console.log('Page loaded successfully!');
 
-// window that listen to prealod and sends to main the user ID as request message
-window.requestDataCredentialsSystem.send('userID', userID);
+  // It gets the clogged in user's ID
+  const userID = sessionStorage.getItem('loggedInUserID');
+  console.log("Current Logged in user in System Section with ID:", userID);
 
-//-----------------------CREDENTIALS SYSTEM
-// window that listen to the main and return data JSON objects retrieved from DATABASE
-window.requestDataCredentialsSystem.receive('update:credentialData', (credentialsDataRetrieved) => {
-  console.log("DATA RECEIVED IN THE SYSTEM MANAGER OK MAN");
-  console.log("Raw data received:", credentialsDataRetrieved);
+  // window that listen to prealod and sends to main the user ID as request message
+  window.requestDataCredentialsSystem.send('userID', userID);
 
-  // Parse the string into a JSON object
-  let credentialsData;
+  //-----------------------CREDENTIALS SYSTEM
+  // window that listen to the main and return data JSON objects retrieved from DATABASE
+  window.requestDataCredentialsSystem.receive('update:credentialData', (credentialsDataRetrieved) => {
+    console.log("DATA RECEIVED IN THE SYSTEM MANAGER OK MAN");
+    console.log("Raw data received:", credentialsDataRetrieved);
 
-  try {
-    credentialsData = JSON.parse(credentialsDataRetrieved);
-  } catch (error) {
-    console.error("Error parsing JSON:", error);
-    return; // Stop further execution if parsing fails
-  }
+    // Parse the string into a JSON object
+    let credentialsData;
+
+    try {
+      credentialsData = JSON.parse(credentialsDataRetrieved);
+    } catch (error) {
+      console.error("Error parsing JSON:", error);
+      return; // Stop further execution if parsing fails
+    }
+
+   // Clear existing rows in the table
+   let table = document.getElementById("outputTableCredentials");
+   table.innerHTML = ''; // This will remove all child elements (rows)
 
   // Check if credentialsData is an array
   if (Array.isArray(credentialsData)) {
@@ -228,7 +234,7 @@ window.requestDataCredentialsSystem.receive('update:credentialData', (credential
     credentialsData.forEach((dataObject) => {
 
         // Get the table and insert a new row at the end 
-        let table = document.getElementById("outputTableCredentials"); 
+       // let table = document.getElementById("outputTableCredentials"); 
         let newRow = table.insertRow(table.rows.length); 
         
         // Insert data into cells of the new row
@@ -243,11 +249,24 @@ window.requestDataCredentialsSystem.receive('update:credentialData', (credential
     // Handle the case when credentialsData is not an array
     console.error("credentialsData is not an array. It may be of type:", typeof credentialsData);
   }
-});
+    
+}); 
 
 //-----------------------PHONE KEEPER
 
+}
+
+// EVENT LISTENER on page load (retrive data from database)
+window.addEventListener('load', handleLoadEvent);
+
+
+// Document EVENT LISTENER (delegate the button class and data to be deleted)
+document.addEventListener('click', function(event) {
+  deleteCredentialsData(event);
 });
+
+
+
 
 
 
@@ -261,65 +280,99 @@ window.requestDataCredentialsSystem.receive('update:credentialData', (credential
  * Sends a request to main as JSON object data
  * Query the data to be deleted using that specific data sent dynamically
  */
-
-document.addEventListener('click', function(event) {
-
+function deleteCredentialsData(event) {
   // Check if the clicked element has the target class
-  if (event.target.classList.contains('credentials-delete-btn')){
+  if (event.target.classList.contains('credentials-delete-btn')) {
     // Prevent the default form submission
     event.preventDefault();
 
-  // it gets the logged in user ID
-  // storeage session to use to reference during insertion to DB
-  const userID = sessionStorage.getItem('loggedInUserID');
-  console.log("Current Logged in user in System Section with ID:", userID);
+    // Accessing information from the clicked element or its related elements
+    const row = event.target.closest('tr'); // Assuming the button is inside a table row
+    const subject = row.cells[0].textContent;
+    const userName = row.cells[1].textContent;
+    const password = row.cells[2].textContent;
 
-   // Accessing information from the clicked element or its related elements
-   const row = event.target.closest('tr'); // Assuming the button is inside a table row
-   const subject = row.cells[0].textContent;
-   const userName = row.cells[1].textContent;
-   const password = row.cells[2].textContent;
+    // You can now use the extracted information as needed
+    console.log('Subject:', subject);
+    console.log('Username:', userName);
+    console.log('Password:', password);
 
-   // You can now use the extracted information as needed
-   console.log('Subject:', subject);
-   console.log('Username:', userName);
-   console.log('Password:', password);
-  
-   alert("YOUR OBJECT DATA:" + "\n ------------------------------------------ " + " \n 1. Subject: " + subject + "\n 2. UserName: " + userName + "\n 3. Password: " + password);
+    const userID = sessionStorage.getItem('loggedInUserID');
+    console.log("Current Logged in user in System Section with ID:", userID);
+
+    // data object with all inputs
+    const DATA = {
+      userID: userID, // SENDING THE LOGGED IN USER (ID)
+      subject: subject,
+      userName: userName,
+      password: password
+    };
+
+    console.log("OBJECT DATA: ", DATA);
+
+    // Add a log statement to check if the delete request is being sent
+    console.log("Sending delete request...");
+// Serialize the object into a JSON-formatted string before sending
+const jsonString = JSON.stringify(DATA);
+console.log('Sending name from the renderer process:', jsonString);
+window.callName.deleteRequest('deleteRequest', jsonString);
+
 
   }
+}
 
 
-  /*
-    //IPC RENDERER (sending user registration data to Main)
-    // Check if window.ipcRenderer is defined
-    if (window.credentialsSystem) {
-      
-      // data object with all inputs
-      const DATA = { 
-        userID: userID, // SENDING THE LOGGED IN USER (ID)
-        subject: subject,
-        userName: userName,
-        password: password
-      };
 
-      // Stringify the data before sending
-      window.credentialsSystem.send('send:credentialData', JSON.stringify(DATA));
-      
-      console.log("DATA IN THE SYSTEM MANAGER: ", DATA); // print out object to check if it worked
-    } 
-    else {
-      console.error('window.ipcRenderer is not defined.');
-      return false;
-    } */
 
+// Event listener for the delete response
+window.callName.deleteResponse('deleteResponse', (response) => {
+  console.log('Received DELETION response in the renderer:', response);
+
+  // Refresh the table after successful deletion with a transition
+  refreshTable();
 });
 
+// every time the delete button is clciked
+// this function will be called if the response from the data delete request is successfull
+// Function to refresh the HTML table
+function refreshTable() {
+  // Clear existing rows in the table with fade-out transition
+  let table = document.getElementById("outputTableCredentials");
+  table.innerHTML = ''; // This will remove all child elements (rows)
+
+  // It gets the clogged in user's ID
+  const userID = sessionStorage.getItem('loggedInUserID');
+
+  // Trigger a request to reload the data from the database
+  // window that listen to prealod and sends to main the user ID as request message
+  window.requestDataCredentialsSystem.send('userID', userID);
+}
 
 
+/*Hover Interaction:
 
+The code includes functionality to show/hide messages associated with icons when hovered over.
+Accessible Tabs:
 
+Clicking on tabs for the Credentials and Phone systems toggles the display of corresponding sections.
+End Session:
 
+Clicking on elements with the class 'end-session' logs out the user and redirects to the home page.
+Credentials System Table:
+
+Adding data to the credentials system table and sending it to the database.
+Deleting rows from the credentials system table with a corresponding request to the main process.
+Refresh Table Functionality:
+
+A function (refreshTable) to clear existing rows in the table and trigger a request to reload data from the database.
+Editing Table Data:
+
+A function (editCredentialsData) for editing data in the credentials system table.
+Phone Keeper Table:
+
+Code for adding, editing, and deleting data in the phone keeper table (commented out)
+
+*/
 
 
 
@@ -362,7 +415,6 @@ function editCredentialsData(button) {
 
 
 
-
   
 
 
@@ -405,9 +457,8 @@ function editCredentialsData(button) {
 
 
 
-
 ////////////////////////////////    TABLE   phone keeper  ////////////////////////////////////////////////////
-
+/*
 
 
 // ADD DATA TO TABLE (phone keeper)
@@ -497,3 +548,4 @@ function clearInputsPhone() {
 		   
 
 
+*/

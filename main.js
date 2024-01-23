@@ -39,42 +39,20 @@ ipcMain.on('user:registration', (event, data) => {
   myServer.insertUser(connectDb,fullName, userName, password, hint);
 });
 
+
 // ----------------------- Receives (LOGIN REQUEST)
 ipcMain.on('login:request', async (event, userEnteredPassword) => {
 
    // Log the userEnteredPassword for debugging
    console.log('Received login request from renderer process with password:', userEnteredPassword);
-   
-   // getting USER ID to send as cookie
-   //const getUserId = await myServer.getUserInfo(connectDb, userEnteredPassword);
 
    // Calls the retrieveID function + assings the request pass in the parameter as well as connection
    const retrievedUserId = await myServer.retrieveUserID(connectDb, userEnteredPassword);
-    console.log("this is the USER ID IDIDIDIDID;", retrievedUserId);
+    console.log("This is the USER ID ;", retrievedUserId);
 
-
-   //Authentication logic (boolean flag) and it sends back to renderer (Login section js)
-   // const isAuthenticatedID = getUserId === retrievedUserId;
-/*
-        if (getUserId) {
-          // userInfo contains the entire row from the database
-          console.log(`User Info:`, getUserId);
-
-          // Extract UserID from userInfo
-        const userId = getUserId.UserID;;
-        console.log(`THIS IS THE User ID:`, userId);
-
-      
-
-        } else {
-          console.log('User not found');
-        }    */
-        
     //it sends the boolean flag to the renderer
     mainWindow.webContents.send('login:response', retrievedUserId);
 });
-
-
 
 
 // ----------------------- Receives HINT for (PASSWORD REQUEST)
@@ -118,54 +96,54 @@ ipcMain.on('send:credentialData', async (event, data) => {
 
 
 
-// ----------------------- TESTING WHEN PAGE IS LOADED
+// ----------------- RETRIEVE CREDENTIALS SYSTEM WHEN PAGE IS LOADED
 ipcMain.on('userID', async (event, userID) => {
 
   console.log("user ID RECEIVED IN THE MAIN:",userID);
   
   // retrieve from DATABASE and send back to the renderer to have data persistency in there when app is opened again
   const credentialsDataRetrieved = await myServer.retrieveCredentialsManager(connectDb, userID);
-  console.log("RETRIEVED DATA FROM CREDENTIALS SYSTEM IN THE MAIN:", credentialsDataRetrieved);
 
+  if(credentialsDataRetrieved === null){
+     console.log("table is empty!")
+  }else{
+     console.log("RETRIEVED DATA FROM CREDENTIALS SYSTEM IN THE MAIN:", credentialsDataRetrieved);
+  
   // it sends to the renderer (CREDENTIALS SYSTEM) to append to HTML ELEMENTS as 
   // JSON data with stringfy so I can extarct the received data in the and populate all however I want
   mainWindow.webContents.send('update:credentialData', JSON.stringify(credentialsDataRetrieved));
   console.log("Sent data to renderer:", JSON.stringify(credentialsDataRetrieved));
-
-});
-
-
-
-// Handle the credentials:request event
-ipcMain.on('credentials:request', async (event) => {
-  // Simulate some data retrieval logic (replace this with your actual logic)
-  const credentialsData = [
-    { subject: 'Example 1', userName: 'user1', password: 'password1' },
-    { subject: 'Example 2', userName: 'user2', password: 'password2' },
-    // Add more data as needed
-  ];
+  }
 
   
-  // retrieve from DATABASE and send back to the renderer to have data persistency in there when app is opened again
-  const credentialsDataRetrieved = await myServer.retrieveCredentialsManager(connectDb, userID);
-  console.log("RETRIEVED DATA FROM CREDENTIALS SYSTEM IN THE MAIN:", credentialsDataRetrieved);
-
-  // Send the retrieved data back to the renderer process
-  event.reply('credentials:response', credentialsData);
 });
-/*
 
-// insert test (credentials system)
-async function InsertCredentials(db,id,subject,usernama,password){
-  const insertCredentialsData = await myServer.insertCredentialsSystem(db,id,subject,usernama,password);
-  console.log(insertCredentialsData)
-}
-const subject = "new_web";
-const username = "user_name.com";
-const password = "Pass.pass03220";
-const id = 3;
-InsertCredentials(connectDb,id,subject,username,password)
-*/
+
+
+ipcMain.on('deleteRequest', (event, data) => {
+
+  // extract data sent from renderer
+  const { userID, subject, userName, password} = JSON.parse(data);
+
+  console.log('Received data in the main process:', data);
+
+  console.log('ID:', userID);
+  console.log('SUBJECT:', subject);
+  console.log('USERNAME:', userName);
+  console.log('PASSWORD:', password);
+
+  myServer.deleteCredentialsRow(connectDb,userID,subject,userName,password)
+  
+  // Sending a response back to the renderer process
+  mainWindow.webContents.send('deleteResponse', data);
+
+});
+
+
+
+
+
+
 
 /*
 // retrieve test (credentials system)
@@ -193,7 +171,6 @@ ipcMain.on('quit-app', function () {
 });
 
 
-
 app.whenReady().then(() => {
     createMainWindow();
   app.on('activate', () => {
@@ -202,7 +179,6 @@ app.whenReady().then(() => {
     }
   });
 });
-
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {

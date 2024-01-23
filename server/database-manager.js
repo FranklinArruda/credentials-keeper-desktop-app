@@ -151,6 +151,19 @@ function retrieveCredentialsManager(dbConnection, userId) {
   });
 }
 
+// Deletes credentials system row
+function deleteCredentialsRow(dbConnection, userId, subject, userName, password) {
+  
+  console.log(`Attempting to delete row for UserID ${userId}, Subject ${subject}, Username ${userName}, Password ${password}`);
+  
+  dbConnection.run(`DELETE FROM ${CREDENTIALS_MANAGER_TABLE} WHERE UserID = ? AND Subject = ? AND Username = ? AND Password = ?`, [userId, subject, userName, password], function(err) {
+    if (err) {
+      console.error(`Error deleting row: ${err.message}`);
+    } else {
+      console.log(`Row deleted for UserID ${userId}`);
+    }
+  });
+}
 
 
 
@@ -164,6 +177,7 @@ module.exports = {
   retrieveUserID,
   retrieveHintPass,
   insertCredentialsSystem,
-  retrieveCredentialsManager
+  retrieveCredentialsManager,
+  deleteCredentialsRow
   };
   

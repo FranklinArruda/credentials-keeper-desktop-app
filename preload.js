@@ -12,7 +12,6 @@ const rendererToMain = {
 contextBridge.exposeInMainWorld("userRegistration", rendererToMain);
 
 
-
 //----------------------SEND LOGIN REQUEST MESSAGE TO MAIN --------------------------------------------
 const loginRequest = { 
     send: (channel, data) =>  ipcRenderer.send(channel, data),
@@ -23,8 +22,7 @@ const loginRequest = {
 contextBridge.exposeInMainWorld('loginRequest', loginRequest);
 
 
-
-//----------------------SEND PASSWORD REQUEST TO MAIN --------------------------------------------
+//----------------------SEND 'forgot' PASSWORD REQUEST TO MAIN --------------------------------------------
 const passwordRequest = { 
   send: (channel, data) =>  ipcRenderer.send(channel, data),
   receive: (channel, func) => { ipcRenderer.on(channel, (event, ...args) => func(...args));
@@ -36,24 +34,16 @@ contextBridge.exposeInMainWorld('passwordRequest', passwordRequest);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//----------------------SEND USER DATA(SYSTEM CREDENTIALS) TO MAIN --------------------------------------------
+// ---------------------- sendCredentialsToDatabase: Request to store data in the (Database)
+// ---------------------- requestCredentialsData: Request retrieve data on (page load)
 const credentialsSystem = {
-  send: (channel, data) => ipcRenderer.send(channel, data), // send
-  receive: (channel, func) => ipcRenderer.on(channel, (event, ...args) => func(...args)) // receives
+
+  // send request
+  sendCredentialsToDatabase: (channel, data) => ipcRenderer.send(channel, data), 
+  requestCredentialsData: (channel, data) => ipcRenderer.send(channel, data),
+
+  // response for both request
+  receiveCredentialsData: (channel, func) => ipcRenderer.on(channel, (event, ...args) => func(...args)) // receives
 };
 // Expose indexBridge and ipcRenderer in the main world
 contextBridge.exposeInMainWorld("credentialsSystem", credentialsSystem);
@@ -68,12 +58,14 @@ contextBridge.exposeInMainWorld("credentialsSystem", credentialsSystem);
  * It sends request to main with ID as data and retrieve data from dabase when page is loaded
  * It returns a JSON data format with stringfy 
  */
+/*
 const requestDataCredentialsSystem = {
   send: (channel, data) => ipcRenderer.send(channel, data), // send
   receive: (channel, func) => ipcRenderer.on(channel, (event, ...args) => func(...args)) // receives
 };
 // Expose indexBridge and ipcRenderer in the main world
 contextBridge.exposeInMainWorld("requestDataCredentialsSystem", requestDataCredentialsSystem);
+*/
 
 
 
@@ -81,22 +73,21 @@ contextBridge.exposeInMainWorld("requestDataCredentialsSystem", requestDataCrede
 
 
 
-
-const name = {
+const deleteRequest = {
   deleteRequest: (channel, data) => {
     ipcRenderer.send(channel, data);
-    console.log('Sending name from the renderer to main:', data);
+    console.log('Sending delete request from the renderer to main:', data);
   },
 
   deleteResponse: (channel, func) => {
     ipcRenderer.on(channel, (event, ...args) => {
-      console.log('Received response in the preload from main:', args);
+      console.log('Received delete response in the preload from main:', args);
       func(...args);
     });
   },
 };
 
-contextBridge.exposeInMainWorld('callName', name);
+contextBridge.exposeInMainWorld('deleteRequest', deleteRequest);
 
 
 

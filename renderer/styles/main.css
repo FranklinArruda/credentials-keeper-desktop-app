@@ -998,6 +998,7 @@ input:focus {
 .system-manager-container .system-container.credentials-manager .table-container .table {
   margin-top: 30px;
   width: 100%;
+  animation: easeOut 1s;
 }
 .system-manager-container .system-container.phone-keeper .table-container .table th,
 .system-manager-container .system-container.credentials-manager .table-container .table th {
@@ -1152,6 +1153,10 @@ input:focus {
 
 .hidden {
   display: none;
+}
+
+#outputTableCredentials {
+  animation: fadeOut 1s ease;
 }
 
 /* Width */

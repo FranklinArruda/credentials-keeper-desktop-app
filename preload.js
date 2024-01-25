@@ -32,8 +32,6 @@ const passwordRequest = {
 contextBridge.exposeInMainWorld('passwordRequest', passwordRequest);
 
 
-
-
 // ---------------------- sendCredentialsToDatabase: Request to store data in the (Database)
 // ---------------------- requestCredentialsData: Request retrieve data on (page load)
 const credentialsSystem = {
@@ -50,6 +48,22 @@ contextBridge.exposeInMainWorld("credentialsSystem", credentialsSystem);
 
 
 
+
+//----------------------SEND 'request' to (RETRIEVE CREDENTIALS) TO PDF generator --------------------------------------------
+const credentilasDataPDF = { 
+  requestCredentialsDataPDF: (channel, data) => {
+    ipcRenderer.send(channel, data),
+    console.log('Request from Renderer received in the Preload for PDF GENERATOR with userID:', data);
+  },
+  receive: (channel, func) => { 
+    ipcRenderer.on(channel, (event, ...args) => {
+      console.log('Response from Main to Renderer received in the Preload for PDF GENERATOR with data:', args[0]);
+      func(...args);
+    });
+  }
+};
+// Expose loginRequest to the window object
+contextBridge.exposeInMainWorld('credentialsDataPDF', credentilasDataPDF);
 
 
 /**

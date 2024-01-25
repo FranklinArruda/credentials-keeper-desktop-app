@@ -30,7 +30,7 @@ function generatePDF(){
     });
 }
 
-generatePDF();
+//generatePDF();
 
 
 /**
@@ -42,9 +42,58 @@ generatePDF();
  * Download the PDF into the machine desktop
  * 
  */
-function genarateCredentialsPDF(){
+function extractDataTest(){
 
+
+// Retrieved data Response 
+window.credentialsSystem.receiveCredentialsData('credentialsDataResponse', (credentialsDataRetrieved) => {
+  console.log("Retrieved Credentials data from server to PDF GENERATE on 'PAGE LOAD' successfully:",credentialsDataRetrieved);
+
+  window.jsPDF = window.jspdf.jsPDF; // without this line of code wont run. add this line of code
+	
+  let doc = new jsPDF();
+
+
+  const titleText = "HERE IS YOUR BREAKDOWN";
+  const titleFontSize = 18;
+  const textFontSize = 12;
+  const margin = 10;
+  
+  // Set font size for the title
+  doc.setFontSize(titleFontSize);
+  doc.setTextColor(200, 0, 0); // Set font color to black (RGB)
+  doc.text(titleText, 20, 20); // Display the title at position (20, 20)
+
+  // Set font size and styles for the content text
+  doc.setFontSize(textFontSize);
+  doc.setFont("Helvetica"); // Set font type to bold
+  doc.setTextColor(0, 0, 0); // Set font color to black (RGB)
+
+  // Calculate the y-coordinate position for the content text
+  const titleHeight = titleFontSize * 1; // Adjust multiplier as needed for spacing
+  const contentY = 20 + titleHeight + margin;
+
+   
+ 
+   
+  // Display the content TEXT at the adjusted position
+  doc.text(20, contentY, credentialsDataRetrieved, { align: "left" }); // Align the text to the left
+
+
+	doc.save('HELPER.Results.pdf');
+  
+  });
 }
+/*
+function extractDataTest() {
+   // Retrieved data Response 
+   window.credentialsSystem.receiveCredentialsData('credentialsDataResponse', (credentialsDataRetrieved) => {
+    console.log("Retrieved Credentials data from server to PDF GENERATE on 'PAGE LOAD' successfully:",credentialsDataRetrieved);
+   });
+}
+*/
+// Call the function to extract data when needed
+//extractDataTest();
 
 
 
@@ -72,5 +121,5 @@ function genaratePhonePDF(){
 
 
 export{
-    
+    extractDataTest
 }

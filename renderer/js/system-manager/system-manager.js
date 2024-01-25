@@ -1,12 +1,46 @@
 
 
-import {  } from "./pdf-genarator.js";
+//import { extractDataTest } from "./pdf-genarator.js";
+
+
+/*it generates a PDF file with the final brrakdown*/
+
+
 
  // Get logged in/out User ID session to use to reference during insertion to DB
  const LOGGED_IN_USER_ID = sessionStorage.getItem('loggedInUserID');  // add userID
  const LOGGED_OUT_USER_ID = sessionStorage.removeItem('loggedInUserID'); // removes userID
-
+ 
  console.log("Logged in User in the System Section with ID:", LOGGED_IN_USER_ID);
+
+const genCredentialsPDF = document.getElementById("generateCredentialsSystemPDF");
+genCredentialsPDF.addEventListener("click", function () {
+ console.log("somwthing happend")
+ 
+   window.credentialsDataPDF.requestCredentialsDataPDF('requestCredentialsDataPDF', LOGGED_IN_USER_ID); //OK
+
+});
+
+/*
+// Retrieved data Response 
+window.credentialsDataPDF.receive('credentialsDataPDFResponse', (credentialsDataRetrieved) => {
+  console.log("Retrieved Credentials data from server to Renderer for PDF:",credentialsDataRetrieved);
+
+    // Parse the received JSON string into a JavaScript object
+    const dataArray = JSON.parse(credentialsDataRetrieved);
+
+      const firstObject = dataArray[0];
+
+      // Access properties of the first object
+      console.log("subject:", firstObject.subject);
+      console.log("userName:", firstObject.userName);
+      console.log("password:", firstObject.password);
+  
+   
+})
+
+*/
+
  
 // It get elements (icon and message on hover)
 const uploadIcons = document.querySelectorAll('.upload-icon');
@@ -41,6 +75,7 @@ uploadIcons.forEach((uploadIcon, index) => {
 });
 
 
+
 //------------------Accessible tabs for (CREDENTIALS & PHONE SYSTEMS)
 
   // It get title of the systems
@@ -61,10 +96,6 @@ uploadIcons.forEach((uploadIcon, index) => {
       showSection(phoneSystemMenu);
   });
 
-  
-
-
-  
   
 
 /**
@@ -110,12 +141,18 @@ counter.addEventListener('click', () => {
 });
  
 
+
+/**
+ * It gets all the input values with by ID
+ * @returns input values from credentials form system
+ */
 function getCredentialsInputValues(){
-    let subject = document.getElementById("subject").value; 
-    let userName = document.getElementById("username").value; 
-    let password = document.getElementById("password").value; 
+      let subject = document.getElementById("subject").value; 
+      let userName = document.getElementById("username").value; 
+      let password = document.getElementById("password").value; 
   return { subject, userName, password };
 }
+
 
 
 /**
@@ -123,22 +160,21 @@ function getCredentialsInputValues(){
  * It clear all inputs when 'add' button is clicked
  */
 function clearInputsCredentials() { 
-
-  document.getElementById("subject").value = ""; 
-  document.getElementById("username").value = ""; 
-  document.getElementById("password").value = ""; 
-
+      document.getElementById("subject").value = ""; 
+      document.getElementById("username").value = ""; 
+      document.getElementById("password").value = ""; 
   console.log("Credentials Input fields cleared out successfully!");
 }; 
 
 
+
 /**
  * Get form inputs values 
- * 'Event' prevent page from reload
+ * Event prevent page from reload
  * It sends a request to server through IPC to insert data into DB
  * @returns true if data is being sent
  */
-function addCredentialsData(event) { 
+function sendCredentialsData(event) { 
 
   // Get input values 
   const { subject, userName, password } = getCredentialsInputValues();
@@ -169,22 +205,10 @@ function addCredentialsData(event) {
 
 
 
-
-/*
-function handleCredentialsDataResponse(credentialsDataRetrieved) {
-  try {
-    const credentialsData = JSON.parse(credentialsDataRetrieved);
-    updateTable(credentialsData);
-  } catch (error) {
-    console.error("Error parsing JSON:", error);
-  }
-}*/
-
-
-
-
-
 /**
+ * 
+ * MAYBE HERE I CAN MAKE A EVENT DELEGATION IN BETWEEN THE SYSTEM
+ * 
  * Event listener that sends data from (CREDENTIALS SYSTEM) to database 
  * it checks first the data being sent then call clear input fields
  */
@@ -194,11 +218,11 @@ addButtonCredentials.addEventListener("click", function(event) {
   event.preventDefault();
  
   // assign them to a const since I had them as return type in function
-  const addData = addCredentialsData(event);
+  const addData = sendCredentialsData(event);
 
   // if data is sent then clear input fields
     if(addData){
-     // clearInputsCredentials();
+    
     
     console.log("data added")
     }
@@ -209,22 +233,20 @@ addButtonCredentials.addEventListener("click", function(event) {
 
 
 
-
-
 /**
  * Sends a request to insert data into the database and triggers a response to populate the table in real time.
  * This process is handled within the loadPage function, where the initial response is forced using a helper function.
  * Additionally, a second request is made during the page load, retrieving the same data when the application is reopened.
  */
-  function updateTableOnPageLoad(){
-   console.log('Page loaded successfully!');
+  function updateCredentialsTableOnPageLoad(){
+    
+    console.log('Page loaded successfully!');
+    // Request data on Page load
+    window.credentialsSystem.requestCredentialsData('requestCredentialsData', LOGGED_IN_USER_ID);
 
-  // Request data on Page load
-  window.credentialsSystem.requestCredentialsData('requestCredentialsData', LOGGED_IN_USER_ID);
-
-  // Retrieved data Response 
-  window.credentialsSystem.receiveCredentialsData('credentialsDataResponse', (credentialsDataRetrieved) => {
-  console.log("Retrieved Credentials data from server to Renderer on 'PAGE LOAD' successfully:",credentialsDataRetrieved);
+    // Retrieved data Response 
+    window.credentialsSystem.receiveCredentialsData('credentialsDataResponse', (credentialsDataRetrieved) => {
+    console.log("Retrieved Credentials data from server to Renderer on 'PAGE LOAD' successfully:",credentialsDataRetrieved);
 
     // Parse the string into a JSON object
     let credentialsData;
@@ -238,6 +260,7 @@ addButtonCredentials.addEventListener("click", function(event) {
 
    // Clear existing rows in the table
    let table = document.getElementById("outputTableCredentials");
+
    table.innerHTML = ''; // This will remove all child elements (rows)
 
   // Check if credentialsData is an array
@@ -257,20 +280,17 @@ addButtonCredentials.addEventListener("click", function(event) {
         newRow.insertCell(3).innerHTML =
           '<button class="action credentials-delete-btn button">Delete</button>';
     });
+
+ 
   } else {
     // Handle the case when credentialsData is not an array
     console.error("credentialsData is not an array. It may be of type:", typeof credentialsData);
-  }
-    
+  }  
 }); 
-
-//-----------------------PHONE KEEPER
-
 }
 
-// EVENT LISTENER on page load (retrive data from database)
-window.addEventListener('load', updateTableOnPageLoad);
-
+// event page load that tirgger the update credentials table
+ window.addEventListener('load', updateCredentialsTableOnPageLoad);
 
 
 /**
@@ -283,9 +303,7 @@ window.addEventListener('load', updateTableOnPageLoad);
  * Sends a request to main as JSON object data
  * Query the data to be deleted using that specific data sent dynamically
  */
-
-
-function deleteCredentialsData(event) {
+function deleteCredentialsREQUEST(event) {
 
   // Check if the clicked element has the target class
   if (event.target.classList.contains('credentials-delete-btn')) {
@@ -319,37 +337,42 @@ function deleteCredentialsData(event) {
   }
 }
 
-// Document EVENT LISTENER (delegate the button class and data to be deleted)
-document.addEventListener('click', function(event) {
-  deleteCredentialsData(event);
-});
+
+/**
+ * It handles the delete Request
+ * It call the RefreashTable function to trigger the retrieve on loadpage function
+ */
+function deleteCredentialsRESPONSE(){
+  // Event listener for the delete response
+  window.deleteRequest.deleteResponse('deleteResponse', (response) => {
+    console.log('Received delete response in the Renderer from Main:', response);
+  
+    // Refresh the table after successful deletion with a transition
+    refreshTable();
+  });
+  }
 
 
 /**
  * Every time 'delete' button is clicked the page will be refreshed
  * It then triggers the 'window' event listeners on (load) page
+ * It removes all child elements (rows)
  * So every time page is loaded it will retrieve the data from server
+ * It sends request to retrive the data referencing User ID
  */
 function refreshTable() {
-
-    // Clear existing rows in the table with fade-out transition
-    let table = document.getElementById("outputTableCredentials");
-    table.innerHTML = ''; // This will remove all child elements (rows)
-    
-
-    // It sends request to retrive the data referencing User ID
+        let table = document.getElementById("outputTableCredentials");
+        table.innerHTML = ''; 
     window.credentialsSystem.requestCredentialsData('requestCredentialsData', LOGGED_IN_USER_ID);
 }
 
-
-
-// Event listener for the delete response
-window.deleteRequest.deleteResponse('deleteResponse', (response) => {
-  console.log('Received delete response in the Renderer from Main:', response);
-
-  // Refresh the table after successful deletion with a transition
-  refreshTable();
+// Document EVENT LISTENER (delegate the button class and data to be deleted)
+document.addEventListener('click', function(event) {
+  deleteCredentialsREQUEST(event);
 });
+
+deleteCredentialsRESPONSE();
+
 
 
 

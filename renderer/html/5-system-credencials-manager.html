@@ -11,6 +11,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Include the jspdf library
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script> -->
+    
+    <script type="defer" src="bower_components/jspdf/dist/jspdf.min.js"></script>
+    <script type="defer" src="bower_components/jspdf-autotable/jspdf.plugin.autotable.js"></script>
+    
 <body>
 
 <!-- System Credentials Manager -->
@@ -77,10 +84,8 @@
                  </form>
              </div>
             
-            
-
-
-                 <table class="table" id="outputTableCredentials"> 
+             
+            <table class="table" id="outputTableCredentials"> 
                 <tr>  
                     <th>Subject</th>
                     <th>Username</th>

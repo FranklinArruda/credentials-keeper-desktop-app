@@ -5,6 +5,7 @@ const pdfmake = require('pdfmake/build/pdfmake');
 const vfsFonts = require('pdfmake/build/vfs_fonts');
 
 const myServer = require('./server/database-manager.js'); // requiring the server side application (connection and functions etc)
+const generatePDF = require('./server/pdf-generator.js'); // requiring PDF generator function for both system
 
 // install: npm install pdfmake
 
@@ -40,11 +41,13 @@ function createMainWindow() {
 
 });
 
+
 // ----------------------- Receives REGISTRATION
 ipcMain.on('user:registration', (event, data) => {
   const { fullName, userName, password, hint } = JSON.parse(data);
   myServer.insertUser(connectDb,fullName, userName, password, hint);
 });
+
 
 
 // ----------------------- Receives (LOGIN REQUEST)
@@ -63,7 +66,6 @@ ipcMain.on('login:request', async (event, userEnteredPassword) => {
 
 
 
-
 // ----------------------- Receives HINT for (PASSWORD REQUEST)
 ipcMain.on('password:request', async (event, userEnteredHint) => { 
 
@@ -77,7 +79,6 @@ ipcMain.on('password:request', async (event, userEnteredHint) => {
    //it sends the boolean flag to the renderer
    mainWindow.webContents.send('password:response', storedHint);
 });
-
 
 
 
@@ -104,6 +105,7 @@ ipcMain.on('sendCredentialsData', async (event, userCredentialsData) => {
 
 
 
+
 //  2. Receives credentials Request from Renderer to when the app is starting again (retrieve data on page load)
 //  3. Receives credentials Request from Renderer to when data is being DELETED (so it forces retrieves and page load)
 // -------------------------------------------------------------------------------------------------------------
@@ -124,6 +126,13 @@ ipcMain.on('requestCredentialsData', async (event, userID) => {
 
 
 
+
+/**
+ * It listen for the dele request from renderer and it returns the delete reponse in which will trigger the 
+ * retrive function to update the table on page load. (That way just refresh the table in the renderer).
+ * 
+ * Response back to renderer will be sent only when table row is actually is deleted
+ */
 ipcMain.on('deleteRequest', (event, userCredentialsData) => {
   // extract data sent from renderer
   const { LOGGED_IN_USER_ID, subject, userName, password} = JSON.parse(userCredentialsData);
@@ -143,27 +152,7 @@ ipcMain.on('deleteRequest', (event, userCredentialsData) => {
 
 
 
-
-/*
-// CREDENTIALS PDF GENRATRATOT
-ipcMain.on('requestCredentialsDataPDF', async (event, userID) => {
-  console.log("PDF > Request from Renderer received in the Main with userID:", userID)
-
-  // retrieve from DATABASE and send back to the renderer to have data persistency in there when app is opened again
-  const credentialsDataRetrieved = await myServer.retrieveCredentialsManager(connectDb, userID);
-
-  // Checks the null value for empty table / or when the system is being started firt time
-  // since it will always tries to retrive I check before 
-  if(credentialsDataRetrieved === null){
-     console.log("table is empty!")
-  }else{
-    console.log("Credentials data Retrieved and sent from Main to Renderer for PDF:", credentialsDataRetrieved);
-    mainWindow.webContents.send('credentialsDataPDFResponse', JSON.stringify(credentialsDataRetrieved));
-  }
-});
-*/
-
-
+// listen for the PDF Creation request from Renderer on button click for (Credentials System)
 ipcMain.on('requestCredentialsDataPDF', async (event, userID) => {
 
   console.log("PDF > Request from Renderer received in the Main with userID:", userID)
@@ -179,94 +168,11 @@ ipcMain.on('requestCredentialsDataPDF', async (event, userID) => {
     console.log("Credentials data Retrieved and sent from Main to Renderer for PDF:", credentialsDataRetrieved);
   }
 
-
-  // Create the table body dynamically based on retrieved data
-  const tableBody = credentialsDataRetrieved.map(row => [row.subject, row.userName, row.password]);
-
-  
-  console.log("Table Body:", tableBody);
-
-  const pdfContent = {
-    content: [
-      { text: 'Hello, this is your PDF!', fontSize: 16, bold: true, margin: [0, 0, 0, 10] },
-      { text: 'Table Example:', fontSize: 14, bold: true, margin: [0, 0, 0, 10] },
-      {
-        table: {
-          headerRows: 1,
-          widths: ['auto', 'auto', 'auto'],
-          body: [
-            [
-            { text: 'Subject', style: 'tableHeader', fillColor: '#eb5e28', color: '#FFFFFF', bold: true, alignment: 'center'},
-            { text: 'Username', style: 'tableHeader', fillColor: '#eb5e28', color: '#FFFFFF', bold: true, alignment: 'center'},
-            { text: 'Password', style: 'tableHeader', fillColor: '#eb5e28', color: '#FFFFFF', bold: true, alignment: 'center'}
-
-          ],
-
-               // Data rows with centered text
-               ...tableBody.map(row => row.map(cell => ({ text: cell, alignment: 'center' }))),
-               
-               // table without styling
-
-            //...tableBody,
-          ],
-        },
-      },
-    ],
-  };
-
-  
-  console.log("PDF Content:", pdfContent);
-
- 
-  const pdfDoc = pdfmake.createPdf(pdfContent);
-
-
-   // output PDF in the files directory
-  pdfDoc.getBase64((pdfData) => {
-    const filePath = path.join(__dirname, 'output.pdf');
-    require('fs').writeFileSync(filePath, pdfData, 'base64');
-    event.sender.send('pdfGenerated', filePath);
-  });
-
-
-  // output PDF by opening a window to save on the desktop
-  pdfDoc.getBuffer(async (buffer) => {
-    const result = await dialog.showSaveDialog({
-      title: 'Save PDF',
-      defaultPath: path.join(app.getPath('desktop'), 'output.pdf'),
-      filters: [{ name: 'PDF Files', extensions: ['pdf'] }],
-    });
-  
-    if (!result.canceled && result.filePath) {
-      fs.writeFileSync(result.filePath, buffer);
-      event.sender.send('pdfGenerated', 'PDF generated and saved successfully');
-    }
-  });
-
-
-});
-
-/*
- // output PDF by opening a window to save on the desktop
-const pdfDoc = pdfmake.createPdf(pdfContent);
-pdfDoc.getBuffer(async (buffer) => {
-  const result = await dialog.showSaveDialog({
-    title: 'Save PDF',
-    defaultPath: path.join(app.getPath('desktop'), 'output.pdf'),
-    filters: [{ name: 'PDF Files', extensions: ['pdf'] }],
-  });
-
-  if (!result.canceled && result.filePath) {
-    fs.writeFileSync(result.filePath, buffer);
-    event.sender.send('pdfGenerated', 'PDF generated and saved successfully');
-  }
+  // it calls the PDF function that holds the parameters values accordingly
+  generatePDF.credentialsPDFgenerator(event, dialog, path, app, credentialsDataRetrieved);
 });
 
 
-
-
-});
-*/
 /*
 // retrieve test (credentials system)
 async function retrieveCredentials(db,id){

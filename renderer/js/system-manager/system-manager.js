@@ -1,47 +1,20 @@
 
 
-//import { extractDataTest } from "./pdf-genarator.js";
-
-
-/*it generates a PDF file with the final brrakdown*/
-
-
+// import PDF handler that send srequest to server to generate PDF
+import { generatePDF } from "./pdf-handler.js";
 
  // Get logged in/out User ID session to use to reference during insertion to DB
  const LOGGED_IN_USER_ID = sessionStorage.getItem('loggedInUserID');  // add userID
  const LOGGED_OUT_USER_ID = sessionStorage.removeItem('loggedInUserID'); // removes userID
- 
- console.log("Logged in User in the System Section with ID:", LOGGED_IN_USER_ID);
-
-const genCredentialsPDF = document.getElementById("generateCredentialsSystemPDF");
-genCredentialsPDF.addEventListener("click", function () {
- console.log("somwthing happend")
- 
-   window.credentialsDataPDF.requestCredentialsDataPDF('requestCredentialsDataPDF', LOGGED_IN_USER_ID); //OK
-
-});
-
-/*
-// Retrieved data Response 
-window.credentialsDataPDF.receive('credentialsDataPDFResponse', (credentialsDataRetrieved) => {
-  console.log("Retrieved Credentials data from server to Renderer for PDF:",credentialsDataRetrieved);
-
-    // Parse the received JSON string into a JavaScript object
-    const dataArray = JSON.parse(credentialsDataRetrieved);
-
-      const firstObject = dataArray[0];
-
-      // Access properties of the first object
-      console.log("subject:", firstObject.subject);
-      console.log("userName:", firstObject.userName);
-      console.log("password:", firstObject.password);
-  
-   
-})
-
-*/
 
  
+ // Create PDF
+ generatePDF(LOGGED_IN_USER_ID);
+
+ 
+
+
+
 // It get elements (icon and message on hover)
 const uploadIcons = document.querySelectorAll('.upload-icon');
 const uploadMessages = document.querySelectorAll('.upload-message');
@@ -352,6 +325,7 @@ function deleteCredentialsRESPONSE(){
   });
   }
 
+  deleteCredentialsRESPONSE();
 
 /**
  * Every time 'delete' button is clicked the page will be refreshed
@@ -371,7 +345,7 @@ document.addEventListener('click', function(event) {
   deleteCredentialsREQUEST(event);
 });
 
-deleteCredentialsRESPONSE();
+
 
 
 

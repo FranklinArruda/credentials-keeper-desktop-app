@@ -111,6 +111,25 @@ contextBridge.exposeInMainWorld("phoneSystem", phoneSystem);
 
 
 
+// DELETE CREDENTIALS Request 
+const deletePhoneOnClick = {
+  deletePhoneRequest: (channel, data) => {
+    ipcRenderer.send(channel, data);
+    console.log('Sending PHONE delete request from the renderer to main:', data);
+  },
+
+  deletePhoneResponse: (channel, func) => {
+    ipcRenderer.on(channel, (event, ...args) => {
+      console.log('Received PHONE delete response in the preload from main:', args);
+      func(...args);
+    });
+  },
+};
+
+contextBridge.exposeInMainWorld('deletePhone', deletePhoneOnClick);
+
+
+
 
 
 

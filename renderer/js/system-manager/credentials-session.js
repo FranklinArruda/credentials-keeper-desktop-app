@@ -127,8 +127,7 @@ if (Array.isArray(credentialsData)) {
  */
 function deleteCredentialsREQUEST(event, LOGGED_IN_USER_ID) {
 
-    // Check if the clicked element has the target class
-    if (event.target.classList.contains('credentials-delete-btn')) {
+   
 
     // Accessing information from the clicked element or its related elements
     const row = event.target.closest('tr'); // Assuming the button is inside a table row
@@ -153,7 +152,7 @@ function deleteCredentialsREQUEST(event, LOGGED_IN_USER_ID) {
     const jsonString = JSON.stringify(userCredentialsData);
     console.log('Sending delete request from the Renderer to main:', jsonString);
     window.deleteCredentials.deleteCredentialsRequest('deleteCredentialsRequest', jsonString);
-}
+
 }
 
 /**
@@ -163,7 +162,7 @@ function deleteCredentialsREQUEST(event, LOGGED_IN_USER_ID) {
  * So every time page is loaded it will retrieve the data from server
  * It sends request to retrive the data referencing User ID
  */
-function refreshTable(LOGGED_IN_USER_ID) {
+function refreshCredentialsTable(LOGGED_IN_USER_ID) {
     let table = document.getElementById("outputTableCredentials");
    
     // Keep the header row and remove all other rows
@@ -184,7 +183,7 @@ function deleteCredentialsRESPONSE(LOGGED_IN_USER_ID){
   console.log('Received delete response in the Renderer from Main:', userCredentialsData);
   
   // Refresh the table after successful deletion with a transition
-  refreshTable(LOGGED_IN_USER_ID);
+  refreshCredentialsTable(LOGGED_IN_USER_ID);
   });
   }
 

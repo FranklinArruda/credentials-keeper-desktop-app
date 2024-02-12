@@ -129,9 +129,6 @@ if (Array.isArray(phoneData)) {
  */
 function deletePhoneREQUEST(event, LOGGED_IN_USER_ID) {
 
-  // Check if the clicked element has the target class
-  if (event.target.classList.contains('phone-delete-btn')) {
-
   // Accessing information from the clicked element or its related elements
   const row = event.target.closest('tr'); // Assuming the button is inside a table row
   const name = row.cells[0].textContent;
@@ -152,9 +149,47 @@ function deletePhoneREQUEST(event, LOGGED_IN_USER_ID) {
   // Serialize the object into a JSON-formatted string before sending
   const jsonString = JSON.stringify(userPhoneData);
   console.log('Sending Phone delete request from the Renderer to main:', jsonString);
-  window.deleteRequest.deletePhoneRequest('deletePhoneRequest', jsonString);
+  window.deletePhone.deletePhoneRequest('deletePhoneRequest', jsonString);
+
 }
+
+
+
+/**
+ * Every time 'delete' button is clicked the page will be refreshed
+ * It then triggers the 'window' event listeners on (load) page
+ * It removes all child elements (rows)
+ * So every time page is loaded it will retrieve the data from server
+ * It sends request to retrive the data referencing User ID
+ */
+function refreshPhoneTable(LOGGED_IN_USER_ID) {
+  let table = document.getElementById("outputTablePhone");
+ 
+  // Keep the header row and remove all other rows
+  for (let i = table.rows.length - 1; i > 0; i--) {
+    table.deleteRow(i);
 }
+
+// here I send a request to to be returned to table response with data
+window.phoneSystem.requestPhoneData('requestPhoneData', LOGGED_IN_USER_ID);
+}
+
+
+
+/**
+* It handles the delete Request
+* It call the RefreashTable function to trigger the retrieve on loadpage function
+*/
+function deletePhoneRESPONSE(LOGGED_IN_USER_ID){
+  // Event listener for the delete response
+  window.deletePhone.deletePhoneResponse('deletePhoneResponse', (userPhoneData) => {
+  console.log('Received delete response in the Renderer from Main:', userPhoneData);
+  
+  // Refresh the table after successful deletion with a transition
+  refreshPhoneTable(LOGGED_IN_USER_ID);
+  });
+  }
+
 
 
 
@@ -165,7 +200,8 @@ function deletePhoneREQUEST(event, LOGGED_IN_USER_ID) {
 export{
   sendPhoneData,
   updatePhoneTableOnPageLoad,
-  deletePhoneREQUEST
+  deletePhoneREQUEST,
+  deletePhoneRESPONSE
 }
 
 

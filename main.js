@@ -241,13 +241,13 @@ ipcMain.on('deletePhoneRequest', (event, userPhoneData) => {
   console.log('ID:', LOGGED_IN_USER_ID);
   console.log('NAME:', name);
   console.log('PHONE NUMBER:', phoneNumber);
-  //console.log('PASSWORD:', password);
+  
 
-  //myServer.deleteCredentialsRow(connectDb,LOGGED_IN_USER_ID, subject, userName, password)
+  myServer.deletePhoneRow(connectDb,LOGGED_IN_USER_ID, name, phoneNumber)
 
-  //console.log("delete response:", userCredentialsData)
+  console.log("delete response:", userPhoneData)
   // Sending a response back to the renderer process
-  //mainWindow.webContents.send('deleteCredentialsResponse', userCredentialsData);
+  mainWindow.webContents.send('deletePhoneResponse', userPhoneData);
 });
 
 

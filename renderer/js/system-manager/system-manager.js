@@ -12,7 +12,9 @@ import {  deleteCredentialsREQUEST,
 // import PDF handler that send srequest to server to generate PDF
 import {  sendPhoneData,
           updatePhoneTableOnPageLoad,
-          deletePhoneREQUEST } from "./phone-session.js";
+          deletePhoneREQUEST,
+          deletePhoneRESPONSE
+         } from "./phone-session.js";
 
 
 
@@ -181,16 +183,28 @@ window.addEventListener('load', updateCredentialsTableOnPageLoad(LOGGED_IN_USER_
 window.addEventListener('load', updatePhoneTableOnPageLoad(LOGGED_IN_USER_ID));
 
 
-
-document.addEventListener('click', function(event) {
+// Event listener for delete requests in the Credentials and Phone Systems
+document.addEventListener('click', function (event) {
   event.preventDefault(); // Prevent the default form submission
-  deleteCredentialsREQUEST(event, LOGGED_IN_USER_ID);
-  deletePhoneREQUEST(event, LOGGED_IN_USER_ID)
- 
+
+  const credentialsDeleteBtn = event.target.closest('.credentials-delete-btn');
+  const phoneDeleteBtn = event.target.closest('.phone-delete-btn');
+
+  if (credentialsDeleteBtn) {
+      deleteCredentialsREQUEST(event, LOGGED_IN_USER_ID);
+
+  } else if (phoneDeleteBtn) {
+      deletePhoneREQUEST(event, LOGGED_IN_USER_ID);
+  }
 });
 
 
 
+
+
+
 deleteCredentialsRESPONSE(LOGGED_IN_USER_ID);
+
+deletePhoneRESPONSE(LOGGED_IN_USER_ID);
 
 generatePDF(LOGGED_IN_USER_ID);

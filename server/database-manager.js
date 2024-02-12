@@ -152,7 +152,7 @@ function retrieveCredentialsManager(dbConnection, userId) {
       }
     });
   });
-}
+};
 
 // Deletes credentials system row
 function deleteCredentialsRow(dbConnection, userId, subject, userName, password) {
@@ -166,7 +166,7 @@ function deleteCredentialsRow(dbConnection, userId, subject, userName, password)
       console.log(`Row deleted for UserID ${userId}`);
     }
   });
-}
+};
 
 
 
@@ -179,7 +179,7 @@ function insertPhoneSystem(dbConnection, userId, personName, phoneNumber ) {
     } 
     console.log(`Row inserted with ID ${this.lastID}`);
   });
-}
+};
 
 
 // RETRIEVE PHONE SYSTEM
@@ -203,7 +203,24 @@ function retrievePhoneManager(dbConnection, userId) {
       }
     });
   });
-}
+};
+
+
+
+// Deletes credentials system row
+function deletePhoneRow(dbConnection, userId, name, phoneNumber) {
+  
+  console.log(`Attempting to delete row for UserID ${userId}, Name ${name}, Phone Number ${phoneNumber}`);
+
+  dbConnection.run(`DELETE FROM ${PHONE_NUMBER_MANAGER_TABLE} WHERE UserID = ? AND PersonName = ? AND PhoneNumber = ?`, [userId, name, phoneNumber], function(err) {
+    if (err) {
+      console.error(`Error deleting row: ${err.message}`);
+    } else {
+      console.log(`Row deleted for UserID ${userId}`);
+    }
+  });
+};
+
 
 
 
@@ -222,7 +239,8 @@ module.exports = {
 
   //phone system
   insertPhoneSystem,
-  retrievePhoneManager
+  retrievePhoneManager,
+  deletePhoneRow
   };
 
 

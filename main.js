@@ -82,7 +82,7 @@ ipcMain.on('password:request', async (event, userEnteredHint) => {
 
 
 
-
+// -------------------------- CREDENTIALS SYSTEM ------------------------------
 
 //  1. Receives credentials Request from Renderer to be (stored in the Database)
 // ----------------------------------------------------------------------------
@@ -94,7 +94,7 @@ ipcMain.on('sendCredentialsData', async (event, userCredentialsData) => {
   
   // insert into DATABASE 
   myServer.insertCredentialsSystem(connectDb,LOGGED_IN_USER_ID,subject,userName,password);
-
+  
   // retrieve from DATABASE and send back to the renderer to have data persistency in there when app is opened again
   const credentialsDataRetrieved = await myServer.retrieveCredentialsManager(connectDb, LOGGED_IN_USER_ID);
   
@@ -133,7 +133,8 @@ ipcMain.on('requestCredentialsData', async (event, userID) => {
  * 
  * Response back to renderer will be sent only when table row is actually is deleted
  */
-ipcMain.on('deleteRequest', (event, userCredentialsData) => {
+ipcMain.on('deleteCredentialsRequest', (event, userCredentialsData) => {
+
   // extract data sent from renderer
   const { LOGGED_IN_USER_ID, subject, userName, password} = JSON.parse(userCredentialsData);
 
@@ -146,16 +147,17 @@ ipcMain.on('deleteRequest', (event, userCredentialsData) => {
 
   myServer.deleteCredentialsRow(connectDb,LOGGED_IN_USER_ID, subject, userName, password)
 
+  console.log("delete response:", userCredentialsData)
   // Sending a response back to the renderer process
-  mainWindow.webContents.send('deleteResponse', userCredentialsData);
+  mainWindow.webContents.send('deleteCredentialsResponse', userCredentialsData);
 });
 
 
 
-// listen for the PDF Creation request from Renderer on button click for (Credentials System)
+// listen for the PDF Creation request from Renderer on button click for (CREDENTIALS SYSTEM)
 ipcMain.on('requestCredentialsDataPDF', async (event, userID) => {
 
-  console.log("PDF > Request from Renderer received in the Main with userID:", userID)
+  console.log("PDF > Request from Renderer received in the Main for PHONE SYSTEM with userID:", userID)
 
   // retrieve from DATABASE and send back to the renderer to have data persistency in there when app is opened again
   const credentialsDataRetrieved = await myServer.retrieveCredentialsManager(connectDb, userID);
@@ -173,15 +175,81 @@ ipcMain.on('requestCredentialsDataPDF', async (event, userID) => {
 });
 
 
-/*
-// retrieve test (credentials system)
-async function retrieveCredentials(db,id){
-  const retrieveCredentialsData = await myServer.retrieveCredentialsManager(db,id);
-  console.log(retrieveCredentialsData)
-}
-const currentID = 3;
-retrieveCredentials(connectDb,currentID)
-*/
+
+
+
+
+// -------------------------- PHONE SYSTEM ------------------------------
+
+//  1. Receives Phone Request from Renderer to be (stored in the Database)
+// ----------------------------------------------------------------------------
+ipcMain.on('sendPhoneData', async (event, userPhoneData) => {
+
+  // extract data sent from renderer
+  const { LOGGED_IN_USER_ID, personsName, phoneNumber } = JSON.parse(userPhoneData);
+  console.log("Phone Data received in the main from Renderer:", "UserID:", LOGGED_IN_USER_ID, ", Persons Name:", personsName, ", Phone No.:", phoneNumber );  // logging out data to test 
+  
+  // insert into DATABASE 
+   myServer.insertPhoneSystem(connectDb, LOGGED_IN_USER_ID, personsName, phoneNumber );
+  
+  // retrieve from DATABASE and send back to the renderer to have data persistency in there when app is opened again
+  const phoneDataRetrieved = await myServer.retrievePhoneManager(connectDb, LOGGED_IN_USER_ID);
+  
+  // it sends back a response with the data
+  console.log("Phone data Response from Main to Renderer on 'ADD' button clicked:", phoneDataRetrieved);
+  mainWindow.webContents.send('phoneDataResponse', JSON.stringify(phoneDataRetrieved));
+});
+
+
+
+
+
+//  2. Receives credentials Request from Renderer to when the app is starting again (retrieve data on page load)
+//  3. Receives credentials Request from Renderer to when data is being DELETED (so it forces retrieves and page load)
+// -------------------------------------------------------------------------------------------------------------
+ipcMain.on('requestPhoneData', async (event, userID) => {
+
+  // retrieve from DATABASE and send back to the renderer to have data persistency in there when app is opened again
+  const phoneDataRetrieved = await myServer.retrievePhoneManager(connectDb, userID);
+
+  // Checks the null value for empty table / or when the system is being started firt time
+  // since it will always tries to retrive I check before 
+  if(phoneDataRetrieved === null){
+     console.log("table is empty!")
+  }else{
+    console.log("Phone data Retrieved and sent from Main to Renderer on 'PAGE LOAD': ", phoneDataRetrieved);
+    mainWindow.webContents.send('phoneDataResponse', JSON.stringify(phoneDataRetrieved));
+  }
+});
+
+
+
+
+/**
+ * It listen for the dele request from renderer and it returns the delete reponse in which will trigger the 
+ * retrive function to update the table on page load. (That way just refresh the table in the renderer).
+ * 
+ * Response back to renderer will be sent only when table row is actually is deleted
+ */
+ipcMain.on('deletePhoneRequest', (event, userPhoneData) => {
+
+  // extract data sent from renderer
+  const { LOGGED_IN_USER_ID, name, phoneNumber} = JSON.parse(userPhoneData);
+
+  console.log('Delete phone request received in the Main from Renderer:', userPhoneData);
+
+  console.log('ID:', LOGGED_IN_USER_ID);
+  console.log('NAME:', name);
+  console.log('PHONE NUMBER:', phoneNumber);
+  //console.log('PASSWORD:', password);
+
+  //myServer.deleteCredentialsRow(connectDb,LOGGED_IN_USER_ID, subject, userName, password)
+
+  //console.log("delete response:", userCredentialsData)
+  // Sending a response back to the renderer process
+  //mainWindow.webContents.send('deleteCredentialsResponse', userCredentialsData);
+});
+
 
 
 } //MAIN window ends here
@@ -207,6 +275,7 @@ app.whenReady().then(() => {
     }
   });
 });
+
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {

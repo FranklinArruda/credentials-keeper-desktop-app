@@ -32,8 +32,12 @@ const passwordRequest = {
 contextBridge.exposeInMainWorld('passwordRequest', passwordRequest);
 
 
-// ---------------------- sendCredentialsToDatabase: Request to store data in the (Database)
-// ---------------------- requestCredentialsData: Request retrieve data on (page load)
+
+
+// -------------------- CREDENTIANSL SYSTEM --------------------------------
+
+//sendCredentialsToDatabase: Request to store data in the (Database)
+//requestCredentialsData: Request retrieve data on (page load)
 const credentialsSystem = {
 
   // send request
@@ -49,15 +53,15 @@ contextBridge.exposeInMainWorld("credentialsSystem", credentialsSystem);
 
 
 
-//----------------------SEND 'request' to (RETRIEVE CREDENTIALS) TO PDF generator --------------------------------------------
+// SEND 'request' to (RETRIEVE CREDENTIALS) TO PDF generator 
 const credentilasDataPDF = { 
   requestCredentialsDataPDF: (channel, data) => {
     ipcRenderer.send(channel, data),
-    console.log('Request from Renderer received in the Preload for PDF GENERATOR with userID:', data);
+    console.log('Request from Renderer received in the Preload for CREDENTIALS PDF GENERATOR with userID:', data);
   },
   receive: (channel, func) => { 
     ipcRenderer.on(channel, (event, ...args) => {
-      console.log('Response from Main to Renderer received in the Preload for PDF GENERATOR with data:', args[0]);
+      console.log('Response from Main to Renderer received in the Preload for CREDENTIALS PDF GENERATOR with data:', args[0]);
       func(...args);
     });
   }
@@ -66,43 +70,43 @@ const credentilasDataPDF = {
 contextBridge.exposeInMainWorld('credentialsDataPDF', credentilasDataPDF);
 
 
-/**
- * Request Message from (CREDENTIALS SYSTEM)
- * 
- * It sends request to main with ID as data and retrieve data from dabase when page is loaded
- * It returns a JSON data format with stringfy 
- */
-/*
-const requestDataCredentialsSystem = {
-  send: (channel, data) => ipcRenderer.send(channel, data), // send
-  receive: (channel, func) => ipcRenderer.on(channel, (event, ...args) => func(...args)) // receives
-};
-// Expose indexBridge and ipcRenderer in the main world
-contextBridge.exposeInMainWorld("requestDataCredentialsSystem", requestDataCredentialsSystem);
-*/
 
-
-
-
-
-
-
-const deleteRequest = {
-  deleteRequest: (channel, data) => {
+// DELETE CREDENTIALS Request 
+const deleteCredentialsOnClick = {
+  deleteCredentialsRequest: (channel, data) => {
     ipcRenderer.send(channel, data);
-    console.log('Sending delete request from the renderer to main:', data);
+    console.log('Sending CREDENTIALS delete request from the renderer to main:', data);
   },
 
-  deleteResponse: (channel, func) => {
+  deleteCredentialsResponse: (channel, func) => {
     ipcRenderer.on(channel, (event, ...args) => {
-      console.log('Received delete response in the preload from main:', args);
+      console.log('Received CREDENTIALS delete response in the preload from main:', args);
       func(...args);
     });
   },
 };
 
-contextBridge.exposeInMainWorld('deleteRequest', deleteRequest);
+contextBridge.exposeInMainWorld('deleteCredentials', deleteCredentialsOnClick);
 
+
+
+
+// -------------------- PHONE SYSTEM --------------------------------
+
+
+//sendPhonetoDatabase: Request to store data in the (Database)
+//requestPhoneData: Request retrieve data on (page load)
+const phoneSystem = {
+
+  // send request
+  sendPhoneToDatabase: (channel, data) => ipcRenderer.send(channel, data), 
+  requestPhoneData: (channel, data) => ipcRenderer.send(channel, data),
+
+  // response for both request
+  receivePhoneData: (channel, func) => ipcRenderer.on(channel, (event, ...args) => func(...args)) // receives
+};
+// Expose indexBridge and ipcRenderer in the main world
+contextBridge.exposeInMainWorld("phoneSystem", phoneSystem);
 
 
 

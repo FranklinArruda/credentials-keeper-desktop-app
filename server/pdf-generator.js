@@ -22,8 +22,8 @@ function credentialsPDFgenerator(event, dialog, path, app, credentialsDataRetrie
     // Define the content structure for the PDF
     const pdfContent = {
         content: [
-        { text: 'Hello, this is your PDF!', fontSize: 16, bold: true, margin: [0, 0, 0, 10] },
-        { text: 'Table Example:', fontSize: 14, bold: true, margin: [0, 0, 0, 10] },
+       // { text: 'Hello, this is your PDF!', fontSize: 16, bold: true, margin: [0, 0, 0, 10] },
+       // { text: 'Table Example:', fontSize: 14, bold: true, margin: [0, 0, 0, 10] },
 
         // Table structure with header and dynamically generated body
         {

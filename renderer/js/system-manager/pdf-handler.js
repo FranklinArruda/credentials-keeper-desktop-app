@@ -19,14 +19,15 @@ function generatePDF(LOGGED_IN_USER_ID){
             // call function genarate PDF for credentials system
             console.log("Credentials PDF clicked! Performing action A.");
             PDFcredentialsRequest(LOGGED_IN_USER_ID);
+
         } else if (event.target === phonePDF) {
             
+            PDFphoneRequest(LOGGED_IN_USER_ID);
             // call function genarate PDF for phone system
             console.log("Phone PDF clicked! Performing action B.");
         }
     });
 }
-
 
 
 /**
@@ -39,6 +40,15 @@ function PDFcredentialsRequest(LOGGED_IN_USER_ID){
 };
 
 
+
+/**
+ * PHONE SYSTEM
+ * 
+ * It sends a request to server with the logged in user on button clicked.
+ */
+function PDFphoneRequest(LOGGED_IN_USER_ID){
+    window.credentialsDataPDF.requestCredentialsDataPDF('requestPhoneDataPDF', LOGGED_IN_USER_ID); //OK
+ };
 
 export{
     generatePDF

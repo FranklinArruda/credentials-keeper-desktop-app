@@ -1155,10 +1155,6 @@ input:focus {
   display: none;
 }
 
-#outputTableCredentials {
-  animation: fadeOut 1s ease;
-}
-
 /* Width */
 ::-webkit-scrollbar {
   width: 12px;

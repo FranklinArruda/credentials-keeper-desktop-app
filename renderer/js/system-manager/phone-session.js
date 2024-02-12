@@ -1,0 +1,173 @@
+
+
+/**
+ * It gets all the input values with by ID
+ * @returns input values from credentials form system
+ */
+function getPhoneInputValues(){
+    let personsName = document.getElementById("name").value; 
+    let phoneNumber = document.getElementById("phone-number").value; 
+return { personsName, phoneNumber };
+}
+
+/**
+* Get form inputs values and set to 'empty' string 
+* It clear all inputs when 'add' button is clicked
+*/
+function clearInputsCredentials() { 
+    document.getElementById("name").value = ""; 
+    document.getElementById("phone-number").value = ""; 
+console.log("Phone Input fields cleared out successfully!");
+}; 
+
+/**
+* Get form inputs values 
+* Event prevent page from reload
+* It sends a request to server through IPC to insert data into DB
+* @returns true if data is being sent
+*/
+function sendPhoneData(event, LOGGED_IN_USER_ID) { 
+// Get input values 
+const { personsName, phoneNumber } = getPhoneInputValues();
+
+  // Check if 'window.ipcRenderer' is defined
+  if (window.credentialsSystem) {
+    const userPhoneData = { 
+        LOGGED_IN_USER_ID: LOGGED_IN_USER_ID, // sending logged in user ID as reference
+        personsName: personsName,
+        phoneNumber: phoneNumber
+    };
+
+    console.log("User phone object", userPhoneData)
+
+   //Send Request to server to Insert user data into DB
+   window.phoneSystem.sendPhoneToDatabase('sendPhoneData', JSON.stringify(userPhoneData));
+   console.log("Phone data sent Succcessfully from Renderer to Main:", userPhoneData)
+  
+    // call clear inputs function
+    clearInputsCredentials();
+    return true;
+  }
+  else {
+    console.error('window.ipcRenderer is not defined.');
+    return false;
+  }
+};
+
+
+
+
+
+/**
+ * Sends a request to insert data into the database and triggers a response to populate the table in real time.
+ * This process is handled within the loadPage function, where the initial response is forced using a helper function.
+ * Additionally, a second request is made during the page load, retrieving the same data when the application is reopened.
+ */
+function updatePhoneTableOnPageLoad(LOGGED_IN_USER_ID){
+  
+  console.log('Phone session Page ---loaded successfully!');
+
+  // Request data on Page load
+  window.phoneSystem.requestPhoneData('requestPhoneData', LOGGED_IN_USER_ID);
+
+  // Retrieved data Response when 'add button' is clicked
+  window.phoneSystem.receivePhoneData('phoneDataResponse', (phoneDataRetrieved) => {
+  console.log("Retrieved Phone data from server to Renderer on 'PAGE LOAD' successfully:", phoneDataRetrieved);
+
+  // Parse the string into a JSON object
+  let phoneData;
+
+  try {
+    phoneData = JSON.parse(phoneDataRetrieved);
+  } catch (error) {
+    console.error("Error parsing JSON:", error);
+    return; // Stop further execution if parsing fails
+  }
+
+ // Clear existing rows in the table
+ let table = document.getElementById("outputTablePhone");
+
+ // Keep the header row and remove all other rows
+for (let i = table.rows.length - 1; i > 0; i--) {
+  table.deleteRow(i);
+}
+
+// Check if credentialsData is an array
+if (Array.isArray(phoneData)) {
+
+  // Iterate through each object in credentialsData
+  phoneData.forEach((dataObject) => {
+
+      // Get the table and insert a new row at the end 
+     // let table = document.getElementById("outputTableCredentials"); 
+      let newRow = table.insertRow(table.rows.length); 
+      
+      // Insert data into cells of the new row
+      // Ensure that the property names used in your JavaScript code match the actual property names of the data you are working with
+      newRow.insertCell(0).innerHTML = dataObject.PersonName || '';
+      newRow.insertCell(1).innerHTML = dataObject.PhoneNumber || '';
+      newRow.insertCell(2).innerHTML =
+        '<button class="action phone-delete-btn button">Delete</button>';
+  });
+} else {
+  // Handle the case when credentialsData is not an array
+  console.error("phoneData is not an array. It may be of type:", typeof phoneData);
+}  
+}); 
+}
+
+
+/**
+ * DELETE ROW from (CREDENTIALS SYSTEM)
+ * 
+ * Use event delegation on a parent element that is present in the DOM
+ * 
+ * DELETE SPECIF ROW when 'delete'button is CLICKED
+ * It gets the data from that spaecif row when button is clciked
+ * Sends a request to main as JSON object data
+ * Query the data to be deleted using that specific data sent dynamically
+ */
+function deletePhoneREQUEST(event, LOGGED_IN_USER_ID) {
+
+  // Check if the clicked element has the target class
+  if (event.target.classList.contains('phone-delete-btn')) {
+
+  // Accessing information from the clicked element or its related elements
+  const row = event.target.closest('tr'); // Assuming the button is inside a table row
+  const name = row.cells[0].textContent;
+  const phoneNumber = row.cells[1].textContent;
+
+
+  // You can now use the extracted information as needed
+  console.log('Name:', name);
+  console.log('Phone Number:', phoneNumber);
+
+  // data object with all inputs
+  const userPhoneData = {
+      LOGGED_IN_USER_ID: LOGGED_IN_USER_ID, // sending logged in user ID as reference
+      name: name,
+      phoneNumber: phoneNumber,
+  };
+
+  // Serialize the object into a JSON-formatted string before sending
+  const jsonString = JSON.stringify(userPhoneData);
+  console.log('Sending Phone delete request from the Renderer to main:', jsonString);
+  window.deleteRequest.deletePhoneRequest('deletePhoneRequest', jsonString);
+}
+}
+
+
+
+
+
+
+// credentials system
+export{
+  sendPhoneData,
+  updatePhoneTableOnPageLoad,
+  deletePhoneREQUEST
+}
+
+
+
+

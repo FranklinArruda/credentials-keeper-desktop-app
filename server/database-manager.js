@@ -95,6 +95,7 @@ function retrieveUserID(dbConnection, password) {
   });
 }
 
+
 //Retrieve Hint Pass
 function retrieveHintPass(dbConnection, hint) {
   return new Promise((resolve, reject) => {
@@ -115,6 +116,8 @@ function retrieveHintPass(dbConnection, hint) {
   });
 }
 
+
+// -----------------  CREDENTIALS SYSTEM --------------------------------
 
 // INSERT data into 'CRDENTAISL SYSTEM' table
 function insertCredentialsSystem(dbConnection, userId, subject, userName, password) {
@@ -155,7 +158,7 @@ function retrieveCredentialsManager(dbConnection, userId) {
 function deleteCredentialsRow(dbConnection, userId, subject, userName, password) {
   
   console.log(`Attempting to delete row for UserID ${userId}, Subject ${subject}, Username ${userName}, Password ${password}`);
-  
+
   dbConnection.run(`DELETE FROM ${CREDENTIALS_MANAGER_TABLE} WHERE UserID = ? AND Subject = ? AND Username = ? AND Password = ?`, [userId, subject, userName, password], function(err) {
     if (err) {
       console.error(`Error deleting row: ${err.message}`);
@@ -167,6 +170,41 @@ function deleteCredentialsRow(dbConnection, userId, subject, userName, password)
 
 
 
+// -----------------  PHONE SYSTEM --------------------------------
+// INSERT data into 'PHONE SYSTEM' table
+function insertPhoneSystem(dbConnection, userId, personName, phoneNumber ) {
+  dbConnection.run(`INSERT INTO ${PHONE_NUMBER_MANAGER_TABLE} (UserId, PersonName, PhoneNumber) VALUES (?, ?, ?)`, [userId, personName, phoneNumber], function(err) {
+    if (err) {
+      return console.error(err.message);
+    } 
+    console.log(`Row inserted with ID ${this.lastID}`);
+  });
+}
+
+
+// RETRIEVE PHONE SYSTEM
+function retrievePhoneManager(dbConnection, userId) {
+  return new Promise((resolve, reject) => {
+    dbConnection.all(`SELECT * FROM ${PHONE_NUMBER_MANAGER_TABLE} WHERE UserID = ?`, [userId], (err, rows) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      // Handle the case where no matching record is found
+      if (rows && rows.length > 0) {
+        const phoneData = rows.map(row => ({
+          PersonName: row.PersonName,
+          PhoneNumber: row.PhoneNumber
+        }));
+        
+        resolve(phoneData);
+      } else {
+        resolve(null);
+      }
+    });
+  });
+}
+
 
 
 // exporting functions and connection
@@ -176,8 +214,17 @@ module.exports = {
   closeDbConnection,
   retrieveUserID,
   retrieveHintPass,
+
+  // credentials system
   insertCredentialsSystem,
   retrieveCredentialsManager,
-  deleteCredentialsRow
+  deleteCredentialsRow,
+
+  //phone system
+  insertPhoneSystem,
+  retrievePhoneManager
   };
+
+
+
   

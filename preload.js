@@ -51,6 +51,23 @@ const credentialsSystem = {
 contextBridge.exposeInMainWorld("credentialsSystem", credentialsSystem);
 
 
+// DELETE CREDENTIALS Request 
+const deleteCredentialsOnClick = {
+  deleteCredentialsRequest: (channel, data) => {
+    ipcRenderer.send(channel, data);
+    console.log('Sending CREDENTIALS delete request from the renderer to main:', data);
+  },
+
+  deleteCredentialsResponse: (channel, func) => {
+    ipcRenderer.on(channel, (event, ...args) => {
+      console.log('Received CREDENTIALS delete response in the preload from main:', args);
+      func(...args);
+    });
+  },
+};
+
+contextBridge.exposeInMainWorld('deleteCredentials', deleteCredentialsOnClick);
+
 
 
 // SEND 'request' to (RETRIEVE CREDENTIALS) TO PDF generator 
@@ -69,24 +86,6 @@ const credentilasDataPDF = {
 // Expose loginRequest to the window object
 contextBridge.exposeInMainWorld('credentialsDataPDF', credentilasDataPDF);
 
-
-
-// DELETE CREDENTIALS Request 
-const deleteCredentialsOnClick = {
-  deleteCredentialsRequest: (channel, data) => {
-    ipcRenderer.send(channel, data);
-    console.log('Sending CREDENTIALS delete request from the renderer to main:', data);
-  },
-
-  deleteCredentialsResponse: (channel, func) => {
-    ipcRenderer.on(channel, (event, ...args) => {
-      console.log('Received CREDENTIALS delete response in the preload from main:', args);
-      func(...args);
-    });
-  },
-};
-
-contextBridge.exposeInMainWorld('deleteCredentials', deleteCredentialsOnClick);
 
 
 
@@ -131,6 +130,21 @@ contextBridge.exposeInMainWorld('deletePhone', deletePhoneOnClick);
 
 
 
+// SEND 'request' to (RETRIEVE CREDENTIALS) TO PDF generator 
+const phoneDataPDF = { 
+  phoneCredentialsDataPDF: (channel, data) => {
+    ipcRenderer.send(channel, data),
+    console.log('Request from Renderer received in the Preload for PHONE PDF GENERATOR with userID:', data);
+  },
+  receive: (channel, func) => { 
+    ipcRenderer.on(channel, (event, ...args) => {
+      console.log('Response from Main to Renderer received in the Preload for PHONE PDF GENERATOR with data:', args[0]);
+      func(...args);
+    });
+  }
+};
+// Expose loginRequest to the window object
+contextBridge.exposeInMainWorld('phoneDataPDF', phoneDataPDF);
 
 
 

@@ -252,6 +252,27 @@ ipcMain.on('deletePhoneRequest', (event, userPhoneData) => {
 
 
 
+
+// listen for the PDF Creation request from Renderer on button click for (CREDENTIALS SYSTEM)
+ipcMain.on('requestPhoneDataPDF', async (event, userID) => {
+
+  console.log("PDF > Request from Renderer received in the Main for PHONE SYSTEM with userID:", userID)
+
+  // retrieve from DATABASE and send back to the renderer to have data persistency in there when app is opened again
+  const phoneDataRetrieved = await myServer.retrievePhoneManager(connectDb, userID);
+
+  // Checks the null value for empty table / or when the system is being started firt time
+  // since it will always tries to retrive I check before 
+   if(phoneDataRetrieved === null){
+    console.log("table is empty!")
+    }else{
+    console.log("Phone data Retrieved and sent from Main to Renderer for PDF:", phoneDataRetrieved);
+    }
+
+  // it calls the PDF function that holds the parameters values accordingly
+  generatePDF.phonePDFgenerator(event, dialog, path, app, phoneDataRetrieved);
+});
+
 } //MAIN window ends here
 
 

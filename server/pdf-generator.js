@@ -22,7 +22,7 @@ function credentialsPDFgenerator(event, dialog, path, app, credentialsDataRetrie
     const pdfContent = {
         content: [
         { text: 'Hello, this is your PDF!', fontSize: 16, bold: true, margin: [0, 0, 0, 10] },
-        { text: 'Table Example:', fontSize: 14, bold: true, margin: [0, 0, 0, 10] },
+        { text: 'Credentials and Username:', fontSize: 14, bold: true, margin: [0, 0, 0, 10] },
 
         // Table structure with header and dynamically generated body
         {
@@ -59,8 +59,9 @@ function credentialsPDFgenerator(event, dialog, path, app, credentialsDataRetrie
     pdfDoc.getBase64((pdfData) => {
         const filePath = path.join(__dirname, 'credentials.pdf');
         require('fs').writeFileSync(filePath, pdfData, 'base64');
-        event.sender.send('pdfGenerated', filePath);
+        event.sender.send('credentials pdf Generated', filePath);
     });
+
 
 
   // output PDF by opening a window to save on the desktop
@@ -69,7 +70,7 @@ function credentialsPDFgenerator(event, dialog, path, app, credentialsDataRetrie
     // Show a save dialog to get the destination path from the user
     const result = await dialog.showSaveDialog({
       title: 'Save PDF',
-      defaultPath: path.join(app.getPath('desktop'), 'output.pdf'),
+      defaultPath: path.join(app.getPath('desktop'), 'credentials.pdf'),
       filters: [{ name: 'PDF Files', extensions: ['pdf'] }],
     });
 
@@ -100,7 +101,7 @@ function phonePDFgenerator(event, dialog, path, app, phoneDataRetrieved){
   const pdfContent = {
       content: [
       { text: 'Hello, this is your PDF!', fontSize: 16, bold: true, margin: [0, 0, 0, 10] },
-      { text: 'Table Example:', fontSize: 14, bold: true, margin: [0, 0, 0, 10] },
+      { text: 'Contact List:', fontSize: 14, bold: true, margin: [0, 0, 0, 10] },
 
       // Table structure with header and dynamically generated body
       {
@@ -109,8 +110,8 @@ function phonePDFgenerator(event, dialog, path, app, phoneDataRetrieved){
           widths: ['auto', 'auto'],
           body: [
               [
-              { text: 'PersonName', style: 'tableHeader', fillColor: '#eb5e28', color: '#FFFFFF', bold: true, alignment: 'center'},
-              { text: 'PhoneNumber', style: 'tableHeader', fillColor: '#eb5e28', color: '#FFFFFF', bold: true, alignment: 'center'}
+              { text: 'Name', style: 'tableHeader', fillColor: '#eb5e28', color: '#FFFFFF', bold: true, alignment: 'center'},
+              { text: 'Phone Number', style: 'tableHeader', fillColor: '#eb5e28', color: '#FFFFFF', bold: true, alignment: 'center'}
 
           ],
 
@@ -135,9 +136,9 @@ const pdfDoc = pdfmake.createPdf(pdfContent);
 
   // output PDF in the files directory
   pdfDoc.getBase64((pdfData) => {
-      const filePath = path.join(__dirname, 'output_base64.pdf');
+      const filePath = path.join(__dirname, 'phone.pdf');
       require('fs').writeFileSync(filePath, pdfData, 'base64');
-      event.sender.send('pdfGenerated', filePath);
+      event.sender.send('phone pdf Generated', filePath);
   });
 
 
@@ -147,7 +148,7 @@ pdfDoc.getBuffer(async (buffer) => {
   // Show a save dialog to get the destination path from the user
   const result = await dialog.showSaveDialog({
     title: 'Save PDF',
-    defaultPath: path.join(app.getPath('desktop'), 'output_buffer.pdf'),
+    defaultPath: path.join(app.getPath('desktop'), 'phone.pdf'),
     filters: [{ name: 'PDF Files', extensions: ['pdf'] }],
   });
 

@@ -1,21 +1,39 @@
 {
   "name": "credential-keeper",
   "version": "1.0.0",
-  "description": "credencial keeper",
+  "description": "Credentials Keeper App",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
   },
-  "author": "FRANKLIN",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FranklinArruda/credential-keeper.git"
+  },
+  "author": "Franklin Arruda Cirino",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/FranklinArruda/credential-keeper/issues"
+  },
+  "homepage": "https://github.com/FranklinArruda/credential-keeper#readme",
   "devDependencies": {
-    "electron": "^28.1.3"
+    "electron": "^25.0.0",
+    "electron-builder": "^24.4.0",
+    "electron-packager": "^17.1.1",
+    "sass": "^1.71.1"
   },
   "dependencies": {
-    "check-node-version": "^4.2.1",
-    "electron-cookies": "^1.1.0",
-    "pdfkit": "^0.14.0",
     "pdfmake": "^0.2.9",
-    "sqlite3": "^5.1.7"
+    "sqlite3": "^5.1.6"
+  },
+  "build": {
+    "appId": "CredentialsKeeper.App",
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "renderer/assets/icon/appIcon.png"  
+    }
   }
 }

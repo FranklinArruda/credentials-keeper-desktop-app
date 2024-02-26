@@ -5,9 +5,17 @@ const { contextBridge, ipcRenderer } = require('electron');
 
 //----------------------SEND USER REGISTRATION DATA TO MAIN --------------------------------------------
 const rendererToMain = {
-  register: (channel, data) => ipcRenderer.send(channel, data), // send
-  on: (channel, func) => ipcRenderer.on(channel, (event, ...args) => func(...args)) // receives
-};
+  register: (channel, data) => {ipcRenderer.send(channel, data)
+  console.log('Sending USER DATA from the renderer to main:', data);
+  }, // send
+  
+  on: (channel, func) => {
+    ipcRenderer.on(channel, (event, ...args) => {
+      console.log('Received USER ID on registration retrieved from the MAIN:', args);
+      func(...args); // receives
+    });
+  }};
+
 // Expose indexBridge and ipcRenderer in the main world
 contextBridge.exposeInMainWorld("userRegistration", rendererToMain);
 

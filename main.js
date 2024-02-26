@@ -4,28 +4,31 @@ const fs = require('fs');
 const pdfmake = require('pdfmake/build/pdfmake');
 const vfsFonts = require('pdfmake/build/vfs_fonts');
 
-const myServer = require('./server/database-manager.js'); // requiring the server side application (connection and functions etc)
-const generatePDF = require('./server/pdf-generator.js'); // requiring PDF generator function for both system
+const myServer = require('./database-manager.js'); // requiring the server side application (connection and functions etc)
+const generatePDF = require('./pdf-generator.js'); // requiring PDF generator function for both system
 
 // install: npm install pdfmake
 
 pdfmake.vfs = vfsFonts.pdfMake.vfs;
 
 let mainWindow;
-let connectDb = myServer.createDbConnection(); // variable that holds the connection of the function return type value.
+let connectDb; // variable that holds the connection of the function return type value.
 
 function createMainWindow() {
+  // Ensure a new connection when creating the main window
+ connectDb = myServer.createDbConnection();
+
   mainWindow = new BrowserWindow({
     title: "Credencials Keeper",
     width: 1400,
     height: 615,
-    icon: path.join(__dirname, 'renderer/assets/icon/keys-holder.png'), // Set the path to your icon file
-    //frame: false, // hide defaut title bar
-   // resizable: false, // Prevent window resizing
-    webPreferences: {
-      nodeIntegration: true,
+   icon: path.join(__dirname, 'renderer/assets/icon/appIcon.png'),
+   //icon: path.join(__dirname, 'appIcon.png'), 
+   webPreferences: {
+      nodeIntegration: true, // disable nodeIntegration
       contextIsolation: true,
-      preload: path.join(__dirname, 'preload.js'), // it load the prealod.js file
+      preload: path.join(__dirname, 'preload.js'),
+    
     },
   });
 
@@ -41,11 +44,24 @@ function createMainWindow() {
 
 });
 
+  
 
 // ----------------------- Receives REGISTRATION
-ipcMain.on('user:registration', (event, data) => {
+ipcMain.on('user:registration', async (event, data) => {
+  console.log("user DATA registration received in the main", data)
+
   const { fullName, userName, password, hint } = JSON.parse(data);
+  
   myServer.insertUser(connectDb,fullName, userName, password, hint);
+
+  let userEnteredPassword ="000";
+
+  // Calls the retrieveID function + assings the request pass in the parameter as well as connection
+  const retrievedUserId = await myServer.retrieveUserID(connectDb, userEnteredPassword);
+
+  console.log("User_ID: " ,retrievedUserId)
+   //it sends the boolean flag to the renderer
+   mainWindow.webContents.send('user:registration', retrievedUserId);
 });
 
 
@@ -285,6 +301,9 @@ ipcMain.on('requestPhoneDataPDF', async (event, userID) => {
 // Handle the "quit-app" message from the renderer process
 ipcMain.on('quit-app', function () {
   app.quit();
+
+  // CLOSE database when closing the app
+  myServer.closeDbConnection();
 });
 
 

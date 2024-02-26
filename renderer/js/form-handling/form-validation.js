@@ -240,6 +240,7 @@ if (!(isNameValid && isEmailValid && isPasswordValid && isHintValid)) {
 }
 
 
+
 // Exporting all function aloong with the isValid();
 export {
 	validateName,

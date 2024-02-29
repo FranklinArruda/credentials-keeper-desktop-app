@@ -107,12 +107,44 @@ if (Array.isArray(credentialsData)) {
       newRow.insertCell(3).innerHTML =
         '<button class="action credentials-delete-btn button">Delete</button>';
   });
+  copyToClipboard();
 } else {
   // Handle the case when credentialsData is not an array
   console.error("credentialsData is not an array. It may be of type:", typeof credentialsData);
-}  
+} 
+
 }); 
 }
+
+
+
+
+  function copyToClipboard() {
+      console.log("copyToClipBoar function called");
+    document.getElementById("outputTableCredentials").addEventListener("click", function (e) {
+        if (e.target.tagName === "TD") {
+            const textToCopy = e.target.textContent;
+
+            // Use the Clipboard API to copy text to the clipboard
+            navigator.clipboard.writeText(textToCopy)
+                .then(() => {
+                    // Show the clipboard message
+                    const clipboardMessage = document.getElementById("clipboardMessage");
+                    clipboardMessage.style.display = "flex";
+
+                    // Hide the message after a short delay
+                    setTimeout(() => {
+                        clipboardMessage.style.display = "none";
+                    }, 1500);
+                })
+                .catch((err) => {
+                    console.error('Unable to copy to clipboard:', err);
+                });
+        }
+    });
+}
+
+  
 
 
 /**

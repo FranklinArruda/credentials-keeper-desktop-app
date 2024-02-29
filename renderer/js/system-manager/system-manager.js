@@ -175,6 +175,7 @@ const addData = sendCredentialsData(event, LOGGED_IN_USER_ID);
 
 
 
+
 // event page load that tirgger the update credentials table
 window.addEventListener('load', updateCredentialsTableOnPageLoad(LOGGED_IN_USER_ID));
 

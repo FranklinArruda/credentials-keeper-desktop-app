@@ -28,6 +28,16 @@
     }
   }
 
+   // key frame animation for message on hover in system to upload pdf file
+   @keyframes revealWidthClipBoardMessage {
+    0% {
+      width: 0%;
+    }
+    100% {
+    width:65px;
+    }
+  }
+
   // Ease out element animation
   @keyframes easeOut {
     0% { opacity: 0; }

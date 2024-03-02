@@ -1,0 +1,58 @@
+body{
+   
+    color:$fontColor;
+    margin: 0px;
+    overflow: hidden;
+    font-size: small;
+}
+
+
+
+.about{
+    position: absolute;
+    left:50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+
+    .app-name{
+        margin-bottom: 10px;
+    }
+}
+
+footer{
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color:$barColor;
+    height:75px;
+}
+
+.footer-details{
+    display: block;
+    text-align: center;
+
+  p{
+    padding-top: 12px;
+    margin-bottom: 15px;
+    font-weight: 400;
+  }
+
+  a{
+    text-decoration: none;
+    color:$btnColor;
+    border: 1px solid $btnColor;
+    padding: 5px;
+    font-weight: 600;
+    border-radius: 10px;
+   
+    &:hover{
+       background-color: $btnColor;
+       color: $secondaryColor;
+        
+    }
+  }
+
+}
+
+

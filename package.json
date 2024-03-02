@@ -13,9 +13,9 @@
   "author": "Franklin Arruda Cirino",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/FranklinArruda/credential-keeper/issues"
+    "url": "https://github.com/FranklinArruda/credentials-keeper/issues"
   },
-  "homepage": "https://github.com/FranklinArruda/credential-keeper#readme",
+  "homepage": "https://github.com/FranklinArruda/credentials-keeper#readme",
   "devDependencies": {
     "electron": "^25.0.0",
     "electron-builder": "^24.4.0"

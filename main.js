@@ -14,13 +14,14 @@ pdfmake.vfs = vfsFonts.pdfMake.vfs;
 let mainWindow;
 let connectDb; // variable that holds the connection of the function return type value.
 
+// MAIN WINDOW
 function createMainWindow() {
   // Ensure a new connection when creating the main window
  connectDb = myServer.createDbConnection();
 
   mainWindow = new BrowserWindow({
     title: "Credencials Keeper",
-    width: 1650,
+    width: 1050,
     height: 615,
    icon: path.join(__dirname, 'renderer/assets/icon/appIcon.png'),
    //icon: path.join(__dirname, 'appIcon.png'), 
@@ -33,19 +34,60 @@ function createMainWindow() {
   });
 
    // Open DevTools for debugging
-    mainWindow.webContents.openDevTools();
+   // mainWindow.webContents.openDevTools();
 
   // Remove the default menu bar
   Menu.setApplicationMenu(null);
 
   mainWindow.loadFile(path.join(__dirname, 'renderer/html/1-home-page.html')); // entry point html
   mainWindow.on("ready-to-show", () => {
-  mainWindow.show();       
+  mainWindow.show(); 
+  createMenu();      
 
 });
 
   
 
+//MENU WINDOW
+function createMenu() {
+  /* const template = [
+     {
+       label: 'Settings',
+       submenu: [
+         {
+           label: 'About',
+           click: createAboutWindow,
+         },
+         { role: 'quit' },
+       ],
+     },
+   ];*/
+   const template = [
+     {
+       
+           label: 'About',
+           click: createAboutWindow,
+         },
+         { role: 'quit' },
+       ];
+   
+   
+ 
+   const menu = Menu.buildFromTemplate(template);
+   Menu.setApplicationMenu(menu);
+ }
+ 
+ function createAboutWindow() {
+   aboutWindow = new BrowserWindow({
+    height: 300,
+    width: 450,
+     title: 'About',
+   });
+ 
+   aboutWindow.loadFile(path.join(__dirname, 'renderer/html/6-about-window.html'));
+ }
+
+ 
 // ----------------------- Receives REGISTRATION
 ipcMain.on('user:registration', async (event, data) => {
   console.log("user DATA registration received in the main", data)

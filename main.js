@@ -50,6 +50,8 @@ function createMainWindow() {
 
 //MENU WINDOW
 function createMenu() {
+
+  
   /* const template = [
      {
        label: 'Settings',
@@ -81,6 +83,7 @@ function createMenu() {
    aboutWindow = new BrowserWindow({
     height: 300,
     width: 450,
+    icon: path.join(__dirname, 'renderer/assets/icon/appIcon.png'),
      title: 'About',
    });
  

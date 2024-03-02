@@ -118,9 +118,6 @@ function closeDbConnection(dbConnection) {
 }
 
 
-
-
-
 // INSERT data into 'USER' table
 function insertUser(dbConnection, fullName, userName, password, hint) {
   dbConnection.run(`INSERT INTO ${USER_TABLE} (FullName, Username, Password, HintForPassword) VALUES (?, ?, ?, ?)`, [fullName, userName, password,hint], function(err) {
@@ -130,6 +127,7 @@ function insertUser(dbConnection, fullName, userName, password, hint) {
     console.log(`Row inserted with ID ${this.lastID}`);
   });
 }
+
 
 
 //Retrieve User ID 
@@ -151,6 +149,7 @@ function retrieveUserID(dbConnection, password) {
     });
   });
 }
+
 
 
 //Retrieve Hint Pass
@@ -211,6 +210,7 @@ function retrieveCredentialsManager(dbConnection, userId) {
   });
 };
 
+
 // Deletes credentials system row
 function deleteCredentialsRow(dbConnection, userId, subject, userName, password) {
   
@@ -261,7 +261,6 @@ function retrievePhoneManager(dbConnection, userId) {
     });
   });
 };
-
 
 
 // Deletes credentials system row

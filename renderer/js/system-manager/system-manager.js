@@ -121,33 +121,6 @@ counter.addEventListener('click', () => {
  
 
 /**
- * 
- * MAYBE HERE I CAN MAKE A EVENT DELEGATION IN BETWEEN THE SYSTEM
- * 
- * Event listener that sends data from (CREDENTIALS SYSTEM) to database 
- * it checks first the data being sent then call clear input fields
- 
-const addButtonCredentials = document.querySelector(".add-button.credentials");
-addButtonCredentials.addEventListener("click", function(event) {
-
-event.preventDefault();
-
-// assign them to a const since I had them as return type in function
-const addData = sendCredentialsData(event, LOGGED_IN_USER_ID);
-
-// if data is sent then clear input fields
-  if(addData){
-  console.log("data added")
-  }else{
-    console.log("data not added.")
-  }
-});*/
-
-//sendPhoneData();
-
-
-
-/**
  * Event listener DELIGATION that sends data from both (CREDENTIALS & PHONE SYSTEM) to database 
  * it checks first the data being sent then call clear input fields
  */
@@ -198,10 +171,6 @@ document.addEventListener('click', function (event) {
       deletePhoneREQUEST(event, LOGGED_IN_USER_ID);
   }
 });
-
-
-
-
 
 
 deleteCredentialsRESPONSE(LOGGED_IN_USER_ID);

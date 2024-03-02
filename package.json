@@ -1,5 +1,5 @@
 {
-  "name": "credential-keeper",
+  "name": "credential_keeper",
   "version": "1.0.0",
   "description": "Credentials Keeper App",
   "main": "main.js",

@@ -86,6 +86,7 @@ a:hover,
 }
 
 .welcome-message {
+  text-transform: uppercase;
   display: none;
   position: absolute;
   top: 20%;

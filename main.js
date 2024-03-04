@@ -16,7 +16,8 @@ let connectDb; // variable that holds the connection of the function return type
 
 // MAIN WINDOW
 function createMainWindow() {
-  // Ensure a new connection when creating the main window
+  
+// Ensure a new connection when creating the main window
  connectDb = myServer.createDbConnection();
 
   mainWindow = new BrowserWindow({

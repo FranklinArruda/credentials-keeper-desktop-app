@@ -1,25 +1,60 @@
 body{
-   
     color:$fontColor;
     margin: 0px;
     overflow: hidden;
     font-size: small;
 }
 
+.about-container{
+  height: 150px;
+  width: 300px;
+  position: absolute;
+  left:50%;
+  top: 30%;
+  transform: translate(-50%, -50%);
 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
 
-.about{
-    position: absolute;
-    left:50%;
-    top: 30%;
-    transform: translate(-50%, -50%);
+  .about{
+    position: relative;
+    top: 50px;
+    right: 15px;
+ 
+     .app-name{
+         margin-bottom: 10px;
 
-    .app-name{
-        margin-bottom: 10px;
-    }
+     }
+     .version:hover{
+      color:yellow;
+      transition:all 300ms ease-out;
+      cursor: pointer;      
+     }
+ }
 }
 
+
+ img.icon-img {
+  top: 5px;
+  align-self: flex-end; // Align the image to the end of the container
+  height: 45px;
+  width: 45px;
+  position: relative; 
+  z-index: 1; 
+
+  &:hover{
+    height: 120px;
+    width: 120px;
+    transition:all 0.5s ease-out;
+    cursor: pointer;
+   transform: rotateY(180deg);
+  }
+}
+
+
 footer{
+  z-index: -1;
     text-align: center;
     position: fixed;
     bottom: 0;

@@ -148,11 +148,11 @@ a:hover,
   box-shadow: none;
 }
 
-img {
+.home-floating-icon {
   animation: moveUpDown 2.5s infinite;
   text-shadow: #413d3d 0 0 2px, #0a0a0a 0 -10px 2px, #858181 0 -1px 2px, rgba(0, 0, 0, 0.8) 0 30px 25px;
 }
-img:hover {
+.home-floating-icon:hover {
   outline: 0.5px solid #ffffff;
   border-radius: 50%;
   outline-offset: 25px;
@@ -1243,17 +1243,49 @@ body {
   font-size: small;
 }
 
-.about {
+.about-container {
+  height: 150px;
+  width: 300px;
   position: absolute;
   left: 50%;
   top: 30%;
   transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.about .app-name {
+.about-container .about {
+  position: relative;
+  top: 50px;
+  right: 15px;
+}
+.about-container .about .app-name {
   margin-bottom: 10px;
+}
+.about-container .about .version:hover {
+  color: yellow;
+  transition: all 300ms ease-out;
+  cursor: pointer;
+}
+
+img.icon-img {
+  top: 5px;
+  align-self: flex-end;
+  height: 45px;
+  width: 45px;
+  position: relative;
+  z-index: 1;
+}
+img.icon-img:hover {
+  height: 120px;
+  width: 120px;
+  transition: all 0.5s ease-out;
+  cursor: pointer;
+  transform: rotateY(180deg);
 }
 
 footer {
+  z-index: -1;
   text-align: center;
   position: fixed;
   bottom: 0;

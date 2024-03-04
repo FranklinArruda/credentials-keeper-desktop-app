@@ -1271,17 +1271,17 @@ body {
 img.icon-img {
   top: 5px;
   align-self: flex-end;
-  height: 45px;
-  width: 45px;
+  height: 40px;
+  width: 40px;
   position: relative;
   z-index: 1;
 }
 img.icon-img:hover {
-  height: 120px;
-  width: 120px;
-  transition: all 0.5s ease-out;
+  transition: all 1s ease-out;
   cursor: pointer;
-  transform: rotateY(180deg);
+  transform: rotatez(-360deg);
+  width: 100px;
+  height: 100px;
 }
 
 footer {

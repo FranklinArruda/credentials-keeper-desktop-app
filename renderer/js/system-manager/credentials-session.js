@@ -107,7 +107,10 @@ if (Array.isArray(credentialsData)) {
       newRow.insertCell(3).innerHTML =
         '<button class="action credentials-delete-btn button">Delete</button>';
   });
+
+  // call copy to clipboard function
   copyToClipboard();
+
 } else {
   // Handle the case when credentialsData is not an array
   console.error("credentialsData is not an array. It may be of type:", typeof credentialsData);
@@ -120,7 +123,7 @@ if (Array.isArray(credentialsData)) {
 
 
   function copyToClipboard() {
-      console.log("copyToClipBoar function called");
+      console.log("copyToClipBoar function called (credentials session)");
     document.getElementById("outputTableCredentials").addEventListener("click", function (e) {
         if (e.target.tagName === "TD") {
             const textToCopy = e.target.textContent;
@@ -129,7 +132,7 @@ if (Array.isArray(credentialsData)) {
             navigator.clipboard.writeText(textToCopy)
                 .then(() => {
                     // Show the clipboard message
-                    const clipboardMessage = document.getElementById("clipboardMessage");
+                    const clipboardMessage = document.getElementById("clipboardMessageCredentials");
                     clipboardMessage.style.display = "flex";
 
                     // Hide the message after a short delay

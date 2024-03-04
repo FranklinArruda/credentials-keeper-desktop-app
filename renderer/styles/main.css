@@ -961,19 +961,19 @@ input:focus {
 }
 .system-manager-container .system-container.phone-keeper .table-container .table-overflow-container,
 .system-manager-container .system-container.credentials-manager .table-container .table-overflow-container {
-  height: 220px;
+  height: 200px;
   overflow: auto;
   width: 76%;
   position: absolute;
-  top: 40px;
+  top: 60px;
   left: 10px;
   padding: 10px;
 }
 .system-manager-container .system-container.phone-keeper .table-container .search-bar,
 .system-manager-container .system-container.credentials-manager .table-container .search-bar {
   position: absolute;
-  right: 20px;
-  top: 0px;
+  right: 250px;
+  top: 15px;
   width: 150px;
 }
 .system-manager-container .system-container.phone-keeper .table-container .search-bar input,
@@ -1005,7 +1005,7 @@ input:focus {
 }
 .system-manager-container .system-container.phone-keeper .table-container .table,
 .system-manager-container .system-container.credentials-manager .table-container .table {
-  margin-top: 30px;
+  margin-top: 10px;
   width: 100%;
   animation: easeOut 1s;
 }

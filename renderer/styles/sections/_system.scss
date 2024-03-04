@@ -170,12 +170,11 @@
 
 
       .table-overflow-container{
-      
-        height: 220px; // Set a fixed height 
+        height: 200px; // Set a fixed height 
         overflow: auto; // Add overflow property 
         width: 76%;
         position: absolute;
-        top: 40px;
+        top: 60px;
         left: 10px;
         padding: 10px; //add padding between the scroll and the table
        
@@ -185,8 +184,8 @@
        
     .search-bar{
       position:absolute;
-      right: 20px;
-      top: 0px;
+      right: 250px;
+      top: 15px;
       width: 150px;
  
 
@@ -219,7 +218,7 @@
 
       // table data
       .table{
-        margin-top: 30px; // adds 
+        margin-top: 10px; // adds 
         width: 100%;  
         animation: easeOut 1s; 
        // border-collapse: collapse;  // it makes the border to be glued to each other with no spaces in between    

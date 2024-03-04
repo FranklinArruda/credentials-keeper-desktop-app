@@ -109,11 +109,42 @@ if (Array.isArray(phoneData)) {
       newRow.insertCell(2).innerHTML =
         '<button class="action phone-delete-btn button">Delete</button>';
   });
+
+  // call copy to clipboard function
+  copyToClipboard();
+
 } else {
   // Handle the case when credentialsData is not an array
   console.error("phoneData is not an array. It may be of type:", typeof phoneData);
 }  
 }); 
+}
+
+
+
+function copyToClipboard() {
+  console.log("copyToClipBoard function called (phone session)");
+  document.getElementById("outputTablePhone").addEventListener("click", function (e) {
+    if (e.target.tagName === "TD") {
+        const textToCopy = e.target.textContent;
+
+        // Use the Clipboard API to copy text to the clipboard
+        navigator.clipboard.writeText(textToCopy)
+            .then(() => {
+                // Show the clipboard message
+                const clipboardMessage = document.getElementById("clipboardMessagePhone");
+                clipboardMessage.style.display = "flex";
+
+                // Hide the message after a short delay
+                setTimeout(() => {
+                    clipboardMessage.style.display = "none";
+                }, 1500);
+            })
+            .catch((err) => {
+                console.error('Unable to copy to clipboard:', err);
+            });
+    }
+});
 }
 
 

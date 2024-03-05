@@ -108,3 +108,18 @@
   border-radius: $borderRadiusForm;
   background-color: $barColor;
 }
+
+
+.rights{
+  position: absolute;
+  bottom: 10px;
+  left: 40%;
+  font-size: 12px;
+  letter-spacing: 2px;
+  
+  &:hover{
+    color:yellow;
+    cursor: pointer;
+    transition: all 300ms ease-in-out;
+  }
+}

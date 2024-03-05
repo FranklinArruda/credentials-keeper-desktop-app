@@ -171,6 +171,19 @@ a:hover,
   background-color: #161515;
 }
 
+.rights {
+  position: absolute;
+  bottom: 10px;
+  left: 40%;
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+.rights:hover {
+  color: yellow;
+  cursor: pointer;
+  transition: all 300ms ease-in-out;
+}
+
 .form-container.registration {
   position: absolute;
   top: 50%;
@@ -1277,11 +1290,11 @@ img.icon-img {
   z-index: 1;
 }
 img.icon-img:hover {
-  transition: all 1s ease-out;
+  transition: all 700ms ease-out;
   cursor: pointer;
   transform: rotatez(-360deg);
-  width: 100px;
-  height: 100px;
+  width: 115px;
+  height: 115px;
 }
 
 footer {
@@ -1298,11 +1311,11 @@ footer {
 .footer-details {
   display: block;
   text-align: center;
+  margin-top: 15px;
 }
 .footer-details p {
   padding-top: 12px;
-  margin-bottom: 18px;
-  font-weight: 400;
+  margin-bottom: 10px;
 }
 .footer-details a {
   text-decoration: none;
@@ -1310,6 +1323,7 @@ footer {
   border-bottom: 1px solid #eb5e28;
   padding: 5px;
   border-radius: 10px;
+  letter-spacing: 1px;
 }
 .footer-details a:hover {
   background-color: #eb5e28;

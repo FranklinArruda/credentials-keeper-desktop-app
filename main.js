@@ -22,8 +22,8 @@ function createMainWindow() {
 
   mainWindow = new BrowserWindow({
     title: "Credencials Keeper",
-    width: 1450,
-    height: 615,
+    width: 1035,
+    height: 630,
    icon: path.join(__dirname, 'renderer/assets/icon/appIcon.png'),
    //icon: path.join(__dirname, 'appIcon.png'), 
    webPreferences: {
@@ -35,7 +35,7 @@ function createMainWindow() {
   });
 
    // Open DevTools for debugging
-   mainWindow.webContents.openDevTools();
+   //mainWindow.webContents.openDevTools();
 
   // Remove the default menu bar
   Menu.setApplicationMenu(null);

@@ -45,13 +45,13 @@ body{
   z-index: 1; 
 
   &:hover{
-    transition:all 1s ease-out;
+    transition:all 700ms ease-out;
     cursor: pointer;
    // transform: scale(10); /* Adjust the scale factor as needed */
     //transform: rotateY(-20deg);
     transform: rotatez(-360deg);
-    width: 100px;
-    height: 100px;
+    width: 115px;
+    height: 115px;
   
   }
 }
@@ -71,12 +71,13 @@ footer{
 .footer-details{
     display: block;
     text-align: center;
+    margin-top: 15px;
   
 
   p{
     padding-top: 12px;
-    margin-bottom: 18px;
-    font-weight: 400;
+    margin-bottom: 10px;
+   // font-weight: 400;
   }
 
   a{
@@ -85,12 +86,13 @@ footer{
     border-bottom: 1px solid $btnColor;
     padding: 5px;
     border-radius: 10px;
-    
+    letter-spacing: 1px;
     &:hover{
        background-color: $btnColor;
        color: $secondaryColor;
        font-weight: 600;
-       box-shadow: 2px 2px 10px $homeBtnColor;     
+       box-shadow: 2px 2px 10px $homeBtnColor;
+            
     }
   }
 }

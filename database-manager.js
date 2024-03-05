@@ -15,7 +15,7 @@ const PHONE_NUMBER_MANAGER_TABLE = 'PhoneNumberManager';
 //const schemaFilePath = path.join(__dirname, 'db-schema.sql');
 //const databaseName = path.join(__dirname, './database.db');
 
-
+const dbPath = path.join(__dirname, './database.db');
 
 
 /**
@@ -27,7 +27,7 @@ const PHONE_NUMBER_MANAGER_TABLE = 'PhoneNumberManager';
  * @returns database connection 
  */
 function createDbConnection() {
-  const dbConnection = new sqlite3.Database('./database.db', (err) => {
+  const dbConnection = new sqlite3.Database('database.db', (err) => {
     if (err) {
       console.error(err.message);
     } else {

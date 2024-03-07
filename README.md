@@ -6,9 +6,12 @@
 ## Overview
 
 The idea was originated from personal perspective. As I don't feel safe in saving personal credentials as well as phone numbers up in the cloud or any other third-party online application that provides password management and so forth. 
-While on College Break, I took the initiative to create my own desktop app using Electron framework for windows machine. The app is designed to provide a seamless desktop experience with a focus on user-friendly interactions and powerful features.
 
-Credencials Keeper is a secure and user-friendly Electron desktop application designed for managing personal credentials and phone numbers on Windows machines. This app provides a seamless desktop experience with a focus on user-friendly interactions and powerful features.
+While on College Break, I took the initiative to create my own desktop app using Electron framework for windows machine. 
+
+The app is designed to provide a rich desktop experience with a focus on user-friendly interactions and some cool features like passwords and phone numbers management with internal database using sqlite3. 
+
+The data is persistent so that means save once and every time you run the application it will be populated dinamically. 
 
 #### Home Page
 <div style="display: flex;">

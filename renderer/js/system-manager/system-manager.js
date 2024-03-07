@@ -17,6 +17,8 @@ import {  sendPhoneData,
          } from "./phone-session.js";
 
 
+// import PDF handler that send srequest to server to generate PDF
+import { tableSearchWrapper } from "./search-list.js";
 
 
 
@@ -97,13 +99,12 @@ function showSection(section) {
   section.style.display = 'block';
 
   // adds credentials section to be displayed always / add active
-    if (section === credentialsSystemMenu) {
-      credentialsTitle.classList.add('active');
-    } else {
-      phoneTitle.classList.add('active');
-    }
+  if (section === credentialsSystemMenu) {
+    credentialsTitle.classList.add('active');
+  } else {
+    phoneTitle.classList.add('active');
+  }
 }
-
 
 /**
  * Event listener that targets all 'end-session' elements
@@ -142,13 +143,6 @@ counter.addEventListener('click', () => {
 });
 
 
-
-
-
-
-
-
-
 // event page load that tirgger the update credentials table
 window.addEventListener('load', updateCredentialsTableOnPageLoad(LOGGED_IN_USER_ID));
 
@@ -178,3 +172,5 @@ deleteCredentialsRESPONSE(LOGGED_IN_USER_ID);
 deletePhoneRESPONSE(LOGGED_IN_USER_ID);
 
 generatePDF(LOGGED_IN_USER_ID);
+
+tableSearchWrapper();

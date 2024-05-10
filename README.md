@@ -236,13 +236,12 @@ contextBridge.exposeInMainWorld("phoneSystem", phoneSystem);
 
 To get started with the Credencials Keeper app, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/your-username/credencials-keeper.git`
+1. Clone the repository: `git clone https://github.com/FranklinArruda/credentials-keeper-desktop-app.git`
 2. Navigate to the project directory: `cd credencials-keeper`
 3. Install dependencies: `npm install`
 4. Install electron: `npm install electron --save-dev`
-5. Install database: `npm install sqlite3`
-6. Install pdf-make: `npm install pdfmake`
-7. Run the app: `npm start`
+5. Install pdf-make: `npm install pdfmake`
+6. Run the app: `npm start`
 
 ## Developer Mode
 

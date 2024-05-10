@@ -243,6 +243,21 @@ To get started with the Credencials Keeper app, follow these steps:
 5. Install pdf-make: `npm install pdfmake`
 6. Run the app: `npm start`
 
+### Note
+Note: You also need to install sqlite3, the command to install is: `npm install sqlite3`. However, you will be getting an error when packagin the app, and although the 
+app will be working as expected, but it won't run the `electron-builder` for it to package etc. 
+
+#### The below error will pop out:
+
+![Screenshot_3](https://github.com/FranklinArruda/credentials-keeper-desktop-app/assets/102427836/d946cf00-bc41-49e5-bccc-4f4b46655124)
+
+#### YOU MUST INSTALL `npm install -E sqlite3@5.1.6` for it to work.
+
+#### Compatible versions: [see in releases](https://github.com/FranklinArruda/credentials-keeper-desktop-app/releases)
+
+
+
+
 ## Developer Mode
 
 If your `NODE_ENV` is set to `development` then you will have the dev tools enabled and available in the menu bar. It will also open them by default.

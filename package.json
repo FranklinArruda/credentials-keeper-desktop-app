@@ -4,25 +4,26 @@
   "description": "Credentials Keeper App",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "dist": "electron-builder --linux"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/FranklinArruda/credential-keeper.git"
   },
-  "author": "Franklin A.C",
+  "author": "Franklin A.C <franklin.arrudaa@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/FranklinArruda/credentials-keeper/issues"
   },
   "homepage": "https://github.com/FranklinArruda/credentials-keeper#readme",
   "devDependencies": {
-    "electron": "^25.0.0",
+    "electron": "^25.9.8",
     "electron-builder": "^24.4.0"
   },
   "dependencies": {
-    "pdfmake": "^0.2.9",
-    "sqlite3": "^5.1.6"
+    "pdfmake": "^0.2.10",
+    "sqlite3": "5.1.6"
   },
   "build": {
     "appId": "CredentialsKeeper.App",
@@ -30,9 +31,14 @@
     "directories": {
       "output": "dist"
     },
+    "linux": {
+      "target": "AppImage",
+      "category": "Utility",
+      "icon": "renderer/assets/icon/appIcon.png"
+    },
     "win": {
       "target": "nsis",
-      "icon": "renderer/assets/icon/appIcon.png"  
+      "icon": "renderer/assets/icon/appIcon.png"
     }
   }
 }

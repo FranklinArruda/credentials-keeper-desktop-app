@@ -1,7 +1,7 @@
 
-
+//ImportPDF, ExportPDF (csv data)
 // import PDF handler that send srequest to server to generate PDF
-import { generatePDF } from "./pdf-handler.js";
+import { generatePDF,importCSV } from "./pdf-handler.js";
 
 // import PDF handler that send srequest to server to generate PDF
 import {  deleteCredentialsREQUEST,
@@ -22,9 +22,14 @@ import { tableSearchWrapper } from "./search-list.js";
 
 
 
+
+
 // Get logged in/out User ID session to use to reference during insertion to DB
 const LOGGED_IN_USER_ID = sessionStorage.getItem('loggedInUserID');  // add userID
 const LOGGED_OUT_USER_ID = sessionStorage.removeItem('loggedInUserID'); // removes userID
+
+importCSV(LOGGED_IN_USER_ID);
+
 
 // It get elements (icon and message on hover)
 const uploadIcons = document.querySelectorAll('.upload-icon');
@@ -60,11 +65,11 @@ uploadIcons.forEach((uploadIcon, index) => {
 
 
 //------------------Accessible tabs for (CREDENTIALS & PHONE SYSTEMS)
-// It get title of the systems
+// It gets title of the systems
 const credentialsTitle = document.querySelector('.credentials-title');
 const phoneTitle = document.querySelector('.phone-title');
 
-// It get system Elements
+// It gets system Elements
 const credentialsSystemMenu = document.querySelector('.credentials-manager');
 const phoneSystemMenu = document.querySelector('.phone-keeper');
 
@@ -173,4 +178,11 @@ deletePhoneRESPONSE(LOGGED_IN_USER_ID);
 
 generatePDF(LOGGED_IN_USER_ID);
 
+
+
+
 tableSearchWrapper();
+
+
+
+

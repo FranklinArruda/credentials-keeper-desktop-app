@@ -22,6 +22,7 @@
     "electron-builder": "^24.4.0"
   },
   "dependencies": {
+    "csv-writer": "^1.6.0",
     "pdfmake": "^0.2.10",
     "sqlite3": "5.1.6"
   },

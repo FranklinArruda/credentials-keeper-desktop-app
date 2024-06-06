@@ -50,6 +50,41 @@ function PDFphoneRequest(LOGGED_IN_USER_ID){
     window.credentialsDataPDF.requestCredentialsDataPDF('requestPhoneDataPDF', LOGGED_IN_USER_ID); //OK
  };
 
-export{
-    generatePDF
+
+
+
+
+
+function importRequestCSV(LOGGED_IN_USER_ID){
+    window.importCredentialsCSVfileTEST.requestImportCSV('requestImportCSV', LOGGED_IN_USER_ID);
 }
+
+
+
+
+
+
+
+        function importCSV(LOGGED_IN_USER_ID){
+
+            
+        const clickTest = document.querySelector(".upload-icon.credentials");
+
+
+        if(clickTest){
+        // Adding event listener to the button
+        clickTest.addEventListener('click', function(event) {
+            
+            importRequestCSV(LOGGED_IN_USER_ID);
+        });
+        }else{
+            console.log("bad thing")
+        }
+        
+
+            }
+
+
+        export{
+            generatePDF,importCSV
+        }

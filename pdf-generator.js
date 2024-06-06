@@ -1,87 +1,72 @@
 const fs = require('fs');
-const pdfmake = require('pdfmake/build/pdfmake');
-const vfsFonts = require('pdfmake/build/vfs_fonts');
-
-// install: npm install pdfmake
-pdfmake.vfs = vfsFonts.pdfMake.vfs;
+const createCsvWriter = require('csv-writer').createObjectCsvWriter;
+const path = require('path');
 
 /**
- * Creates a PDF for the Credentials System
+ * Creates a CSV for the Credentials System
  * It holds the parameters: event, dialog, path, app, and retrieved data that is used when being called in the main.
- * Using the parameters this way I would not have to duplicate a 'require' moduel in every file
- * It is then output the PDG to working directory as well as the option to save it locally by opening window
+ * Using the parameters this way I would not have to duplicate a 'require' module in every file
+ * It is then output the CSV to the working directory as well as the option to save it locally by opening a window
  * 
  */
-function credentialsPDFgenerator(event, dialog, path, app, credentialsDataRetrieved){
-    
-    // Create an array of arrays representing the table body based on retrieved data
-    const tableBody = credentialsDataRetrieved.map(row => [row.subject, row.userName, row.password]);
-    console.log("Table Body:", tableBody);
-
-    // Define the content structure for the PDF
-    const pdfContent = {
-        content: [
-        { text: 'Hello, this is your PDF!', fontSize: 16, bold: true, margin: [0, 0, 0, 10] },
-        { text: 'Credentials and Username:', fontSize: 14, bold: true, margin: [0, 0, 0, 10] },
-
-        // Table structure with header and dynamically generated body
-        {
-            table: {
-            headerRows: 1,
-            widths: ['auto', 'auto', 'auto'],
-            body: [
-                [
-                { text: 'Subject', style: 'tableHeader', fillColor: '#eb5e28', color: '#FFFFFF', bold: true, alignment: 'center'},
-                { text: 'Username', style: 'tableHeader', fillColor: '#eb5e28', color: '#FFFFFF', bold: true, alignment: 'center'},
-                { text: 'Password', style: 'tableHeader', fillColor: '#eb5e28', color: '#FFFFFF', bold: true, alignment: 'center'}
-
-            ],
-
-                      // Data rows with centered text, dynamically generated based on tableBody
-                ...tableBody.map(row => row.map(cell => ({ text: cell, alignment: 'center' }))),
-                
-                // table without styling
-
-                //...tableBody,
-            ],
-            },
-        },
-        ],
-    };
-
+function credentialsPDFgenerator(event, dialog, path, app, credentialsDataRetrieved) {
   
-  console.log("CREDENTIALS PDF Content:", pdfContent);
+  // Define the CSV file path and headers
+  const csvFilePath = path.join(app.getPath('desktop'), 'output.csv');
+  const csvWriter = createCsvWriter({
+      path: csvFilePath,
+      header: [
+          { id: 'subject', title: 'Subject' },
+          { id: 'userName', title: 'Username' },
+          { id: 'password', title: 'Password' }
+      ]
+  });
 
- 
-  const pdfDoc = pdfmake.createPdf(pdfContent);
+  // Write the data to the CSV file
+  csvWriter.writeRecords(credentialsDataRetrieved)
+      .then(() => {
+          console.log('CSV file created successfully');
+          console.log('Data written to CSV:', credentialsDataRetrieved);
+          event.reply('csv-generation-complete', 'CSV file created successfully');
+      })
+      .catch(err => {
+          console.error('Error generating CSV file:', err);
+          event.reply('csv-generation-error', 'Error generating CSV file');
+      });
 
-  /**
-    // output PDF in the files directory
-    pdfDoc.getBase64((pdfData) => {
-        const filePath = path.join(__dirname, 'credentials.pdf');
-        require('fs').writeFileSync(filePath, pdfData, 'base64');
-        event.sender.send('credentials pdf Generated', filePath);
-    }); */
+      // IT USES (dialog) to open an window so the user can save it anywhere he wants
 
-
-
-  // output PDF by opening a window to save on the desktop
-  pdfDoc.getBuffer(async (buffer) => {
-
-    // Show a save dialog to get the destination path from the user
-    const result = await dialog.showSaveDialog({
-      title: 'Save PDF',
-      defaultPath: path.join(app.getPath('desktop'), 'credentials.pdf'),
-      filters: [{ name: 'PDF Files', extensions: ['pdf'] }],
-    });
-
+  // Show a save dialog to get the destination path from the user
+  dialog.showSaveDialog({
+    title: 'Save CSV',
+    defaultPath: path.join(app.getPath('desktop'), 'output.csv'),
+    filters: [{ name: 'CSV Files', extensions: ['csv'] }],
+  }).then(result => {
     // Check if the user didn't cancel the save dialog and a file path is provided
     if (!result.canceled && result.filePath) {
-      fs.writeFileSync(result.filePath, buffer);
-      event.sender.send('CREDENTIALS pdf Generated', 'PDF generated and saved successfully');
+      // Move the generated CSV file to the user-selected location
+      fs.rename(csvFilePath, result.filePath, err => {
+        if (err) {
+          console.error('Error saving CSV file:', err);
+          event.reply('csv-save-error', 'Error saving CSV file');
+        } else {
+          console.log('CSV file saved successfully');
+          event.reply('csv-save-complete', 'CSV file saved successfully');
+        }
+      });
     }
   });
 }
+
+
+
+
+
+
+  
+  
+
+ 
   
 
 

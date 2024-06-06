@@ -169,6 +169,19 @@ contextBridge.exposeInMainWorld('phoneDataPDF', phoneDataPDF);
 
 
 
+//////////////// TESTING IPC FOR CREDENTIALS ON IMPORTING ( CSV FILE )
+const importCredentialsCSV = { 
+  requestImportCSV: (channel, data) => {
+    ipcRenderer.send(channel, data); // Separate statements using a semicolon
+    console.log('IMPORT REQUEST from renderer receieved SUCCESSFULLY with userID:', data);
+  }
+};
+// Expose loginRequest to the window object
+contextBridge.exposeInMainWorld('importCredentialsCSVfileTEST', importCredentialsCSV);
+
+
+
+
 
 
 

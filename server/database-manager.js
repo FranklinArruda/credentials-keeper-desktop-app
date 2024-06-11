@@ -27,7 +27,7 @@ const dbPath = path.join(__dirname, './database.db');
  * @returns database connection 
  */
 function createDbConnection() {
-  const dbConnection = new sqlite3.Database('database.db', (err) => {
+  const dbConnection = new sqlite3.Database('./database.db', (err) => {
     if (err) {
       console.error(err.message);
     } else {
@@ -129,7 +129,6 @@ function insertUser(dbConnection, fullName, userName, password, hint) {
 }
 
 
-
 //Retrieve User ID 
 function retrieveUserID(dbConnection, password) {
   return new Promise((resolve, reject) => {
@@ -177,11 +176,14 @@ function retrieveHintPass(dbConnection, hint) {
 
 // INSERT data into 'CRDENTAISL SYSTEM' table
 function insertCredentialsSystem(dbConnection, userId, subject, userName, password) {
+  return new Promise((resolve, reject) => {
   dbConnection.run(`INSERT INTO ${CREDENTIALS_MANAGER_TABLE} (UserId, Subject, Username, Password) VALUES (?, ?, ?, ?)`, [userId, subject, userName, password], function(err) {
     if (err) {
       return console.error(err.message);
     } 
     console.log(`Row inserted with ID ${this.lastID}`);
+  resolve(this.lastID); // Resolve the promise with the auto-incremented ID
+  });
   });
 }
 
@@ -224,8 +226,6 @@ function deleteCredentialsRow(dbConnection, userId, subject, userName, password)
     }
   });
 };
-
-
 
 // -----------------  PHONE SYSTEM --------------------------------
 // INSERT data into 'PHONE SYSTEM' table

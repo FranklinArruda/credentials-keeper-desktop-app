@@ -73,6 +73,14 @@ a:hover,
     opacity: 1;
   }
 }
+@keyframes spinning3d {
+  from {
+    transform: rotateZ(deg);
+  }
+  to {
+    transform: rotateZ(360deg);
+  }
+}
 .parallelogram {
   position: absolute;
   top: 70px;
@@ -1016,6 +1024,24 @@ input:focus {
   color: #eb5e28;
   outline: none;
 }
+.system-manager-container .system-container.phone-keeper .table-container .reload-page,
+.system-manager-container .system-container.credentials-manager .table-container .reload-page {
+  position: absolute;
+  right: 30px;
+  top: 20px;
+  color: #eb5e28;
+  font-size: 20px;
+  transition: all 200ms ease-in-out;
+}
+.system-manager-container .system-container.phone-keeper .table-container .reload-page:hover,
+.system-manager-container .system-container.credentials-manager .table-container .reload-page:hover {
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 18px;
+  color: #ff7e4b;
+  outline: none;
+  animation: spinning3d 1s;
+}
 .system-manager-container .system-container.phone-keeper .table-container .table,
 .system-manager-container .system-container.credentials-manager .table-container .table {
   margin-top: 10px;
@@ -1122,7 +1148,7 @@ input:focus {
   height: 105px;
   font-weight: bold;
   color: rgb(21, 38, 48);
-  font-size: 11px;
+  font-size: 10px;
   font-family: sans-serif;
   box-shadow: 2px 2px 20px #eb5e28;
   background-color: #ff9064;

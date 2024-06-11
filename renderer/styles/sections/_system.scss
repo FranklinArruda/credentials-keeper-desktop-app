@@ -25,6 +25,9 @@
     }
   }
 
+
+
+
   // Title
   .title-container {
     display: flex;
@@ -46,7 +49,9 @@
         border-radius: $borderRadiusButton;
       }
     }
+
   }
+
 
 
   // SYSTEM CONTAINER 
@@ -177,8 +182,6 @@
         top: 60px;
         left: 10px;
         padding: 10px; //add padding between the scroll and the table
-       
-        
     }
 
        
@@ -215,6 +218,33 @@
           }
      
     }
+
+
+   
+
+
+    // reload page ICON 
+    .reload-page{
+      position: absolute;
+      right: 30px;
+      top: 20px;
+      color: $btnColor;
+      font-size: 20px;
+      transition: all 200ms ease-in-out;
+    
+      &:hover {
+        cursor: pointer;
+        border-radius: $borderRadiusButton;
+        font-size: 18px;
+        color: #ff7e4b;
+        outline: none;
+        animation: spinning3d 1s;
+
+        
+      }
+    }
+
+    
 
       // table data
       .table{
@@ -260,6 +290,9 @@
       tr:hover {
         cursor: pointer;
     }
+
+
+
     // clipboard style
     .clipboard-message {    
       width:65px;   
@@ -282,7 +315,9 @@
       animation: revealWidthClipBoardMessage 0.5s;       
     }
 
-    // ACTION BAR (PDF + UPLOAD FILE)
+
+
+    // ACTION BAR (CSV + UPLOAD FILE)
     .action-bar {
       display: flex;
       justify-content: space-between;
@@ -298,6 +333,8 @@
         flex-direction: column;
         gap: 5px;
       }
+
+
       .upload-icon {
         margin-top: 15px;
         margin-left: 20px;
@@ -329,7 +366,7 @@
           height: 105px;
           font-weight: bold;
           color: rgb(21, 38, 48);
-          font-size: 11px;
+          font-size: 10px;
           font-family: sans-serif;
           box-shadow: 2px 2px 20px $btnColor;
           background-color: #ff9064;
@@ -395,6 +432,10 @@
 
 
 }
+
+
+
+
     //active
     .title.active{
       border-bottom: 3px solid $btnColor;

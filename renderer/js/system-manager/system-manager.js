@@ -1,7 +1,7 @@
 
 //ImportPDF, ExportPDF (csv data)
-// import PDF handler that send srequest to server to generate PDF
-import { generatePDF,importCSV } from "./pdf-handler.js";
+// import PDF handler that send srequest to server to generate CSV
+import { CSVgenerate, CSVimportRequest } from "./csv-handler.js";
 
 // import PDF handler that send srequest to server to generate PDF
 import {  deleteCredentialsREQUEST,
@@ -17,9 +17,8 @@ import {  sendPhoneData,
          } from "./phone-session.js";
 
 
-// import PDF handler that send srequest to server to generate PDF
+// import CSV handler that send srequest to server to generate CSV FILE
 import { tableSearchWrapper } from "./search-list.js";
-
 
 
 
@@ -27,8 +26,6 @@ import { tableSearchWrapper } from "./search-list.js";
 // Get logged in/out User ID session to use to reference during insertion to DB
 const LOGGED_IN_USER_ID = sessionStorage.getItem('loggedInUserID');  // add userID
 const LOGGED_OUT_USER_ID = sessionStorage.removeItem('loggedInUserID'); // removes userID
-
-importCSV(LOGGED_IN_USER_ID);
 
 
 // It get elements (icon and message on hover)
@@ -48,6 +45,8 @@ function hide(element) {
 };
 
 
+
+
 // event listener with for each loop that TRIGERS both ICON's (Credentials and Phone System)
 // loop through class of the icon for both system
 uploadIcons.forEach((uploadIcon, index) => { 
@@ -62,6 +61,8 @@ uploadIcons.forEach((uploadIcon, index) => {
   hide(uploadMessages[index]); // it hides message
   });
 });
+
+
 
 
 //------------------Accessible tabs for (CREDENTIALS & PHONE SYSTEMS)
@@ -82,6 +83,10 @@ const phoneSystemMenu = document.querySelector('.phone-keeper');
   phoneTitle.addEventListener('click', function() {
     showSection(phoneSystemMenu);
 });
+
+
+
+
 
 
 /**
@@ -111,6 +116,8 @@ function showSection(section) {
   }
 }
 
+
+
 /**
  * Event listener that targets all 'end-session' elements
  * It removes user ID from session - Print out on the console logged out User
@@ -125,6 +132,8 @@ counter.addEventListener('click', () => {
   });
 });
  
+
+
 
 /**
  * Event listener DELIGATION that sends data from both (CREDENTIALS & PHONE SYSTEM) to database 
@@ -148,12 +157,16 @@ counter.addEventListener('click', () => {
 });
 
 
+
+// ----------- LOADING PAGE ------------- //
+
 // event page load that tirgger the update credentials table
 window.addEventListener('load', updateCredentialsTableOnPageLoad(LOGGED_IN_USER_ID));
 
-
 // event page load that tirgger the update credentials table
 window.addEventListener('load', updatePhoneTableOnPageLoad(LOGGED_IN_USER_ID));
+
+
 
 
 // Event listener for delete requests in the Credentials and Phone Systems
@@ -172,14 +185,79 @@ document.addEventListener('click', function (event) {
 });
 
 
+
+
+/**
+ * -------------  REFRESH  page ICON AFTER 'CSV' IS IMPORTED  ---------------
+ * 
+ * Event listener DELIGATION that REFRESH page to load data from both (CREDENTIALS & PHONE SYSTEM) from DATABASE once CSV is imported 
+ * It triggers the load data on page load earlier created to populate tables dinamically.
+ * Here it was just created a button to trigger the same function by calling in the even delegation below that listen the entire DOM document
+ */
+document.addEventListener('click', function(event){
+
+  // both REFRASH page on elements for each system
+  const refreshPageButtonCredentials = document.getElementById('reloadPageButtonCredentials');
+  const refreshPageButtonPhone = document.getElementById('reloadPageButtonPhone');
+ 
+   // Check if the clicked element is genarateCredentialsPDF
+  if (event.target === refreshPageButtonCredentials) { 
+    updateCredentialsTableOnPageLoad(LOGGED_IN_USER_ID);
+    
+  } 
+
+  // Check if the clicked element is genarateCredentialsPDF
+  if (event.target === refreshPageButtonPhone) {  
+    updatePhoneTableOnPageLoad(LOGGED_IN_USER_ID);
+} 
+});
+
+
+// -----------  CSV data populates the table by calling on page load function
+
+// IT HANDLES BOTH CREDENTIALS AND PHONE
+  function CSVimportResponse(LOGGED_IN_USER_ID){
+  
+  // response CREDENTIALS
+   window.importCSVcredentials.CSVimportResponseCredentials('CSVimportResponseCredentials', (userID) => {
+    console.log('Received CSV import Request from Main for CREDENTIALS IN THE RENDERER:', userID);
+    
+    updateCredentialsTableOnPageLoad(LOGGED_IN_USER_ID);
+    console.log("CSV RESPONSE IN THE RENDERER")
+    });
+
+    //-----------------------------------------------------
+
+
+    // response PHONE
+   window.importCSVphone.CSVimportResponsePhone('CSVimportResponsePhone', (userID) => {
+    console.log('Received CSV import Request from Main for PHONE IN THE RENDERER:', userID);
+    
+    updatePhoneTableOnPageLoad(LOGGED_IN_USER_ID);
+    console.log("CSV RESPONSE IN THE RENDERER")
+    });
+  }
+
+/**
+ * ----------------  CSV IMPORT request-reposne  ---------------
+ * 
+ * OPTION 1: TO Load the data to the table once CSV is imported BY clicking on ICON
+ * 
+ * OPTION 2: Load the data to the table when response is received from Main upon SUCCESSFULL IMPORTING
+ * 
+ * EITHER WAY the table will be populated with the data...
+ * 
+ */
+
 deleteCredentialsRESPONSE(LOGGED_IN_USER_ID);
 
 deletePhoneRESPONSE(LOGGED_IN_USER_ID);
 
-generatePDF(LOGGED_IN_USER_ID);
+CSVgenerate(LOGGED_IN_USER_ID);
 
+CSVimportRequest(LOGGED_IN_USER_ID);
 
-
+CSVimportResponse(LOGGED_IN_USER_ID);
 
 tableSearchWrapper();
 

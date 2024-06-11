@@ -78,21 +78,21 @@ contextBridge.exposeInMainWorld('deleteCredentials', deleteCredentialsOnClick);
 
 
 
-// SEND 'request' to (RETRIEVE CREDENTIALS) TO PDF generator 
+// SEND 'request' to (RETRIEVE CREDENTIALS) TO CSV generator 
 const credentilasDataPDF = { 
-  requestCredentialsDataPDF: (channel, data) => {
+  requestCredentialsDataCSV: (channel, data) => {
     ipcRenderer.send(channel, data),
-    console.log('Request from Renderer received in the Preload for CREDENTIALS PDF GENERATOR with userID:', data);
+    console.log('Request from Renderer received in the Preload for CREDENTIALS CSV GENERATOR with userID:', data);
   },
   receive: (channel, func) => { 
     ipcRenderer.on(channel, (event, ...args) => {
-      console.log('Response from Main to Renderer received in the Preload for CREDENTIALS PDF GENERATOR with data:', args[0]);
+      console.log('Response from Main to Renderer received in the Preload for CREDENTIALS CSV GENERATOR with data:', args[0]);
       func(...args);
     });
   }
 };
 // Expose loginRequest to the window object
-contextBridge.exposeInMainWorld('credentialsDataPDF', credentilasDataPDF);
+contextBridge.exposeInMainWorld('credentialsDataCSV', credentilasDataPDF);
 
 
 
@@ -138,21 +138,21 @@ contextBridge.exposeInMainWorld('deletePhone', deletePhoneOnClick);
 
 
 
-// SEND 'request' to (RETRIEVE CREDENTIALS) TO PDF generator 
+// SEND 'request' to (RETRIEVE PHONE) TO CSV generator 
 const phoneDataPDF = { 
-  phoneCredentialsDataPDF: (channel, data) => {
+  phoneCredentialsDataCSV: (channel, data) => {
     ipcRenderer.send(channel, data),
-    console.log('Request from Renderer received in the Preload for PHONE PDF GENERATOR with userID:', data);
+    console.log('Request from Renderer received in the Preload for PHONE CSV GENERATOR with userID:', data);
   },
   receive: (channel, func) => { 
     ipcRenderer.on(channel, (event, ...args) => {
-      console.log('Response from Main to Renderer received in the Preload for PHONE PDF GENERATOR with data:', args[0]);
+      console.log('Response from Main to Renderer received in the Preload for PHONE CSV GENERATOR with data:', args[0]);
       func(...args);
     });
   }
 };
 // Expose loginRequest to the window object
-contextBridge.exposeInMainWorld('phoneDataPDF', phoneDataPDF);
+contextBridge.exposeInMainWorld('phoneDataCSV', phoneDataPDF);
 
 
 
@@ -169,15 +169,51 @@ contextBridge.exposeInMainWorld('phoneDataPDF', phoneDataPDF);
 
 
 
-//////////////// TESTING IPC FOR CREDENTIALS ON IMPORTING ( CSV FILE )
+//------------  csv import( CSV FILE )
+
+// --- CSV CREDENTIALS
 const importCredentialsCSV = { 
-  requestImportCSV: (channel, data) => {
+  // from renderer to preload and main
+  CSVimportRequestCredentials: (channel, data) => {
     ipcRenderer.send(channel, data); // Separate statements using a semicolon
-    console.log('IMPORT REQUEST from renderer receieved SUCCESSFULLY with userID:', data);
+    console.log('IMPORT csv REQUEST from renderer receieved SUCCESSFULLY with userID:', data);
+  },
+
+  // from main to preload and Renderer
+  CSVimportResponseCredentials: (channel, func) => { 
+    ipcRenderer.on(channel, (event, ...args) => {
+      console.log('Response from Main to Renderer received in the Preload for CSV data:', args);
+      func(...args);
+    });
   }
 };
+
 // Expose loginRequest to the window object
-contextBridge.exposeInMainWorld('importCredentialsCSVfileTEST', importCredentialsCSV);
+contextBridge.exposeInMainWorld('importCSVcredentials', importCredentialsCSV);
+
+
+// --- CSV PHONE
+const importPhoneCSV = { 
+  // from renderer to preload and main
+  CSVimportRequestPhone: (channel, data) => {
+    ipcRenderer.send(channel, data); // Separate statements using a semicolon
+    console.log('IMPORT csv REQUEST from renderer receieved SUCCESSFULLY with userID:', data);
+  },
+
+  // from main to preload and Renderer
+  CSVimportResponsePhone: (channel, func) => { 
+    ipcRenderer.on(channel, (event, ...args) => {
+      console.log('Response from Main to Renderer received in the Preload for CSV data:', args);
+      func(...args);
+    });
+  }
+};
+
+// Expose loginRequest to the window object
+contextBridge.exposeInMainWorld('importCSVphone', importPhoneCSV);
+
+
+
 
 
 

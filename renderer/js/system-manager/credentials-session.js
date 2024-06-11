@@ -86,8 +86,6 @@ function updateCredentialsTableOnPageLoad(LOGGED_IN_USER_ID){
  // Clear existing rows in the table
  let table = document.getElementById("outputTableCredentials");
 
-
- 
 // Keep the header row and remove all other rows
 for (let i = table.rows.length - 1; i > 0; i--) {
   table.deleteRow(i);

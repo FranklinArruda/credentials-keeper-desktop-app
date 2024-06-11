@@ -43,3 +43,15 @@
     0% { opacity: 0; }
     100% { opacity: 1; }
     }
+
+
+     
+// spinning for REFRSH PAGE ICON
+@keyframes spinning3d {
+  from {
+    transform: rotateZ(deg);
+  }
+  to {
+    transform: rotateZ(360deg);
+  }
+}

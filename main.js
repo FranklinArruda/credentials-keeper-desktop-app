@@ -1,15 +1,20 @@
 const { app, BrowserWindow, Menu, ipcMain, dialog } = require('electron');
 const path = require('path');
 const fs = require('fs');
-const pdfmake = require('pdfmake/build/pdfmake');
-const vfsFonts = require('pdfmake/build/vfs_fonts');
+//const pdfmake = require('pdfmake/build/pdfmake');
+//const vfsFonts = require('pdfmake/build/vfs_fonts');
 
-const myServer = require('./database-manager.js'); // requiring the server side application (connection and functions etc)
-const generatePDF = require('./pdf-generator.js'); // requiring PDF generator function for both system
+
+const myServer = require('./server/database-manager.js'); // requiring the server side application (connection and functions etc)
+const generateCSV = require('./server/csv-generator.js'); // requiring PDF generator function for both system
+
+const importCSV = require('./server/csv-import.js');
+// const importCSV to database
+
 
 // install: npm install pdfmake
 
-pdfmake.vfs = vfsFonts.pdfMake.vfs;
+//pdfmake.vfs = vfsFonts.pdfMake.vfs;
 
 let mainWindow;
 let connectDb; // variable that holds the connection of the function return type value.
@@ -218,11 +223,10 @@ ipcMain.on('deleteCredentialsRequest', (event, userCredentialsData) => {
 
 
 
-// listen for the PDF Creation request from Renderer on button click for (CREDENTIALS SYSTEM)
-ipcMain.on('requestCredentialsDataPDF', async (event, userID) => {
+// listen for the CSV Creation request from Renderer on button click for (CREDENTIALS SYSTEM)
+ipcMain.on('requestCredentialsDataCSV', async (event, userID) => {
 
-  console.log("PDF > Request from Renderer received in the Main for PHONE SYSTEM with userID:", userID)
-
+  console.log("CSV > Request from Renderer received in the Main for PHONE SYSTEM with userID:", userID)
   // retrieve from DATABASE and send back to the renderer to have data persistency in there when app is opened again
   const credentialsDataRetrieved = await myServer.retrieveCredentialsManager(connectDb, userID);
 
@@ -234,8 +238,8 @@ ipcMain.on('requestCredentialsDataPDF', async (event, userID) => {
     console.log("Credentials data Retrieved and sent from Main to Renderer for PDF:", credentialsDataRetrieved);
   }
 
-  // it calls the PDF function that holds the parameters values accordingly
-  generatePDF.credentialsPDFgenerator(event, dialog, path, app, credentialsDataRetrieved);
+  // it calls the CSV function that holds the parameters values accordingly
+  generateCSV.credentialsCSVgenerator(event, dialog, path, fs, app, credentialsDataRetrieved);
 });
 
 
@@ -317,10 +321,10 @@ ipcMain.on('deletePhoneRequest', (event, userPhoneData) => {
 
 
 
-// listen for the PDF Creation request from Renderer on button click for (CREDENTIALS SYSTEM)
-ipcMain.on('requestPhoneDataPDF', async (event, userID) => {
+// listen for the CSV Creation request from Renderer on button click for (CREDENTIALS SYSTEM)
+ipcMain.on('requestPhoneDataCSV', async (event, userID) => {
 
-  console.log("PDF > Request from Renderer received in the Main for PHONE SYSTEM with userID:", userID)
+  console.log("CSV > Request from Renderer received in the Main for PHONE SYSTEM with userID:", userID)
 
   // retrieve from DATABASE and send back to the renderer to have data persistency in there when app is opened again
   const phoneDataRetrieved = await myServer.retrievePhoneManager(connectDb, userID);
@@ -334,10 +338,50 @@ ipcMain.on('requestPhoneDataPDF', async (event, userID) => {
     }
 
   // it calls the PDF function that holds the parameters values accordingly
-  generatePDF.phonePDFgenerator(event, dialog, path, app, phoneDataRetrieved);
+  generateCSV.phoneCSVgenerator(event, dialog, path, fs, app, phoneDataRetrieved);
 });
 
-} //MAIN window ends here
+
+
+
+
+
+
+////////// ----- import CSV request (CREDENTIALS)-----
+
+// listen for the CSV Creation request from Renderer on button click for (CREDENTIALS SYSTEM)
+ipcMain.on('CSVimportRequestCredentials', async (event, userID) => {
+
+  console.log("CSV IMPORT: Request from Renderer received in the Main for CREDENTIALS SYSTEM with userID:", userID)
+
+  const CSVimport = await importCSV.parseCSVcredentials(connectDb, userID);
+ 
+  if (CSVimport){
+    console.log("CSV credentials data PROCESSED!!!")
+    // sending a CSV response to triger the load data on "page load"
+  mainWindow.webContents.send('CSVimportResponseCredentials', userID);
+  }  
+});
+
+
+
+////////// ----- import CSV request (PHONE)-----
+
+// listen for the CSV Creation request from Renderer on button click for (CREDENTIALS SYSTEM)
+ipcMain.on('CSVimportRequestPhone', async (event, userID) => {
+
+  console.log("CSV IMPORT: Request from Renderer received in the Main for PHONE SYSTEM with userID:", userID)
+
+  const CSVimport = await importCSV.parseCSVphone(connectDb, userID);
+ 
+  if (CSVimport){
+    console.log("CSV phone data PROCESSED!!!")
+    // sending a CSV response to triger the load data on "page load"
+  mainWindow.webContents.send('CSVimportResponsePhone', userID);
+  }  
+});
+
+} //--------- MAIN window ends here  ------------//
 
 
 

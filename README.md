@@ -5,13 +5,18 @@
 
 ## Overview
 
-The idea was originated from personal perspective. As I don't feel safe in saving personal credentials as well as phone numbers up in the cloud or any other third-party online application that provides password management and so forth. 
+### Credentials Keeper
+While on College Break, I took the initiative to create my own Credentials Keeper manager. It is a cross-platform desktop application built using the Electron framework for Windows and Linux operating systems.
 
-While on College Break, I took the initiative to create my own desktop app using Electron framework for windows machine. 
+The idea originated from a personal perspective. It is never 100% secure saving personal information such as passwords as well as phone numbers up in the cloud or any other third-party online application that provides password management. In one hand, that can be really useful and faster, but on the other hand, it makes us very dependable from their resources.
 
-The app is designed to provide a rich desktop experience with a focus on user-friendly interactions and some cool features like passwords and phone numbers management with internal database using sqlite3. 
+Since it is standalone application, I decided to create CSV generator and import so whenever the user decides to reboot their machines, they will have the option of saving the data into CSV file, thus, importing the same file from the system into the application again. Also, a cool 'search engine' that provides users easier way to filter their data. 
 
-The data is persistent so that means save once and every time you run the application it will be populated dinamically. 
+The app is designed to provide a rich desktop experience with a focus on user-friendly interactions and some cool features like passwords and phone numbers management with internal database using sqlite3 that requires a password to log into the system created upon registration once app is installed.
+
+The data is persistent so that means save once and every time you run the application it will be populated dynamically on page load. It is rich in features like an action button to delete a specific data row, refresh page button, import and export CSV files.
+
+
 
 #### Home Page
 <div style="display: flex;">
@@ -36,7 +41,7 @@ https://www.figma.com/proto/diRLnXmsKL2dcBOvBn5VTh/DESKTOP_CREDENTIALS_SAVER_APP
     - [1.5 System Section](#15-system-section)
   - [2. Database and Logic](#2-database-and-logic)
   - [3. Menu and About Window](#3-menu-and-about-window)
-  - [4. Generate PDF](#4-generate-pdf)
+  - [4. Generate CSV](#4-generate-csv)
   - [5. Copy to Clipboard](#5-copy-to-clipboard)
 - [Inter Process Communication](#inter-process-communication)
   - [User Registration](#user-registration)
@@ -79,7 +84,7 @@ https://www.figma.com/proto/diRLnXmsKL2dcBOvBn5VTh/DESKTOP_CREDENTIALS_SAVER_APP
 #### 1.5 System Section
 - Feature-rich dashboard with accessible tabs for credentials and phone number systems.
 - Input forms for each system with floating placeholders and dynamic bottom lines.
-- Table with delete buttons, search bar, end session, and generate PDF options.
+- Table with delete buttons, search bar, end session, and generate and import CSV files from its system.
 
 ### 2. Database and Logic
 
@@ -101,7 +106,7 @@ Dynamic database connection on main window creation.
 - Dynamic database connection on main window creation.
 - User registration and login logic with communication through IPC.
 - Password retrieval based on hint secret word.
-- Credentials and phone system functionalities, including storage, retrieval, deletion, and PDF generation.
+- Credentials and phone system functionalities, including storage, retrieval, deletion, and CSV generation.
 
 
 
@@ -290,8 +295,10 @@ When set to `production`, the dev tools will not be available.
 ## Software Development Lifecycle (SDLC) 
 Credentials Keeper adheres to software life cycle principles, including requirements analysis, design, implementation, testing, deployment, and maintenance. These principles was a valuable resource throuhout the process to create a reliable and maintainable application.
 
-## Download the App  
-https://github.com/FranklinArruda/credentials-keeper/releases/tag/credentials-app
+# Download Versions
+### <img src="https://github.com/FranklinArruda/credentials-keeper-desktop-app/assets/102427836/afc326a5-ef43-42ee-808d-1c7afd65504f" alt="Windows Logo" width="40" height="40">
+
+https://github.com/FranklinArruda/credentials-keeper/releases/tag/credentials-app-v1.0.0
 
 ## Contribution
 I welcome contributions! If you have ideas for improvements or new features, please check our [contribution guidelines](CONTRIBUTING.md).

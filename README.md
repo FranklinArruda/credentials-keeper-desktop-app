@@ -159,10 +159,10 @@ Credentials Keeper implements real-time data updates for a seamless user experie
 
 - Simple menu structure with an "About" option that opens a separate window providing version information, author details, and contact information.
 
-### 4. Generate PDF
+### 4. Generate CSV
 
-- Utilizes the `pdfmake` library for generating PDFs.
-- Capable of creating PDF documents for both the Credentials System and Phone System.
+- Utilizes the `csv-parser` and `csv-writer`library for generating CSVs.
+- Capable of creating CSV documents for both the Credentials System and Phone System.
 
 ### 5. Copy to Clipboard
 
@@ -240,8 +240,10 @@ To get started with the Credencials Keeper app, follow these steps:
 2. Navigate to the project directory: `cd credencials-keeper`
 3. Install dependencies: `npm install`
 4. Install electron: `npm install electron --save-dev`
-5. Install pdf-make: `npm install pdfmake`
-6. Run the app: `npm start`
+5. Install csv-parser: `npm install csv-parser --save`
+6. Install csv-writer: `npm install csv-writer --save` 
+7. install sqlite3: `npm install -E sqlite3@5.1.6`
+8. Run the app: `npm start`
 
 ### Note
 Note: You also need to install sqlite3, the command to install is: `npm install sqlite3`. However, you will be getting an error when packagin the app, and although the 
@@ -269,8 +271,8 @@ When set to `production`, the dev tools will not be available.
 - Node.js
 - HTML
 - JavaScript (ES6+)
-- SCSS
-- SQLite
+- SCSS + SCSS
+- SQLite3
 - Figma
 
 ## Feature Updates

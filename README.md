@@ -333,9 +333,16 @@ When set to `production`, the dev tools will not be available.
 Credentials Keeper adheres to software life cycle principles, including requirements analysis, design, implementation, testing, deployment, and maintenance. These principles was a valuable resource throuhout the process to create a reliable and maintainable application.
 
 # Download Versions
-### <img src="https://github.com/FranklinArruda/credentials-keeper-desktop-app/assets/102427836/afc326a5-ef43-42ee-808d-1c7afd65504f" alt="Windows Logo" width="40" height="40">
 
+#### windows 8 or later
+### <img src="https://github.com/FranklinArruda/credentials-keeper-desktop-app/assets/102427836/afc326a5-ef43-42ee-808d-1c7afd65504f" alt="Windows Logo" width="40" height="40">
 https://github.com/FranklinArruda/credentials-keeper/releases/tag/credentials-app-v1.0.0
+
+
+#### linux (debian)
+### <img src="https://github.com/FranklinArruda/credentials-keeper-desktop-app/assets/102427836/3d634311-6e98-4e0e-b343-d053dfccf8e6" alt="Windows Logo" width="50" height="50">
+https://github.com/FranklinArruda/credentials-keeper/releases/tag/credentials-app-v1.0.0-linux
+
 
 ## Contribution
 I welcome contributions! If you have ideas for improvements or new features, please check our [contribution guidelines](CONTRIBUTING.md).

@@ -336,7 +336,7 @@ Credentials Keeper adheres to software life cycle principles, including requirem
 
 #### windows 8 or later
 ### <img src="https://github.com/FranklinArruda/credentials-keeper-desktop-app/assets/102427836/afc326a5-ef43-42ee-808d-1c7afd65504f" alt="Windows Logo" width="40" height="40">
-https://github.com/FranklinArruda/credentials-keeper/releases/tag/credentials-app-v1.0.0
+https://github.com/FranklinArruda/credentials-keeper/releases/tag/credentials-app-v1.0.0-windows
 
 
 #### linux (debian)

@@ -277,7 +277,12 @@ To get started with the Credencials Keeper app, follow these steps:
     npm install -E sqlite3@5.1.6
 ```
 
-#### 8. Run the app:
+#### 8. install builder:(optional, unless you do not want to package)
+```javascript 
+    npm install -g electron-builder
+```
+
+#### 9. Run the app:
 ```javascript  
     npm start
 ```

@@ -27,7 +27,7 @@ function createMainWindow() {
 
   mainWindow = new BrowserWindow({
     title: "Credencials Keeper",
-    width: 1400,
+    width: 1050,
     height: 635,
     resizable: false,
    icon: path.join(__dirname, 'renderer/assets/icon/appIcon.png'),
@@ -41,7 +41,7 @@ function createMainWindow() {
   });
 
    // Open DevTools for debugging
-   mainWindow.webContents.openDevTools();
+   //mainWindow.webContents.openDevTools();
 
   // Remove the default menu bar
   Menu.setApplicationMenu(null);
@@ -266,6 +266,13 @@ ipcMain.on('sendPhoneData', async (event, userPhoneData) => {
   // it sends back a response with the data
   console.log("Phone data Response from Main to Renderer on 'ADD' button clicked:", phoneDataRetrieved);
   mainWindow.webContents.send('phoneDataResponse', JSON.stringify(phoneDataRetrieved));
+
+  if(mainWindow){
+    console.log("data sent")
+
+  }else{
+    console.log("data not sent")
+  }
 });
 
 

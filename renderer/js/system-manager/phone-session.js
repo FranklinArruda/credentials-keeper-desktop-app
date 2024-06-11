@@ -95,7 +95,7 @@ for (let i = table.rows.length - 1; i > 0; i--) {
 // Check if credentialsData is an array
 if (Array.isArray(phoneData)) {
 
-  // Iterate through each object in credentialsData
+  // Iterate through each object in phone data
   phoneData.forEach((dataObject) => {
 
       // Get the table and insert a new row at the end 
@@ -104,8 +104,8 @@ if (Array.isArray(phoneData)) {
       
       // Insert data into cells of the new row
       // Ensure that the property names used in your JavaScript code match the actual property names of the data you are working with
-      newRow.insertCell(0).innerHTML = dataObject.PersonName || '';
-      newRow.insertCell(1).innerHTML = dataObject.PhoneNumber || '';
+      newRow.insertCell(0).innerHTML = dataObject.name || '';
+      newRow.insertCell(1).innerHTML = dataObject.number || '';
       newRow.insertCell(2).innerHTML =
         '<button class="action phone-delete-btn button">Delete</button>';
   });

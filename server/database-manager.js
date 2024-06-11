@@ -9,13 +9,9 @@ const USER_TABLE = 'User';
 const CREDENTIALS_MANAGER_TABLE = 'CredentialsManager';
 const PHONE_NUMBER_MANAGER_TABLE = 'PhoneNumberManager';
 
-//const schemaFilePath = './db-schema.sql'; // database schema file path
-//const databaseName = './database.db' // database name
+// root dir
+const dbPath = path.join(__dirname, '../database.db');
 
-//const schemaFilePath = path.join(__dirname, 'db-schema.sql');
-//const databaseName = path.join(__dirname, './database.db');
-
-const dbPath = path.join(__dirname, './database.db');
 
 
 /**
@@ -27,7 +23,7 @@ const dbPath = path.join(__dirname, './database.db');
  * @returns database connection 
  */
 function createDbConnection() {
-  const dbConnection = new sqlite3.Database('./database.db', (err) => {
+  const dbConnection = new sqlite3.Database(dbPath, (err) => {
     if (err) {
       console.error(err.message);
     } else {
@@ -68,8 +64,8 @@ function createTables(dbConnection) {
     CREATE TABLE IF NOT EXISTS PhoneNumberManager (
       PhoneNumberID INTEGER PRIMARY KEY AUTOINCREMENT,
       UserID INT,
-      PersonName VARCHAR(100),
-      PhoneNumber VARCHAR(15),
+      Name VARCHAR(100),
+      Number VARCHAR(15),
       FOREIGN KEY (UserID) REFERENCES User(UserID)
     );
   `;
@@ -227,10 +223,12 @@ function deleteCredentialsRow(dbConnection, userId, subject, userName, password)
   });
 };
 
+
+
 // -----------------  PHONE SYSTEM --------------------------------
 // INSERT data into 'PHONE SYSTEM' table
-function insertPhoneSystem(dbConnection, userId, personName, phoneNumber ) {
-  dbConnection.run(`INSERT INTO ${PHONE_NUMBER_MANAGER_TABLE} (UserId, PersonName, PhoneNumber) VALUES (?, ?, ?)`, [userId, personName, phoneNumber], function(err) {
+function insertPhoneSystem(dbConnection, userId, name, number ) {
+  dbConnection.run(`INSERT INTO ${PHONE_NUMBER_MANAGER_TABLE} (UserId, Name, Number) VALUES (?, ?, ?)`, [userId, name, number], function(err) {
     if (err) {
       return console.error(err.message);
     } 
@@ -250,8 +248,8 @@ function retrievePhoneManager(dbConnection, userId) {
       // Handle the case where no matching record is found
       if (rows && rows.length > 0) {
         const phoneData = rows.map(row => ({
-          PersonName: row.PersonName,
-          PhoneNumber: row.PhoneNumber
+          name: row.Name,
+          number: row.Number
         }));
         
         resolve(phoneData);
@@ -264,11 +262,11 @@ function retrievePhoneManager(dbConnection, userId) {
 
 
 // Deletes credentials system row
-function deletePhoneRow(dbConnection, userId, name, phoneNumber) {
+function deletePhoneRow(dbConnection, userId, name, number) {
   
-  console.log(`Attempting to delete row for UserID ${userId}, Name ${name}, Phone Number ${phoneNumber}`);
+  console.log(`Attempting to delete row for UserID ${userId}, Name ${name}, Phone Number ${number}`);
 
-  dbConnection.run(`DELETE FROM ${PHONE_NUMBER_MANAGER_TABLE} WHERE UserID = ? AND PersonName = ? AND PhoneNumber = ?`, [userId, name, phoneNumber], function(err) {
+  dbConnection.run(`DELETE FROM ${PHONE_NUMBER_MANAGER_TABLE} WHERE UserID = ? AND Name = ? AND Number = ?`, [userId, name, number], function(err) {
     if (err) {
       console.error(`Error deleting row: ${err.message}`);
     } else {

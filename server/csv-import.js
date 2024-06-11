@@ -88,16 +88,16 @@ async function parseCSVphone(connectDb, LOGGED_IN_USER_ID){
 
         // extractdata using for loop
         results.forEach(phone => {
-          const { PersonName, PhoneNumber} = phone;
-          
-          if (PersonName && PhoneNumber) {
+          const { Name, Number} = phone;
+
+          if (Name && Number) {
 
             // log data to check 
-            console.log("Name:" + PersonName + "Phone Number:" + PhoneNumber)
+            console.log("Name:" + Name + "Phone Number:" + Number)
             
             // call insert credentials from database management server 
             // this will insert here
-            myServer.insertPhoneSystem(connectDb, LOGGED_IN_USER_ID, PersonName, PhoneNumber);
+            myServer.insertPhoneSystem(connectDb, LOGGED_IN_USER_ID, Name, Number);
           } else {
             console.error('Invalid data:', phone);
           }

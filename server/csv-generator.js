@@ -32,7 +32,7 @@ function credentialsCSVgenerator(event, dialog, path, fs, app, credentialsDataRe
     item.subject && item.userName && item.password);
 
   // Write the data to the CSV file
-  csvWriter.writeRecords(credentialsDataRetrieved)
+  csvWriter.writeRecords(validData)
       .then(() => {
           console.log('CSV file created successfully');
           console.log('Data written to CSV:', validData);
@@ -66,8 +66,8 @@ function phoneCSVgenerator(event, dialog, path, fs, app, phoneDataRetrieved) {
   const csvWriter = createCsvWriter({
       path: csvFilePath,
       header: [
-          { id: 'PersonName', title: 'PersonName' },
-          { id: 'PhoneNumber', title: 'PhoneNumber' }
+          { id: 'name', title: 'Name' },
+          { id: 'number', title: 'Number' }
       ]
   });
 
@@ -76,10 +76,11 @@ function phoneCSVgenerator(event, dialog, path, fs, app, phoneDataRetrieved) {
 
   // Validate data before writing
   const validData = phoneDataRetrieved.filter(item => 
-    item.PersonName && item.PhoneNumber);
-
+    item.name && item.number);
+    
+  // ensure that only the valid data with the correct headers ('Name' and 'Phone Number') are written to the CSV file
   // Write the data to the CSV file
-  csvWriter.writeRecords(phoneDataRetrieved)
+  csvWriter.writeRecords(validData)
       .then(() => {
           console.log('CSV file created successfully');
           console.log('Data written to CSV:', validData);

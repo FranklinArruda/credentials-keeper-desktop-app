@@ -241,16 +241,48 @@ contextBridge.exposeInMainWorld("phoneSystem", phoneSystem);
 
 To get started with the Credencials Keeper app, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/FranklinArruda/credentials-keeper-desktop-app.git`
-2. Navigate to the project directory: `cd credencials-keeper`
-3. Install dependencies: `npm install`
-4. Install electron: `npm install electron --save-dev`
-5. Install csv-parser: `npm install csv-parser --save`
-6. Install csv-writer: `npm install csv-writer --save` 
-7. install sqlite3: `npm install -E sqlite3@5.1.6`
-8. Run the app: `npm start`
+#### 1. Clone the repository: 
+```javascript
+    git clone https://github.com/FranklinArruda/credentials-keeper-desktop-app.git
+```
 
-### Note
+#### 2. Navigate to the project directory:
+```javascript
+    cd credencials-keeper
+```
+
+#### 3. Install dependencies:
+```javascript
+    npm install
+```
+
+#### 4. Install electron:
+```javascript
+    npm install electron --save-dev
+```
+
+#### 5. Install csv-parser: 
+```javascript 
+    npm install csv-parser --save
+```
+
+
+#### 6. Install csv-writer:
+```javascript 
+    npm install csv-writer --save
+``` 
+
+#### 7. install sqlite3:
+```javascript 
+    npm install -E sqlite3@5.1.6
+```
+
+#### 8. Run the app:
+```javascript  
+    npm start
+```
+
+#### Note
 Note: You also need to install sqlite3, the command to install is: `npm install sqlite3`. However, you will be getting an error when packagin the app, and although the 
 app will be working as expected, but it won't run the `electron-builder` for it to package etc. 
 

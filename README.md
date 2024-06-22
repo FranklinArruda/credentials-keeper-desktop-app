@@ -52,7 +52,7 @@ https://www.figma.com/proto/diRLnXmsKL2dcBOvBn5VTh/DESKTOP_CREDENTIALS_SAVER_APP
 - [Getting Started](#getting-started)
 - [Developer Mode](#developer-mode)
 - [Technologies Used](#technologies-used)
-- [Download the App](#download-the-app)
+- [Download Versions](#download-versions)
 - [Contribution](#contribution)
 - [License](#license)
 - [Contact](#contact)

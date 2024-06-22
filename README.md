@@ -8,7 +8,7 @@
 ### Credentials Keeper
 While on College Break, I took the initiative to create my own Credentials Keeper manager. It is a cross-platform desktop application built using the Electron framework for Windows and Linux operating systems.
 
-The idea originated from a personal perspective. It is never 100% secure saving personal information such as passwords as well as phone numbers up in the cloud or any other third-party online application that provides password management. In one hand, that can be really useful and faster, but on the other hand, it makes us very dependable from their resources.
+The idea originated from a personal perspective. It is never 100% secure saving personal information such as passwords as well as phone numbers up in the cloud or any other third-party online application that provides password management. In one hand, that can be really useful and faster, but on the other hand, it makes us very unsafe from their resources.
 
 Since it is standalone application, I decided to create CSV generator and import so whenever the user decides to reboot their machines, they will have the option of saving the data into CSV file, thus, importing the same file from the system into the application again. Also, a cool 'search engine' that provides users easier way to filter their data. 
 

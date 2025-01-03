@@ -9,8 +9,28 @@ const USER_TABLE = 'User';
 const CREDENTIALS_MANAGER_TABLE = 'CredentialsManager';
 const PHONE_NUMBER_MANAGER_TABLE = 'PhoneNumberManager';
 
-// root dir
-const dbPath = path.join(__dirname, '../database.db');
+
+// ----- OLDER VERSION (Development Only) -----
+// Works in development but breaks after building due to relative path (__dirname) which changes after packaging.
+
+// const dbPath = path.join(__dirname, '../database.db');
+
+// ----- NEWER VERSION (Works After Building) -----
+// Uses app.getPath('userData') to ensure a consistent, platform-specific path for storing 'database.db', 
+// making it work in both development and production builds.
+
+const { app } = require('electron');
+const dbPath = path.join(app.getPath('userData'), 'database.db');
+
+// Log the database path
+console.log(dbPath);  
+
+// **Why better**: Ensures 'database.db' is stored in a system-specific directory rather than the project folder.
+// **File location**: Stored in a platform-specific directory:
+//  - **Windows**: C:\Users\<YourUsername>\AppData\Roaming\<AppName>\database.db
+//  - **macOS**: ~/Library/Application Support/<AppName>/database.db
+//  - **Linux**: ~/.config/<AppName>/database.db
+
 
 
 

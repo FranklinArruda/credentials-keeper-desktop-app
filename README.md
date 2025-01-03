@@ -287,6 +287,44 @@ To get started with the Credencials Keeper app, follow these steps:
     npm start
 ```
 
+
+
+
+
+
+
+
+
+
+## Requirement Dependencies Version
+
+Before running the app, make sure you have the following installed on your system:
+
+### Software Versions:
+- **Python**: Version 3.13 (64-bit)
+- **Node.js**: Version v22.12.0
+- **Electron**: Version v25.9.8
+- **SQLite3**: Version sqlite3@5.1.6
+
+To check if these versions are installed, you can use the following commands:
+
+- Python:
+    ```bash
+    python --version
+    ```
+- Node.js:
+    ```bash
+    node --version
+    ```
+- Electron:
+    ```bash
+    npx electron --version
+    ```
+- SQLite3:
+    ```bash
+    npm list sqlite3
+    ```
+
 #### Note
 Note: You also need to install sqlite3, the command to install is: `npm install sqlite3`. However, you will be getting an error when packagin the app, and although the 
 app will be working as expected, but it won't run the `electron-builder` for it to package etc. 
@@ -298,6 +336,27 @@ app will be working as expected, but it won't run the `electron-builder` for it 
 #### YOU MUST INSTALL `npm install -E sqlite3@5.1.6` for it to work.
 
 #### Compatible versions: [see in releases](https://github.com/FranklinArruda/credentials-keeper-desktop-app/releases)
+
+
+### Path ISSUE:
+
+### Path Issue and Solution
+
+While developing the app, I initially set the SQLite database path to a relative path (`./database.db`), which worked during development. However, after building the app with **electron-builder**, the relative path broke, as it changed after packaging, making the database inaccessible.
+
+After researching, I realized that **`app.getPath('userData')`** provides a consistent, platform-specific path for storing app data, which works in both development and production. This solution ensures that the database is always accessible, regardless of the build state.
+
+Here's the updated code:
+
+```javascript
+// ----- OLDER VERSION (Development Only) -----
+// const dbPath = path.join(__dirname, '../database.db');
+
+// ----- NEWER VERSION (Works After Building) -----
+const { app } = require('electron');
+const dbPath = path.join(app.getPath('userData'), 'database.db');
+console.log(dbPath);
+```
 
 
 

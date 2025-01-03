@@ -248,7 +248,7 @@ To get started with the Credencials Keeper app, follow these steps:
 
 #### 2. Navigate to the project directory:
 ```javascript
-    cd credencials-keeper
+    cd credentials-keeper-desktop-app 
 ```
 
 #### 3. Install dependencies:

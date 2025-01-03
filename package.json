@@ -22,7 +22,7 @@
     "electron-builder": "^24.4.0"
   },
   "dependencies": {
-    "csv-parser": "^3.0.0",
+    "csv-parser": "^3.1.0",
     "csv-writer": "^1.6.0",
     "sqlite3": "5.1.6"
   },

@@ -327,8 +327,10 @@ ipcMain.on('deletePhoneRequest', (event, userPhoneData) => {
 
 
 
+// CSV EXPORT
 
-// listen for the CSV Creation request from Renderer on button click for (CREDENTIALS SYSTEM)
+// -------- listen for the CSV Creation request from Renderer on button click for (CREDENTIALS SYSTEM)
+
 ipcMain.on('requestPhoneDataCSV', async (event, userID) => {
 
   console.log("CSV > Request from Renderer received in the Main for PHONE SYSTEM with userID:", userID)
@@ -353,6 +355,7 @@ ipcMain.on('requestPhoneDataCSV', async (event, userID) => {
 
 
 
+// CSV IMPORT
 
 ////////// ----- import CSV request (CREDENTIALS)-----
 

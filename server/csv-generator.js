@@ -9,42 +9,8 @@ const createCsvWriter = require('csv-writer').createObjectCsvWriter;
  */
 function credentialsCSVgenerator(event, dialog, path, fs, app, credentialsDataRetrieved) {
 
-  // Output CSV in the current working director
-  //const csvFilePath = path.join(process.cwd(), 'output.csv'); 
-
-  // Define the CSV file path and headers
-  const csvFilePath = path.join(app.getPath('desktop'), 'credentialsData.csv');
-  
-  const csvWriter = createCsvWriter({
-      path: csvFilePath,
-      header: [
-          { id: 'subject', title: 'Subject' },
-          { id: 'userName', title: 'Username' },
-          { id: 'password', title: 'Password' }
-      ]
-  });
-
-  // Log the data to be written to CSV
-  console.log('Data to be written to CSV:', credentialsDataRetrieved);
-
-  // Validate data before writing
-  const validData = credentialsDataRetrieved.filter(item => 
-    item.subject && item.userName && item.password);
-
-  // Write the data to the CSV file
-  csvWriter.writeRecords(validData)
-      .then(() => {
-          console.log('CSV file created successfully');
-          console.log('Data written to CSV:', validData);
-          event.reply('csv-generation-complete', 'CSV file created successfully');
-      })
-      .catch(err => {
-          console.error('Error generating CSV file:', err);
-          event.reply('csv-generation-error', 'Error generating CSV file');
-      });
-
-      // IT USES (dialog) to open an window so the user can save it anywhere he wants
-      openDialogForCSV(event,dialog,csvFilePath,fs)
+    // IT USES (dialog) to open a window so the user can save it anywhere they want
+    openDialogForCSV(event, dialog, path, fs, app, credentialsDataRetrieved, "CredentialsData.csv");
 }
 
 
@@ -57,82 +23,55 @@ function credentialsCSVgenerator(event, dialog, path, fs, app, credentialsDataRe
  */
 function phoneCSVgenerator(event, dialog, path, fs, app, phoneDataRetrieved) {
 
-  // Output CSV in the current working director
-  //const csvFilePath = path.join(process.cwd(), 'output.csv'); 
+  // IT USES (dialog) to open a window so the user can save it anywhere they want
+  openDialogForCSV(event, dialog, path, fs, app, phoneDataRetrieved,"PhoneNumberData.csv");
+}
 
-  // Define the CSV file path and headers
-  const csvFilePath = path.join(app.getPath('desktop'), 'phoneNumberData.csv');
+function openDialogForCSV(event, dialog, path, fs, app, dataRetrieved,defaultFileName) {
   
-  const csvWriter = createCsvWriter({
-      path: csvFilePath,
-      header: [
+  // Show the save dialog to get the destination path from the user
+  dialog.showSaveDialog({
+    title: 'Save CSV',
+    defaultPath: path.join(app.getPath('desktop'), defaultFileName), // Default file path (Desktop)
+    filters: [{ name: 'CSV Files', extensions: ['csv'] }],
+  }).then(result => {
+    // Check if the user didn't cancel and a file path is provided
+    if (!result.canceled && result.filePath) {
+
+      // Define the CSV file path and headers based on data type (credentials or phone)
+      const csvWriter = createCsvWriter({
+        path: result.filePath, // Save to the user-selected file path
+        header: dataRetrieved[0].subject ? [
+          { id: 'subject', title: 'Subject' },
+          { id: 'userName', title: 'Username' },
+          { id: 'password', title: 'Password' }
+        ] : [
           { id: 'name', title: 'Name' },
           { id: 'number', title: 'Number' }
-      ]
-  });
-
-  // Log the data to be written to CSV
-  console.log('Data to be written to CSV:', phoneDataRetrieved);
-
-  // Validate data before writing
-  const validData = phoneDataRetrieved.filter(item => 
-    item.name && item.number);
-    
-  // ensure that only the valid data with the correct headers ('Name' and 'Phone Number') are written to the CSV file
-  // Write the data to the CSV file
-  csvWriter.writeRecords(validData)
-      .then(() => {
-          console.log('CSV file created successfully');
-          console.log('Data written to CSV:', validData);
-          event.reply('csv-generation-complete', 'CSV file created successfully');
-      })
-      .catch(err => {
-          console.error('Error generating CSV file:', err);
-          event.reply('csv-generation-error', 'Error generating CSV file');
+        ]
       });
 
-      // IT USES (dialog) to open an window so the user can save it anywhere he wants
+      // Validate data before writing
+      const validData = dataRetrieved.filter(item => {
+        return (item.subject && item.userName && item.password) || (item.name && item.number);
+      });
 
-      openDialogForCSV(event,dialog,csvFilePath,fs)
+      // Write the data to the CSV file
+      csvWriter.writeRecords(validData)
+        .then(() => {
+          console.log('CSV file saved successfully at ' + result.filePath);
+          event.reply('csv-save-complete', 'CSV file saved successfully');
+        })
+        .catch(err => {
+          console.error('Error generating CSV file:', err);
+          event.reply('csv-save-error', 'Error generating CSV file');
+        });
+    }
+  }).catch(err => {
+    console.error('Error showing save dialog:', err);
+    event.reply('csv-save-error', 'Error showing save dialog');
+  });
 }
-
-
-
-
-function openDialogForCSV(event,dialog,csvFilePath,fs){
-
-  // Show a save dialog to get the destination path from the user
-dialog.showSaveDialog({
-title: 'Save CSV',
-defaultPath: csvFilePath, // Set default path to current working directory
-
-filters: [{ name: 'CSV Files', extensions: ['csv'] }],
-}).then(result => {
-// Check if the user didn't cancel the save dialog and a file path is provided
-if (!result.canceled && result.filePath) {
-// Move the generated CSV file to the user-selected location
-fs.rename(csvFilePath, result.filePath, err => {
-  if (err) {
-    console.error('Error saving CSV file:', err);
-    event.reply('csv-save-error', 'Error saving CSV file');
-  } else {
-    console.log('CSV file saved successfully');
-    event.reply('csv-save-complete', 'CSV file saved successfully');
-  }
-});
-}
-});
-}
-
-
-
-
-
-  
-  
-
- 
-  
 
 
 

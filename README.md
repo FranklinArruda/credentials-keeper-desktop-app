@@ -20,7 +20,7 @@ The data is persistent so that means save once and every time you run the applic
 
 #### Home Page
 <div style="display: flex;">
-    <img src="/renderer/assets/images/app_home_page.png" width="600"/>
+    <img src="/renderer/assets/images/app_home_page.png" width="900"/>
 </div>
 
 #### Demo Video

@@ -102,9 +102,11 @@ function createMenu() {
 ipcMain.on('user:registration', async (event, data) => {
   console.log("user DATA registration received in the main", data)
 
-  const { fullName, userName, password, hint } = JSON.parse(data);
+  const { password, hint } = JSON.parse(data);
+  //const { fullName, userName, password, hint } = JSON.parse(data);
   
-  myServer.insertUser(connectDb,fullName, userName, password, hint);
+  myServer.insertUser(connectDb,password, hint);
+  //myServer.insertUser(connectDb,fullName, userName, password, hint);
 
   // testing database
   let userEnteredPassword ="000";

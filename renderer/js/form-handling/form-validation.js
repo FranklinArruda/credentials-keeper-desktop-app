@@ -146,8 +146,11 @@ function validateHint() {
 // event listener for all the function on key up.
 // real time validation with css
 function eventListenersFormValidation() {
-	fullName.addEventListener('keyup', validateName);
-	userName.addEventListener('keyup', validateEmail);
+
+	// uncoment the below events in case u want to add the ( Full name & Username again )
+
+	//fullName.addEventListener('keyup', validateName);
+	//userName.addEventListener('keyup', validateEmail);
 	password.addEventListener('keyup', validatePassword);
 	hint.addEventListener('keyup', validateHint);
 }
@@ -187,15 +190,9 @@ function showAlertMessage() {
 }
 
 
+/*
+---- Version with Full Name & Username  ----------------
 
-/**
- * it validates all inputs agains empty values
- * if inputs is empty returns false
- * if inputs isn't empty returns true > send Data 
- * if data is sent to main > showpopUp() function is called.
- * 
- * @returns true / false
- */
 function isValid(event){
 	
 // Call your validation functions here
@@ -239,12 +236,68 @@ if (!(isNameValid && isEmailValid && isPasswordValid && isHintValid)) {
 }
 }
 
+*/
+
+/**
+ * it validates all inputs agains empty values
+ * if inputs is empty returns false
+ * if inputs isn't empty returns true > send Data 
+ * if data is sent to main > showpopUp() function is called.
+ * 
+ * @returns true / false
+ */
+
+//---- Version without Full Name & Username  ----------------
+
+function isValid(event){
+	
+// Call your validation functions here
+const isPasswordValid = validatePassword();
+const isHintValid = validateHint();
+
+
+// Check if all validations pass
+if (!(isPasswordValid && isHintValid)) {
+	// alert("All field must be filled out and Validated.") 
+	showAlertMessage();
+	return false;
+} else {
+
+			//IPC RENDERER (sending user registration data to Main)
+			// Check if window.ipcRenderer is defined
+			if (window.userRegistration) {
+				
+				// data object with all inputs
+				const data = { 
+					password: password.value,
+					hint: hint.value,
+				};
+				// Stringify the data before sending
+				window.userRegistration.register('user:registration', JSON.stringify(data));
+				
+				console.log(data); // print out object to check if it worked
+
+				// show popup once data is being sent
+				showPopup();
+			} 
+			else {
+				console.error('window.ipcRenderer is not defined.');
+				return false;
+			}
+	return true;
+}
+}
+
+
 
 
 // Exporting all function aloong with the isValid();
+
 export {
-	validateName,
-	validateEmail,
+	// uncoment the below functions in case u want to add the ( Full name & Username again )
+
+	// validateName, 
+	// validateEmail,
 	validatePassword,
 	validateHint,
 	eventListenersFormValidation,

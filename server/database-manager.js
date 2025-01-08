@@ -2,7 +2,8 @@
 const sqlite3 = require('sqlite3').verbose(); // requiring database system
 const fs = require('fs'); // requiring file system to read db schema.sql
 const path = require('path');
-
+const { app } = require('electron'); // Electron's app module
+const os = require('os'); // To check the operating system
 
 // Define table names as constants (refers to schema.db)
 const USER_TABLE = 'User';
@@ -10,29 +11,41 @@ const CREDENTIALS_MANAGER_TABLE = 'CredentialsManager';
 const PHONE_NUMBER_MANAGER_TABLE = 'PhoneNumberManager';
 
 
-// ----- OLDER VERSION (Development Only) -----
-// Works in development but breaks after building due to relative path (__dirname) which changes after packaging.
+// Define the shared path for the SQLite database
+// Define the directory and database path
+const dbDir = path.join('C:\\ProgramData', 'Credentials Keeper');
+const dbPath = path.join(dbDir, 'database.db');
 
-// const dbPath = path.join(__dirname, '../database.db');
+function createDatabaseDirectory(){
+// Check if the directory exists, if not, create it
+if (!fs.existsSync(dbDir)) {
+  try {
+    fs.mkdirSync(dbDir, { recursive: true });
+    console.log(`Directory created: ${dbDir}`);
+  } catch (err) {
+    console.error('Failed to create directory:', err.message);
+  }
+} else {
+  console.log(`Directory exists: ${dbDir}`);
+}
+}
 
-// ----- NEWER VERSION (Works After Building) -----
-// Uses app.getPath('userData') to ensure a consistent, platform-specific path for storing 'database.db', 
-// making it work in both development and production builds.
+// Check if the database file is accessible (just a simple read check)
+function checkDatabaseFileAccess() {
+try {
+  fs.accessSync(dbPath, fs.constants.R_OK | fs.constants.W_OK);
+  console.log('Database file is accessible.');
+} catch (err) {
+  console.error('Database file is not accessible:', err.message);
+}
+}
 
-const { app } = require('electron');
-const dbPath = path.join(app.getPath('userData'), 'database.db');
+createDatabaseDirectory();
+checkDatabaseFileAccess();
+
 
 // Log the database path
 console.log(dbPath);  
-
-// **Why better**: Ensures 'database.db' is stored in a system-specific directory rather than the project folder.
-// **File location**: Stored in a platform-specific directory:
-//  - **Windows**: C:\Users\<YourUsername>\AppData\Roaming\<AppName>\database.db
-//  - **macOS**: ~/Library/Application Support/<AppName>/database.db
-//  - **Linux**: ~/.config/<AppName>/database.db
-
-
-
 
 /**
  * it handles the database connection inside this function so I can take more control over 
@@ -45,7 +58,7 @@ console.log(dbPath);
 function createDbConnection() {
   const dbConnection = new sqlite3.Database(dbPath, (err) => {
     if (err) {
-      console.error(err.message);
+      console.error('Error opening database:',err.message);
     } else {
       console.log('Connected to the database....');  
      
@@ -133,10 +146,25 @@ function closeDbConnection(dbConnection) {
   });
 }
 
+/*
+---- Version with Full Name & Username  ----------------
 
 // INSERT data into 'USER' table
 function insertUser(dbConnection, fullName, userName, password, hint) {
   dbConnection.run(`INSERT INTO ${USER_TABLE} (FullName, Username, Password, HintForPassword) VALUES (?, ?, ?, ?)`, [fullName, userName, password,hint], function(err) {
+    if (err) {
+      return console.error(err.message);
+    } 
+    console.log(`Row inserted with ID ${this.lastID}`);
+  });
+}
+*/
+
+
+//---- Version without Full Name & Username  ----------------
+// INSERT data into 'USER' table
+function insertUser(dbConnection, password, hint) {
+  dbConnection.run(`INSERT INTO ${USER_TABLE} (Password, HintForPassword) VALUES (?, ?)`, [password,hint], function(err) {
     if (err) {
       return console.error(err.message);
     } 
@@ -164,7 +192,6 @@ function retrieveUserID(dbConnection, password) {
     });
   });
 }
-
 
 
 //Retrieve Hint Pass
@@ -231,9 +258,7 @@ function retrieveCredentialsManager(dbConnection, userId) {
 
 // Deletes credentials system row
 function deleteCredentialsRow(dbConnection, userId, subject, userName, password) {
-  
   console.log(`Attempting to delete row for UserID ${userId}, Subject ${subject}, Username ${userName}, Password ${password}`);
-
   dbConnection.run(`DELETE FROM ${CREDENTIALS_MANAGER_TABLE} WHERE UserID = ? AND Subject = ? AND Username = ? AND Password = ?`, [userId, subject, userName, password], function(err) {
     if (err) {
       console.error(`Error deleting row: ${err.message}`);
@@ -298,7 +323,7 @@ function deletePhoneRow(dbConnection, userId, name, number) {
 
 
 
-// exporting functions and connection
+// exporting functions and connection to (main.js)
 module.exports = {
   createDbConnection,
   insertUser,

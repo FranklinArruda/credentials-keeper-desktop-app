@@ -562,6 +562,18 @@ input:focus {
   font-weight: 600;
   box-shadow: 2px 2px 10px #eb5e28;
 }
+.form-container.login .not-user-yet {
+  margin-top: 5px;
+}
+.form-container.login .not-user-yet a {
+  font-size: 10px;
+  color: #eb5e28;
+  letter-spacing: 1.2px;
+  font-weight: bold;
+}
+.form-container.login .not-user-yet a:hover {
+  color: #fffc5d;
+}
 
 .back-button {
   position: absolute;

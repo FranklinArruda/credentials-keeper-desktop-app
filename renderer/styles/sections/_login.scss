@@ -150,7 +150,26 @@
         box-shadow: 2px 2px 10px $btnColor;
       }
     }
+
+   
+
   } // input container ends here
+
+  .not-user-yet {
+    margin-top: 5px;
+    a{
+      font-size: 10px;
+      color: $btnColor;
+      letter-spacing: 1.2px;
+      font-weight: bold;
+
+    &:hover{
+      color:$alertColor;
+    }
+  }
+}
+
+
 } // form container ends here
 
 //back button

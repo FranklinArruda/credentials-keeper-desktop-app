@@ -570,8 +570,10 @@ input:focus {
   color: #eb5e28;
   letter-spacing: 1.2px;
   font-weight: bold;
+  outline: none;
 }
-.form-container.login .not-user-yet a:hover {
+.form-container.login .not-user-yet a:hover, .form-container.login .not-user-yet a:focus {
+  outline: none;
   color: #fffc5d;
 }
 
@@ -1080,6 +1082,14 @@ input:focus {
   border-radius: 5px;
   font-size: 14px;
   font-family: sans-serif;
+  transition: all 50ms ease-in-out;
+}
+.system-manager-container .system-container.phone-keeper .table-container .table td:hover,
+.system-manager-container .system-container.credentials-manager .table-container .table td:hover {
+  cursor: pointer;
+  background-color: #48565e;
+  transform: scale(1.02);
+  animation: easeIn 0.1s ease-in forwards;
 }
 .system-manager-container .system-container.phone-keeper .table-container .table .button.action,
 .system-manager-container .system-container.credentials-manager .table-container .table .button.action {

@@ -162,8 +162,12 @@
       color: $btnColor;
       letter-spacing: 1.2px;
       font-weight: bold;
+      outline: none; // removes outline
 
-    &:hover{
+    &:hover, 
+    &:focus {
+      // add focus using tab key
+      outline: none; // removes outline
       color:$alertColor;
     }
   }

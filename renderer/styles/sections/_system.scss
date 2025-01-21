@@ -263,18 +263,28 @@
           letter-spacing:1px;
           font-size: 12px;
       }
-      // table data
-      td {
-        padding: 5px;
-        text-align: center; // Center text horizontally
-        vertical-align: middle; // Center text vertically
-        background-color:$tableColor;
-        color: $fontColor;
-        border-radius: $borderRadiusButton;
-        font-size: 14px;
-        font-family: sans-serif; // overrides the default font family 
-      }
+     // table data
+     td {
+      padding: 5px;
+      text-align: center; // Center text horizontally
+      vertical-align: middle; // Center text vertically
+      background-color:$tableColor;
+      color: $fontColor;
+      border-radius: $borderRadiusButton;
+      font-size: 14px;
+      font-family: sans-serif; // overrides the default font family 
     
+      transition: all 050ms ease-in-out;
+
+      &:hover {
+        cursor: pointer;
+        background-color: $tableColorHover;
+        transform: scale(1.02); 
+        animation: easeIn 0.1s ease-in forwards;
+        
+      }
+    }
+      
       .button.action{
         margin: 3px;
       }

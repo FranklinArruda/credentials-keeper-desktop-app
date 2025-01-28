@@ -18,10 +18,9 @@ The data is persistent so that means save once and every time you run the applic
 
 
 
+
 #### Home Page
-<div style="display: flex;">
-    <img src="/renderer/assets/images/app_home_page.png" width="700"/>
-</div>
+<img src="https://github.com/user-attachments/assets/819bf938-a840-4733-ae69-280c6b8939b4" alt="Screenshot_1" width="700"/>
 
 #### Demo Video
 https://github.com/FranklinArruda/credentials-keeper/assets/102427836/f22c9be2-21a9-4e77-8cc9-56e3f4791649
